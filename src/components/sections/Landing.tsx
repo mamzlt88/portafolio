@@ -18,7 +18,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
       {/* Stage keeps a constant aspect so tiles scale with width */}
       <div className="relative w-full mx-auto" style={{ aspectRatio: '1648 / 1037' }}>
         {/* Background color grid (visual layer) */}
-        <div className="pointer-events-none absolute inset-0 grid md:grid-cols-2 md:grid-rows-4 grid-cols-1 grid-rows-8 gap-[clamp(12px,2vw,24px)]">
+        <div className="pointer-events-none absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[clamp(12px,2vw,24px)]">
           <div className="bg-[#f3f9ae] rounded-[clamp(16px,3vw,40px)]" />
           <div className="bg-[#ddccef] rounded-[clamp(16px,3vw,40px)]" />
           <div className="bg-[#8923ee] rounded-[clamp(16px,3vw,40px)]" />
@@ -30,16 +30,16 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
         </div>
 
         {/* Clickable overlay grid (interaction layer) */}
-        <div className="absolute inset-0 grid md:grid-cols-2 md:grid-rows-4 grid-cols-1 grid-rows-8 gap-[clamp(12px,2vw,24px)]">
-          {/* About (row 1, col 1) */}
+        <div className="absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[clamp(12px,2vw,24px)] z-10">
+          {/* Projects (row 1, col 1) */}
           <button
-            onClick={onAbout}
-            aria-label="About Me"
-            className="group relative z-20 rounded-[clamp(16px,3vw,40px)] text-left cursor-pointer transition-all duration-200 hover:ring-2 hover:ring-black/20 focus:outline-none focus-visible:ring-4 focus-visible:ring-black/30 active:scale-[0.99]"
+            onClick={onProjects}
+            aria-label="Projects"
+            className="group relative z-10 rounded-[clamp(16px,3vw,40px)] text-left cursor-pointer transition-all duration-200 hover:ring-2 hover:ring-black/20 focus:outline-none focus-visible:ring-4 focus-visible:ring-black/30 active:scale-[0.99]"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <div className="pointer-events-none absolute left-[clamp(12px,2.5vw,40px)] top-[clamp(12px,2.5vw,40px)] flex items-center gap-[8px]">
-              <p className="font-['DM_Mono',_monospace] text-[clamp(14px,1.4vw,16px)] leading-[24px] uppercase text-black">About Me</p>
+              <p className="font-['DM_Mono',_monospace] text-[clamp(14px,1.4vw,16px)] leading-[24px] uppercase text-black">Projects</p>
               <svg className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 17L17 7M17 7H9M17 7V15" stroke="#161616" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -52,19 +52,11 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
           {/* Empty cell (row 2, col 1) */}
           <div />
 
-          {/* Artist (row 2, col 2) — text only */}
-          <div className="flex items-center justify-center relative z-10">
-            <p className="font-['Poppins',_sans-serif] font-semibold text-white" style={{ fontSize: 'clamp(2rem,8vw,8.5rem)', letterSpacing: '-0.02em' }}>
-              Artist
-            </p>
-          </div>
+          {/* Empty cell (row 2, col 2) */}
+          <div />
 
-          {/* Designer (row 3, col 1) — text only */}
-          <div className="flex items-center justify-center relative z-10">
-            <p className="font-['Poppins',_sans-serif] font-semibold text-white" style={{ fontSize: 'clamp(2rem,8vw,8.5rem)', letterSpacing: '-0.02em' }}>
-              Designer
-            </p>
-          </div>
+          {/* Empty cell (row 3, col 1) */}
+          <div />
 
           {/* Empty cell (row 3, col 2) */}
           <div />
@@ -72,15 +64,15 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
           {/* Empty cell (row 4, col 1) */}
           <div />
 
-          {/* Projects (row 4, col 2) */}
+          {/* About Me (row 4, col 2) */}
           <button
-            onClick={onProjects}
-            aria-label="Projects"
-            className="group relative z-20 rounded-[clamp(16px,3vw,40px)] text-right cursor-pointer transition-all duration-200 hover:ring-2 hover:ring-black/20 focus:outline-none focus-visible:ring-4 focus-visible:ring-black/30 active:scale-[0.99]"
+            onClick={onAbout}
+            aria-label="About Me"
+            className="group relative z-10 rounded-[clamp(16px,3vw,40px)] text-right cursor-pointer transition-all duration-200 hover:ring-2 hover:ring-black/20 focus:outline-none focus-visible:ring-4 focus-visible:ring-black/30 active:scale-[0.99]"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
             <div className="pointer-events-none absolute right-[clamp(12px,2.5vw,40px)] bottom-[clamp(12px,2.5vw,40px)] flex items-center gap-[8px] justify-end">
-              <p className="font-['DM_Mono',_monospace] text-[clamp(14px,1.4vw,16px)] leading-[24px] uppercase text-black">My Projects</p>
+              <p className="font-['DM_Mono',_monospace] text-[clamp(14px,1.4vw,16px)] leading-[24px] uppercase text-black">About Me</p>
               <svg className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 17L17 7M17 7H9M17 7V15" stroke="#161616" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -92,7 +84,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
       </div>
 
       {/* Viewport-centered model and shadow overlay (always centered to screen) */}
-      <div className="pointer-events-none fixed inset-0 grid place-items-center" aria-hidden>
+      <div className="pointer-events-none fixed inset-0 grid place-items-center z-50" aria-hidden>
         <div
           className="relative transition-all duration-700 ease-out"
           style={{ width: 'min(48vw, 85vh)', aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
@@ -109,6 +101,14 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
             src={imgMmColorOrange}
             className="absolute inset-0 object-contain w-full h-full"
           />
+        </div>
+      </div>
+
+      {/* Mobile-only title overlay per reference (centered over model) */}
+      <div className="pointer-events-none fixed inset-0 flex items-center justify-center md:hidden z-[60]" aria-hidden>
+        <div className="text-center">
+          <p className="font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[clamp(32px,12vw,56px)]">Artist</p>
+          <p className="font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[clamp(32px,12vw,56px)] mt-[4px]">Designer</p>
         </div>
       </div>
     </div>
