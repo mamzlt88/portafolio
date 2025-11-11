@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import imgSombra1 from "figma:asset/1cbc4e6eb83416656dd6543f41c9cece5a3314fe.png";
 import imgMmColorOrange from "figma:asset/717c32ec589970e1b541c572864d2fa741828374.png";
 
@@ -8,6 +8,11 @@ interface LandingProps {
 }
 
 export default function Landing({ onAbout, onProjects }: LandingProps) {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    const t = requestAnimationFrame(() => setMounted(true));
+    return () => cancelAnimationFrame(t);
+  }, []);
   return (
     <div className="bg-[#6b34a2] w-full p-[clamp(16px,4vw,40px)]" data-name="Landing">
       {/* Stage keeps a constant aspect so tiles scale with width */}
@@ -84,18 +89,20 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
         </div>
 
         {/* Center shadow & model inside the stage so they scale with it */}
-        <div className="absolute inset-0" aria-hidden>
+        <div className="absolute inset-0 overflow-visible" aria-hidden>
+          {/* Shadow centered */}
           <div
-            className="absolute left-1/2 -translate-x-1/2"
-            style={{ bottom: '2.6%', width: '40%', height: '100%' }}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:-translate-y-[46%] transition-all duration-700 ease-out"
+            style={{ width: '45%', aspectRatio: '658 / 1067', opacity: mounted ? 1 : 0, transform: `translate(-50%, ${mounted ? '-50%' : '-40%'})` }}
           >
-            <img alt="" className="absolute inset-0 max-w-none mix-blend-multiply object-cover pointer-events-none size-full" src={imgSombra1} />
+            <img alt="" className="absolute inset-0 max-w-none mix-blend-multiply object-contain pointer-events-none size-full" src={imgSombra1} />
           </div>
+          {/* Model centered */}
           <div
-            className="absolute left-1/2 -translate-x-1/2 pointer-events-none select-none"
-            style={{ top: '5.5%', width: '39%', height: '100%' }}
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 pointer-events-none select-none transition-all duration-700 ease-out"
+            style={{ width: '42%', aspectRatio: '640 / 1038', transform: `translate(-50%, ${mounted ? '-58%' : '-48%'})`, opacity: mounted ? 1 : 0 }}
           >
-            <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgMmColorOrange} />
+            <img alt="" className="absolute inset-0 max-w-none object-contain pointer-events-none size-full" src={imgMmColorOrange} />
           </div>
         </div>
       </div>
