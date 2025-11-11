@@ -1,0 +1,22 @@
+/* components.css — shared class patterns based on tokens.css for consistency */
+
+/* CTA link text used in hero/actions */
+.cta-link {
+  font-family: 'Trim', 'Courier New', monospace;
+  font-weight: 600;
+  font-style: normal;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  text-underline-offset: 4px;
+  transition: color var(--transition-fast), text-decoration-color var(--transition-fast);
+}
+.cta-link:hover { text-decoration: underline; }
+
+/* Card overlay pattern with rounded corners and hover outline */
+.overlay-card {
+  border-radius: 32px;
+  transition: outline-color var(--transition-fast), box-shadow var(--transition-fast), transform var(--transition-fast);
+}
+.overlay-card:hover {
+  outline: 3px solid var(--color-ink);
+}

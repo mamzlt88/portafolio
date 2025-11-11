@@ -1,0 +1,10 @@
+{
+  "__comment": "Metadata for the 'vastege-white-label-gateway' case study. Consumed by the app to render lists and details.",
+  "slug": "vastege-white-label-gateway",
+  "title": "White-Label Payment Gateway Modernization",
+  "client": "Vastege",
+  "year": "2024",
+  "role": "Product Designer",
+  "summary": "Modernized the architecture and UI for a modular white-label payments gateway with improved IA and scalability.",
+  "tags": ["Payments", "Fintech", "Design Systems", "IA"]
+}

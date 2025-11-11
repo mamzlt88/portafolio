@@ -1,0 +1,20 @@
+{
+  "projects": [
+    {
+      "id": "trading-automation",
+      "title": "Trading Automation Interface Redesign",
+      "summary": "Redesigned a trading automation interface for clarity and speed.",
+      "links": {
+        "caseStudy": "/case-studies/trading-automation"
+      }
+    },
+    {
+      "id": "white-label",
+      "title": "White Label Payment Gateway Modernization",
+      "summary": "Modernized UI/UX for a white-label payments product.",
+      "links": {
+        "caseStudy": "/case-studies/white-label"
+      }
+    }
+  ]
+}

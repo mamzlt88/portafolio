@@ -1,0 +1,7 @@
+@import "./styles/tokens.css"; /* Design tokens (colors, typography) */
+@import "./styles/animations.css"; /* Shared keyframes and transitions */
+@import "./styles/globals.css"; /* Tailwind base + resets */
+@import "./styles/components.css"; /* Shared class patterns built on tokens */
+
+/* Generate only the utilities we actually use based on tailwind.config.ts content globs */
+@import "tailwindcss";

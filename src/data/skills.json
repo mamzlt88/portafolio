@@ -1,0 +1,7 @@
+{
+  "skills": [
+    { "category": "Design", "items": ["Figma", "Design Systems", "Prototyping"] },
+    { "category": "Frontend", "items": ["React", "TypeScript", "Tailwind CSS"] },
+    { "category": "Data Viz", "items": ["Recharts"] }
+  ]
+}

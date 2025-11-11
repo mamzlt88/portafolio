@@ -1,0 +1,24 @@
+/* tokens.css — design tokens (colors, typography, spacing) shared across the site */
+
+:root {
+  /* Brand palette */
+  --color-primary: #a456f3;
+  --color-primary-600: #8923ee;
+  --color-primary-300: #ddccef;
+  --color-accent: #e1f40b;
+  --color-accent-300: #f3f9ae;
+  --color-ink: #161616;
+  --color-muted: #B4B4B4;
+
+  /* Surface */
+  --background: #ffffff;
+  --foreground: #161616;
+
+  /* Typography */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Easing / motion */
+  --ease-smooth: cubic-bezier(0.43, 0.13, 0.23, 0.96);
+  --transition-fast: 200ms var(--ease-smooth);
+}

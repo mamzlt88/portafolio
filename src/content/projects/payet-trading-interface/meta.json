@@ -1,0 +1,10 @@
+{
+  "__comment": "Metadata for the 'payet-trading-interface' case study. Consumed by the app to render lists and details.",
+  "slug": "payet-trading-interface",
+  "title": "Trading Automation Interface Redesign",
+  "client": "Payet",
+  "year": "2024",
+  "role": "Product Designer",
+  "summary": "Redesigned a trading automation interface to improve clarity, execution speed, and accessibility across devices.",
+  "tags": ["Trading", "Fintech", "UI/UX", "Accessibility"]
+}

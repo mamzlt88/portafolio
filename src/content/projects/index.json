@@ -1,0 +1,15 @@
+{
+  "__comment": "Index of all project case studies. Used to list available content entries.",
+  "projects": [
+    {
+      "slug": "payet-trading-interface",
+      "title": "Trading Automation Interface Redesign",
+      "summary": "Modernized a trading interface for clarity, speed, and accessibility."
+    },
+    {
+      "slug": "vastege-white-label-gateway",
+      "title": "White-Label Payment Gateway Modernization",
+      "summary": "Refreshed IA and UI for a modular, scalable gateway experience."
+    }
+  ]
+}
