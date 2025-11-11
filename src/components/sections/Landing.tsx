@@ -92,20 +92,23 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
       </div>
 
       {/* Viewport-centered model and shadow overlay (always centered to screen) */}
-      <div className="pointer-events-none fixed inset-0 flex items-center justify-center" aria-hidden>
-        {/* Shadow */}
+      <div className="pointer-events-none fixed inset-0 grid place-items-center" aria-hidden>
         <div
-          className="absolute transition-all duration-700 ease-out"
-          style={{ width: 'min(48vw, 85vh)', aspectRatio: '658 / 1067', opacity: mounted ? 1 : 0, filter: 'contrast(1.1)' }}
+          className="relative transition-all duration-700 ease-out"
+          style={{ width: 'min(48vw, 85vh)', aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
         >
-          <img alt="" className="block max-w-none mix-blend-multiply object-contain w-full h-full" src={imgSombra1} />
-        </div>
-        {/* Model */}
-        <div
-          className="absolute transition-all duration-700 ease-out"
-          style={{ width: 'min(44vw, 82vh)', aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
-        >
-          <img alt="" className="block max-w-none object-contain w-full h-full" src={imgMmColorOrange} />
+          {/* Shadow behind */}
+          <img
+            alt=""
+            src={imgSombra1}
+            className="absolute inset-0 object-contain w-full h-full mix-blend-multiply scale-105"
+          />
+          {/* Model on top */}
+          <img
+            alt=""
+            src={imgMmColorOrange}
+            className="absolute inset-0 object-contain w-full h-full"
+          />
         </div>
       </div>
     </div>
