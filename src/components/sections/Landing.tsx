@@ -87,13 +87,19 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
       <div className="pointer-events-none fixed inset-0 grid place-items-center z-50" aria-hidden>
         <div
           className="relative transition-all duration-700 ease-out"
-          style={{ width: 'min(48vw, 85vh)', aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
+          style={{
+            // 30% smaller overall vs previous: reduce vw factor and max width
+            width: 'clamp(200px, 29vw, 392px)',
+            maxHeight: '72vh',
+            aspectRatio: '640 / 1038',
+            opacity: mounted ? 1 : 0,
+          }}
         >
           {/* Shadow behind */}
           <img
             alt=""
             src={imgSombra1}
-            className="absolute inset-0 object-contain w-full h-full mix-blend-multiply scale-105"
+            className="absolute inset-0 object-contain w-full h-full mix-blend-multiply"
           />
           {/* Model on top */}
           <img
