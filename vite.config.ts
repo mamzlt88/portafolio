@@ -1,7 +1,11 @@
 
   import { defineConfig } from 'vite';
   import react from '@vitejs/plugin-react-swc';
-  import path from 'path';
+  import path, { dirname } from 'path';
+  import { fileURLToPath } from 'url';
+
+  // Ensure __dirname is available when this config runs as an ES module
+  const __dirname = dirname(fileURLToPath(import.meta.url));
 
   export default defineConfig({
     // Base path for GitHub Pages deployment (repo name)
