@@ -52,8 +52,10 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
           {/* Empty cell (row 2, col 1) */}
           <div />
 
-          {/* Empty cell (row 2, col 2) */}
-          <div />
+          {/* Desktop-only 'Artist' title (row 2, col 2) */}
+          <div className="hidden lg:flex items-center justify-center relative z-10">
+            <p className="font-['Poppins',_sans-serif] font-semibold text-white text-[min(6.5vw,80px)] tracking-[-0.02em]">Artist</p>
+          </div>
 
           {/* Empty cell (row 3, col 1) */}
           <div />
@@ -85,7 +87,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
         {/* Model + shadow centered OVER the tiles (aligned to the stage) */}
         <div className="pointer-events-none absolute inset-0 grid place-items-center z-50" aria-hidden>
           <div
-            className="relative transition-all duration-700 ease-out min-w-[150px] max-w-[320px] w-[26%] sm:w-[28%] md:w-[30%] lg:w-[32%] -translate-y-[5%] md:-translate-y-[3%] lg:-translate-y-[2%]"
+            className="relative transition-all duration-700 ease-out min-w-[150px] max-w-[420px] w-[24%] sm:w-[26%] md:w-[32%] lg:w-[40%] xl:w-[42%] -translate-y-[6%] md:-translate-y-[4%] lg:-translate-y-[6%]"
             style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
           >
             {/* Shadow behind */}
