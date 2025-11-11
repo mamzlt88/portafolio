@@ -9,9 +9,9 @@ interface LandingProps {
 
 export default function Landing({ onAbout, onProjects }: LandingProps) {
   return (
-    <div className="bg-[#6b34a2] box-border gap-[24px] grid grid-cols-2 grid-rows-4 relative h-full w-full p-[40px]" data-name="Landing">
+    <div className="bg-[#6b34a2] box-border gap-[24px] grid grid-cols-2 grid-rows-4 relative min-h-screen w-full p-[clamp(16px,4vw,40px)]" data-name="Landing">
       {/* Background color blocks layer */}
-      <div className="absolute gap-[24px] grid grid-cols-2 grid-rows-4 h-[1037px] left-[40px] top-[40px] w-[1648px] pointer-events-none">
+      <div className="absolute gap-[24px] grid grid-cols-2 grid-rows-4 inset-[clamp(16px,4vw,40px)] pointer-events-none">
         <div className="bg-[#f3f9ae] rounded-[40px] shrink-0" />
         <div className="bg-[#ddccef] rounded-[40px] shrink-0" />
         <div className="bg-[#8923ee] rounded-[40px] shrink-0" />
@@ -23,12 +23,12 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
       </div>
 
       {/* Center shadow image */}
-      <div className="absolute bottom-[27px] left-1/2 -translate-x-1/2 h-[1067px] w-[658px]" aria-hidden>
+      <div className="absolute left-1/2 -translate-x-1/2 bottom-[clamp(12px,2.5vw,27px)] h-[clamp(520px,80vh,1067px)] w-[clamp(320px,40vw,658px)]" aria-hidden>
         <img alt="" className="absolute inset-0 max-w-none mix-blend-multiply object-cover pointer-events-none size-full" src={imgSombra1} />
       </div>
 
       {/* Foreground model image */}
-      <div className="absolute left-[50%] top-[57px] -translate-x-1/2 h-[1038px] w-[640px] pointer-events-none select-none">
+      <div className="absolute left-1/2 -translate-x-1/2 top-[clamp(16px,3.5vw,57px)] h-[clamp(520px,82vh,1038px)] w-[clamp(320px,42vw,640px)] pointer-events-none select-none">
         <img alt="" className="absolute inset-0 max-w-none object-cover pointer-events-none size-full" src={imgMmColorOrange} />
       </div>
 
@@ -39,7 +39,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
         className="[grid-area:1_/_1] relative z-20 rounded-[40px] text-left cursor-pointer transition-all duration-200 hover:ring-2 hover:ring-black/20 focus:outline-none focus-visible:ring-4 focus-visible:ring-black/30 active:scale-[0.99]"
         style={{ WebkitTapHighlightColor: 'transparent' }}
       >
-        <div className="pointer-events-none absolute left-[40px] top-[40px]">
+        <div className="pointer-events-none absolute left-[clamp(16px,4vw,40px)] top-[clamp(16px,4vw,40px)]">
           <p className="font-['DM_Mono',_monospace] text-[16px] leading-[24px] uppercase text-black">About Me</p>
         </div>
         <span className="sr-only">Open About Me</span>
@@ -64,7 +64,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
         className="[grid-area:4_/_2] relative z-20 rounded-[40px] text-right cursor-pointer transition-all duration-200 hover:ring-2 hover:ring-black/20 focus:outline-none focus-visible:ring-4 focus-visible:ring-black/30 active:scale-[0.99]"
         style={{ WebkitTapHighlightColor: 'transparent' }}
       >
-        <div className="pointer-events-none absolute right-[40px] bottom-[40px]">
+        <div className="pointer-events-none absolute right-[clamp(16px,4vw,40px)] bottom-[clamp(16px,4vw,40px)]">
           <p className="font-['DM_Mono',_monospace] text-[16px] leading-[24px] uppercase text-black">My Projects</p>
         </div>
         <span className="sr-only">Open Projects</span>
