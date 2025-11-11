@@ -14,23 +14,23 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
     return () => cancelAnimationFrame(t);
   }, []);
   return (
-    <div className="relative bg-[#6b34a2] w-full min-h-screen p-[clamp(16px,4vw,40px)]" data-name="Landing">
+    <div className="relative bg-[#6b34a2] w-full min-h-screen px-[clamp(12px,3vw,40px)] py-[clamp(12px,3vw,40px)] overflow-x-hidden" data-name="Landing">
       {/* Stage keeps a constant aspect so tiles scale with width */}
-      <div className="relative w-full mx-auto [aspect-ratio:420/972] md:[aspect-ratio:1648/1037]">
+      <div className="relative w-full mx-auto [aspect-ratio:420/972] md:[aspect-ratio:1648/1037] overflow-hidden rounded-[20px] sm:rounded-[28px] md:rounded-[40px]">
         {/* Background color grid (visual layer) */}
-        <div className="pointer-events-none absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[clamp(6px,2vw,14px)]">
-          <div className="bg-[#f3f9ae] rounded-[clamp(20px,4vw,40px)]" />
-          <div className="bg-[#ddccef] rounded-[clamp(20px,4vw,40px)]" />
-          <div className="bg-[#8923ee] rounded-[clamp(20px,4vw,40px)]" />
-          <div className="bg-[#a4b200] rounded-[clamp(20px,4vw,40px)]" />
-          <div className="bg-black rounded-[clamp(20px,4vw,40px)]" />
-          <div className="bg-[#b4b4b4] rounded-[clamp(20px,4vw,40px)]" />
-          <div className="bg-[#636b00] rounded-[clamp(20px,4vw,40px)]" />
-          <div className="bg-[#e1f40b] rounded-[clamp(20px,4vw,40px)]" />
+        <div className="pointer-events-none absolute inset-0 grid grid-cols-2 grid-rows-4 gap-2 sm:gap-3 md:gap-4">
+          <div className="bg-[#f3f9ae] rounded-[20px] sm:rounded-[28px] md:rounded-[40px]" />
+          <div className="bg-[#ddccef] rounded-[20px] sm:rounded-[28px] md:rounded-[40px]" />
+          <div className="bg-[#8923ee] rounded-[20px] sm:rounded-[28px] md:rounded-[40px]" />
+          <div className="bg-[#a4b200] rounded-[20px] sm:rounded-[28px] md:rounded-[40px]" />
+          <div className="bg-black rounded-[20px] sm:rounded-[28px] md:rounded-[40px]" />
+          <div className="bg-[#b4b4b4] rounded-[20px] sm:rounded-[28px] md:rounded-[40px]" />
+          <div className="bg-[#636b00] rounded-[20px] sm:rounded-[28px] md:rounded-[40px]" />
+          <div className="bg-[#e1f40b] rounded-[20px] sm:rounded-[28px] md:rounded-[40px]" />
         </div>
 
         {/* Clickable overlay grid (interaction layer) */}
-        <div className="absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[clamp(6px,2vw,14px)] z-10">
+        <div className="absolute inset-0 grid grid-cols-2 grid-rows-4 gap-2 sm:gap-3 md:gap-4 z-10">
           {/* Projects (row 1, col 1) */}
           <button
             onClick={onProjects}
@@ -38,8 +38,8 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
             className="group relative z-10 rounded-[clamp(16px,3vw,40px)] text-left cursor-pointer transition-all duration-200 hover:ring-2 hover:ring-black/20 focus:outline-none focus-visible:ring-4 focus-visible:ring-black/30 active:scale-[0.99]"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="pointer-events-none absolute left-[clamp(12px,2.5vw,40px)] top-[clamp(12px,2.5vw,40px)] flex items-center gap-[8px]">
-              <p className="font-['DM_Mono',_monospace] text-[clamp(14px,1.4vw,16px)] leading-[24px] uppercase text-black">Projects</p>
+            <div className="pointer-events-none absolute left-[clamp(10px,3.4vw,16px)] top-[clamp(10px,3.4vw,16px)] flex items-center gap-[8px]">
+              <p className="font-['DM_Mono',_monospace] text-[clamp(12px,3.4vw,16px)] leading-[24px] uppercase text-black">Projects</p>
               <svg className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 17L17 7M17 7H9M17 7V15" stroke="#161616" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -71,8 +71,8 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
             className="group relative z-10 rounded-[clamp(16px,3vw,40px)] text-right cursor-pointer transition-all duration-200 hover:ring-2 hover:ring-black/20 focus:outline-none focus-visible:ring-4 focus-visible:ring-black/30 active:scale-[0.99]"
             style={{ WebkitTapHighlightColor: 'transparent' }}
           >
-            <div className="pointer-events-none absolute right-[clamp(12px,2.5vw,40px)] bottom-[clamp(12px,2.5vw,40px)] flex items-center gap-[8px] justify-end">
-              <p className="font-['DM_Mono',_monospace] text-[clamp(14px,1.4vw,16px)] leading-[24px] uppercase text-black">About Me</p>
+            <div className="pointer-events-none absolute right-[clamp(10px,3.4vw,16px)] bottom-[clamp(10px,3.4vw,16px)] flex items-center gap-[8px] justify-end">
+              <p className="font-['DM_Mono',_monospace] text-[clamp(12px,3.4vw,16px)] leading-[24px] uppercase text-black">About Me</p>
               <svg className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 17L17 7M17 7H9M17 7V15" stroke="#161616" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -83,14 +83,8 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
         {/* Model + shadow centered OVER the tiles (aligned to the stage) */}
         <div className="pointer-events-none absolute inset-0 grid place-items-center z-50" aria-hidden>
           <div
-            className="relative transition-all duration-700 ease-out"
-            style={{
-              // Size relative to the stage width; ~24–28% per reference, lift slightly
-              width: 'clamp(150px, 24%, 300px)',
-              aspectRatio: '640 / 1038',
-              opacity: mounted ? 1 : 0,
-              transform: 'translateY(-2%)',
-            }}
+            className="relative transition-all duration-700 ease-out min-w-[150px] max-w-[320px] w-[22%] sm:w-[24%] md:w-[26%] lg:w-[28%] xl:w-[30%] -translate-y-[4%] md:-translate-y-[2%]"
+            style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
           >
             {/* Shadow behind */}
             <img
