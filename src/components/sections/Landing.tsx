@@ -14,7 +14,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
     return () => cancelAnimationFrame(t);
   }, []);
   return (
-    <div className="bg-[#6b34a2] w-full p-[clamp(16px,4vw,40px)]" data-name="Landing">
+    <div className="relative bg-[#6b34a2] w-full min-h-screen p-[clamp(16px,4vw,40px)]" data-name="Landing">
       {/* Stage keeps a constant aspect so tiles scale with width */}
       <div className="relative w-full mx-auto" style={{ aspectRatio: '1648 / 1037' }}>
         {/* Background color grid (visual layer) */}
@@ -88,22 +88,24 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
           </button>
         </div>
 
-        {/* Center shadow & model inside the stage so they scale with it */}
-        <div className="absolute inset-0 overflow-visible" aria-hidden>
-          {/* Shadow centered */}
-          <div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 md:-translate-y-[46%] transition-all duration-700 ease-out"
-            style={{ width: '45%', aspectRatio: '658 / 1067', opacity: mounted ? 1 : 0, transform: `translate(-50%, ${mounted ? '-50%' : '-40%'})` }}
-          >
-            <img alt="" className="absolute inset-0 max-w-none mix-blend-multiply object-contain pointer-events-none size-full" src={imgSombra1} />
-          </div>
-          {/* Model centered */}
-          <div
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 pointer-events-none select-none transition-all duration-700 ease-out"
-            style={{ width: '42%', aspectRatio: '640 / 1038', transform: `translate(-50%, ${mounted ? '-58%' : '-48%'})`, opacity: mounted ? 1 : 0 }}
-          >
-            <img alt="" className="absolute inset-0 max-w-none object-contain pointer-events-none size-full" src={imgMmColorOrange} />
-          </div>
+        {/* Stage no longer controls image positioning */}
+      </div>
+
+      {/* Viewport-centered model and shadow overlay (always centered to screen) */}
+      <div className="pointer-events-none fixed inset-0 flex items-center justify-center" aria-hidden>
+        {/* Shadow */}
+        <div
+          className="absolute transition-all duration-700 ease-out"
+          style={{ width: 'min(48vw, 85vh)', aspectRatio: '658 / 1067', opacity: mounted ? 1 : 0, filter: 'contrast(1.1)' }}
+        >
+          <img alt="" className="block max-w-none mix-blend-multiply object-contain w-full h-full" src={imgSombra1} />
+        </div>
+        {/* Model */}
+        <div
+          className="absolute transition-all duration-700 ease-out"
+          style={{ width: 'min(44vw, 82vh)', aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
+        >
+          <img alt="" className="block max-w-none object-contain w-full h-full" src={imgMmColorOrange} />
         </div>
       </div>
     </div>
