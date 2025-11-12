@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { DecryptedText } from "../ui/DecryptedText";
 import { RotatingDecryptedText } from "../ui/RotatingDecryptedText";
 import ClothingHueCanvas from "../ui/ClothingHueCanvas";
+import ClothingOverlaySequence from "../ui/ClothingOverlaySequence";
 import imgMmColorOrange from "figma:asset/717c32ec589970e1b541c572864d2fa741828374.png";
 
 interface LandingProps {
@@ -104,17 +105,25 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
             className="relative transition-all duration-700 ease-out min-w-[120px] max-w-[420px] max-h-[85%] md:max-h-[85%] lg:max-h-[85%] h-[72%] w-auto sm:h-[72%] sm:w-auto md:h-auto md:w-[28%] lg:w-[40%] xl:w-[41%] translate-y-0 md:translate-y-0 lg:translate-y-0 xl:translate-y-0"
             style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
           >
-            {/* Model */}
-            <ClothingHueCanvas
+            {/* Base Model */}
+            <img
+              alt=""
               src={imgMmColorOrange}
+              className="absolute inset-0 object-contain w-full h-full"
+            />
+
+            {/* Clothing Overlay Sequence (expects transparent PNGs in public/) */}
+            <ClothingOverlaySequence
               className="absolute inset-0 w-full h-full"
-              cycleDurationMs={12000}
-              targetHue={28}
-              hueTolerance={22}
-              minSaturation={0.35}
-              maxSaturation={1}
-              minLightness={0.15}
-              maxLightness={0.85}
+              autoPlay={false}
+              hueRotate
+              hueCycleMs={6000}
+              hueFromDeg={0}
+              hueToDeg={360}
+              saturate={1.05}
+              brightness={1}
+              objectFit="contain"
+              sources={["/images/clothing/gray.png"]}
             />
           </div>
         </div>
