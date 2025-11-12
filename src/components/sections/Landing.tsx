@@ -14,9 +14,9 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
     return () => cancelAnimationFrame(t);
   }, []);
   return (
-    <div className="relative bg-[#6b34a2] w-full min-h-screen px-[clamp(12px,3vw,40px)] py-[clamp(12px,3vw,40px)] overflow-x-hidden" data-name="Landing">
+    <div className="relative bg-[#6b34a2] min-h-screen grid place-items-center px-[clamp(12px,3vw,40px)] py-[clamp(12px,3vw,40px)] overflow-x-hidden" data-name="Landing">
       {/* Stage keeps a constant aspect so tiles scale with width */}
-      <div className="relative mx-auto w-full h-auto max-h-[calc(100vh-96px)] md:max-h-[calc(100vh-120px)] [aspect-ratio:420/972] md:[aspect-ratio:1648/1037] overflow-hidden rounded-[20px] sm:rounded-[28px] md:rounded-[40px]">
+      <div className="relative mx-auto w-full max-w-[420px] md:max-w-none h-auto max-h-[calc(100vh-96px)] md:max-h-[calc(100vh-120px)] [aspect-ratio:640/1038] md:[aspect-ratio:1648/1037] overflow-hidden rounded-[32px] md:rounded-[40px]">
         {/* Background color grid (visual layer) */}
         <div className="pointer-events-none absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[10px] sm:gap-[14px] md:gap-[16px] lg:gap-[18px] xl:gap-[20px]">
           <div className="bg-[#f3f9ae] rounded-[24px] sm:rounded-[32px] md:rounded-[40px]" />
@@ -52,18 +52,14 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
           {/* Empty cell (row 2, col 1) */}
           <div />
 
-          {/* Desktop-only 'Artist' title (row 2, col 2) */}
-          <div className="hidden lg:flex items-center justify-center relative z-10">
-            <p className="font-['Poppins',_sans-serif] font-semibold text-white text-[min(6.5vw,80px)] tracking-[-0.025em]">Artist</p>
-          </div>
+          {/* Empty cell (row 2, col 2) — headline handled by overlay */}
+          <div />
 
           {/* Empty cell (row 3, col 1) */}
           <div />
 
-          {/* Desktop-only titles to match reference */}
-          <div className="hidden lg:flex items-center justify-center relative z-10">
-            <p className="font-['Poppins',_sans-serif] font-semibold text-white text-[min(8vw,96px)] tracking-[-0.025em]">Designer</p>
-          </div>
+          {/* Empty cell (row 3, col 2) — headline handled by overlay */}
+          <div />
 
           {/* Empty cell (row 4, col 1) */}
           <div />
@@ -85,7 +81,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
         </div>
 
         {/* Model + shadow centered OVER the tiles (aligned to the stage) */}
-        <div className="pointer-events-none absolute inset-0 grid place-items-center z-50" aria-hidden>
+        <div className="pointer-events-none absolute inset-0 grid place-items-center z-10" aria-hidden>
           <div
             className="relative transition-all duration-700 ease-out min-w-[120px] max-w-[420px] h-[72%] w-auto sm:h-[72%] sm:w-auto md:h-auto md:w-[28%] lg:w-[41.5%] xl:w-[42%] -translate-y-[4%] md:-translate-y-[4%] lg:-translate-y-[5%]"
             style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
@@ -106,12 +102,10 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
         </div>
       </div>
 
-      {/* Mobile-only title overlay per reference (centered over model within stage area) */}
-      <div className="pointer-events-none absolute inset-0 flex items-center justify-center md:hidden z-[60]" aria-hidden>
-        <div className="text-center">
-          <p className="font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[clamp(32px,12vw,56px)]">Artist</p>
-          <p className="font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[clamp(32px,12vw,56px)] mt-[4px]">Designer</p>
-        </div>
+      {/* Headline overlay (all breakpoints), stacked and centered over the model */}
+      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center gap-2 z-20" aria-hidden>
+        <p className="font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-4xl sm:text-5xl md:text-5xl lg:text-6xl tracking-[-0.02em]">Artist</p>
+        <p className="font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-4xl sm:text-5xl md:text-5xl lg:text-6xl tracking-[-0.02em]">Designer</p>
       </div>
     </div>
   );
