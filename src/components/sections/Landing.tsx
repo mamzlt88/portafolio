@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import imgSombra1 from "figma:asset/1cbc4e6eb83416656dd6543f41c9cece5a3314fe.png";
 import imgMmColorOrange from "figma:asset/717c32ec589970e1b541c572864d2fa741828374.png";
 
 interface LandingProps {
@@ -88,19 +87,13 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
           </button>
         </div>
 
-        {/* Model + shadow centered OVER the tiles (aligned to the stage) */}
+        {/* Model centered OVER the tiles (aligned to the stage) */}
         <div className="pointer-events-none absolute inset-0 grid place-items-center z-20" aria-hidden>
           <div
             className="relative transition-all duration-700 ease-out min-w-[120px] max-w-[420px] max-h-[90%] h-[72%] w-auto sm:h-[72%] sm:w-auto md:h-auto md:w-[28%] lg:w-[41.5%] xl:w-[42%] translate-y-0 md:translate-y-0 lg:translate-y-0 xl:translate-y-0"
             style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
           >
-            {/* Shadow behind */}
-            <img
-              alt=""
-              src={imgSombra1}
-              className="absolute inset-0 object-contain w-full h-full mix-blend-multiply"
-            />
-            {/* Model on top */}
+            {/* Model */}
             <img
               alt=""
               src={imgMmColorOrange}
