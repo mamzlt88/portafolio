@@ -3,6 +3,7 @@ import { DecryptedText } from "../ui/DecryptedText";
 import { RotatingDecryptedText } from "../ui/RotatingDecryptedText";
 import ClothingHueCanvas from "../ui/ClothingHueCanvas";
 import ClothingOverlaySequence from "../ui/ClothingOverlaySequence";
+import { motion } from "motion/react";
 // Clothing overlay PNGs (transparent)
 import imgClothBlue from "../../assets/clothing/mm_color_Blue.png";
 import imgClothGray from "../../assets/clothing/mm_color_Gray.png";
@@ -26,16 +27,71 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
     <div className="relative bg-[#6b34a2] min-h-screen grid place-items-center px-[clamp(12px,3vw,40px)] py-[clamp(12px,3vw,40px)] overflow-x-hidden" data-name="Landing">
       {/* Stage keeps a constant aspect so tiles scale with width */}
       <div className="relative mx-auto w-full max-w-[420px] md:max-w-none h-auto max-h-[calc(100vh-96px)] md:max-h-[calc(100vh-120px)] [aspect-ratio:640/1038] md:[aspect-ratio:1648/1037] overflow-hidden rounded-[32px] md:rounded-[40px]">
-        {/* Background color grid (visual layer) */}
+        {/* Background color grid (visual layer) - animated with Motion */}
         <div className="pointer-events-none absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[10px] sm:gap-[14px] md:gap-[16px] lg:gap-[18px] xl:gap-[20px]">
-          <div className="bg-[#f3f9ae] rounded-[24px] sm:rounded-[32px] md:rounded-[40px]" />
-          <div className="bg-[#ddccef] rounded-[24px] sm:rounded-[32px] md:rounded-[40px]" />
-          <div className="bg-[#8923ee] rounded-[24px] sm:rounded-[32px] md:rounded-[40px]" />
-          <div className="bg-[#a4b200] rounded-[24px] sm:rounded-[32px] md:rounded-[40px]" />
-          <div className="bg-black rounded-[24px] sm:rounded-[32px] md:rounded-[40px]" />
-          <div className="bg-[#b4b4b4] rounded-[24px] sm:rounded-[32px] md:rounded-[40px]" />
-          <div className="bg-[#636b00] rounded-[24px] sm:rounded-[32px] md:rounded-[40px]" />
-          <div className="bg-[#e1f40b] rounded-[24px] sm:rounded-[32px] md:rounded-[40px]" />
+          {/* Yellow 1 */}
+          <motion.div
+            className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
+            initial={{ backgroundColor: "#f3f9ae" }}
+            animate={{ backgroundColor: ["#f3f9ae", "#e1f40b", "#fbfde2", "#f3f9ae"] }}
+            transition={{ duration: 11, repeat: Infinity, ease: "linear", delay: 2 }}
+          />
+
+          {/* Purple 1 */}
+          <motion.div
+            className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
+            initial={{ backgroundColor: "#ddccef" }}
+            animate={{ backgroundColor: ["#ddccef", "#a456f3", "#8923ee", "#ddccef"] }}
+            transition={{ duration: 10, repeat: Infinity, ease: "linear", delay: 1 }}
+          />
+
+          {/* Purple 2 */}
+          <motion.div
+            className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
+            initial={{ backgroundColor: "#8923ee" }}
+            animate={{ backgroundColor: ["#8923ee", "#a456f3", "#600fb2", "#8923ee"] }}
+            transition={{ duration: 14, repeat: Infinity, ease: "linear", delay: 1.5 }}
+          />
+
+          {/* Green 1 */}
+          <motion.div
+            className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
+            initial={{ backgroundColor: "#a4b200" }}
+            animate={{ backgroundColor: ["#a4b200", "#636b00", "#a4b200"] }}
+            transition={{ duration: 13, repeat: Infinity, ease: "linear", delay: 3 }}
+          />
+
+          {/* Black/Green */}
+          <motion.div
+            className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
+            initial={{ backgroundColor: "#161616" }}
+            animate={{ backgroundColor: ["#161616", "#636b00", "#161616"] }}
+            transition={{ duration: 16, repeat: Infinity, ease: "linear", delay: 0.5 }}
+          />
+
+          {/* Gray */}
+          <motion.div
+            className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
+            initial={{ backgroundColor: "#B4B4B4" }}
+            animate={{ backgroundColor: ["#B4B4B4", "#929292", "#161616", "#B4B4B4"] }}
+            transition={{ duration: 15, repeat: Infinity, ease: "linear", delay: 2.5 }}
+          />
+
+          {/* Green 1 (variant to fill 7th cell) */}
+          <motion.div
+            className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
+            initial={{ backgroundColor: "#636b00" }}
+            animate={{ backgroundColor: ["#a4b200", "#636b00", "#a4b200"] }}
+            transition={{ duration: 12, repeat: Infinity, ease: "linear", delay: 3.2 }}
+          />
+
+          {/* Yellow 2 */}
+          <motion.div
+            className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
+            initial={{ backgroundColor: "#e1f40b" }}
+            animate={{ backgroundColor: ["#e1f40b", "#f3f9ae", "#a4b200", "#e1f40b"] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "linear", delay: 3.5 }}
+          />
         </div>
 
         {/* Clickable overlay grid (interaction layer) */}
