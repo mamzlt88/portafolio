@@ -73,7 +73,7 @@ export const RotatingDecryptedText: React.FC<RotatingDecryptedTextProps> = ({
           key={current}
           text={current}
           className={className}
-          duration={0.6}
+          duration={0.45}
           iterationsPerChar={3}
         />
       </span>
