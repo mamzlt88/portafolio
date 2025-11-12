@@ -19,12 +19,32 @@ interface LandingProps {
 
 export default function Landing({ onAbout, onProjects }: LandingProps) {
   const [mounted, setMounted] = useState(false);
+  const [takeover, setTakeover] = useState(false);
   useEffect(() => {
     const t = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(t);
   }, []);
+
+  // Handlers to coordinate background takeover and external navigation
+  const handleProjects = React.useCallback(() => {
+    setTakeover(true);
+    // Small delay to allow the takeover animation to start before opening Projects
+    window.setTimeout(() => {
+      onProjects?.();
+    }, 300);
+  }, [onProjects]);
   return (
     <div className="relative bg-[#6b34a2] min-h-screen grid place-items-center px-[clamp(12px,3vw,40px)] py-[clamp(12px,3vw,40px)] overflow-x-hidden" data-name="Landing">
+      {/* Full-screen takeover background (fades in when opening Projects) */}
+      <motion.div
+        className="fixed inset-0 z-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: takeover ? 1 : 0 }}
+        transition={{ duration: 0.35, ease: "linear" }}
+        style={{ backgroundColor: "#161616", pointerEvents: "none" }}
+        aria-hidden
+      />
+
       {/* Stage keeps a constant aspect so tiles scale with width */}
       <div className="relative mx-auto w-full max-w-[420px] md:max-w-none h-auto max-h-[calc(100vh-96px)] md:max-h-[calc(100vh-120px)] [aspect-ratio:640/1038] md:[aspect-ratio:1648/1037] overflow-hidden rounded-[32px] md:rounded-[40px]">
         {/* Background color grid (visual layer) - animated with Motion */}
@@ -33,64 +53,64 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#f3f9ae" }}
-            animate={{ backgroundColor: ["#f3f9ae", "#e1f40b", "#fbfde2", "#f3f9ae"] }}
-            transition={{ duration: 11, repeat: Infinity, ease: "linear", delay: 2 }}
+            animate={{ backgroundColor: takeover ? ["#161616"] : ["#f3f9ae", "#e1f40b", "#fbfde2", "#f3f9ae"] }}
+            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 11, repeat: Infinity, ease: "linear", delay: 2 }}
           />
 
           {/* Purple 1 */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#ddccef" }}
-            animate={{ backgroundColor: ["#ddccef", "#a456f3", "#8923ee", "#ddccef"] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "linear", delay: 1 }}
+            animate={{ backgroundColor: takeover ? ["#161616"] : ["#ddccef", "#a456f3", "#8923ee", "#ddccef"] }}
+            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 10, repeat: Infinity, ease: "linear", delay: 1 }}
           />
 
           {/* Purple 2 */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#8923ee" }}
-            animate={{ backgroundColor: ["#8923ee", "#a456f3", "#600fb2", "#8923ee"] }}
-            transition={{ duration: 14, repeat: Infinity, ease: "linear", delay: 1.5 }}
+            animate={{ backgroundColor: takeover ? ["#161616"] : ["#8923ee", "#a456f3", "#600fb2", "#8923ee"] }}
+            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 14, repeat: Infinity, ease: "linear", delay: 1.5 }}
           />
 
           {/* Green 1 */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#a4b200" }}
-            animate={{ backgroundColor: ["#a4b200", "#636b00", "#a4b200"] }}
-            transition={{ duration: 13, repeat: Infinity, ease: "linear", delay: 3 }}
+            animate={{ backgroundColor: takeover ? ["#161616"] : ["#a4b200", "#636b00", "#a4b200"] }}
+            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 13, repeat: Infinity, ease: "linear", delay: 3 }}
           />
 
           {/* Black/Green */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#161616" }}
-            animate={{ backgroundColor: ["#161616", "#636b00", "#161616"] }}
-            transition={{ duration: 16, repeat: Infinity, ease: "linear", delay: 0.5 }}
+            animate={{ backgroundColor: takeover ? ["#161616"] : ["#161616", "#636b00", "#161616"] }}
+            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 16, repeat: Infinity, ease: "linear", delay: 0.5 }}
           />
 
           {/* Gray */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#B4B4B4" }}
-            animate={{ backgroundColor: ["#B4B4B4", "#929292", "#161616", "#B4B4B4"] }}
-            transition={{ duration: 15, repeat: Infinity, ease: "linear", delay: 2.5 }}
+            animate={{ backgroundColor: takeover ? ["#161616"] : ["#B4B4B4", "#929292", "#161616", "#B4B4B4"] }}
+            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 15, repeat: Infinity, ease: "linear", delay: 2.5 }}
           />
 
           {/* Green 1 (variant to fill 7th cell) */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#636b00" }}
-            animate={{ backgroundColor: ["#a4b200", "#636b00", "#a4b200"] }}
-            transition={{ duration: 12, repeat: Infinity, ease: "linear", delay: 3.2 }}
+            animate={{ backgroundColor: takeover ? ["#161616"] : ["#a4b200", "#636b00", "#a4b200"] }}
+            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 12, repeat: Infinity, ease: "linear", delay: 3.2 }}
           />
 
           {/* Yellow 2 */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#e1f40b" }}
-            animate={{ backgroundColor: ["#e1f40b", "#f3f9ae", "#a4b200", "#e1f40b"] }}
-            transition={{ duration: 9, repeat: Infinity, ease: "linear", delay: 3.5 }}
+            animate={{ backgroundColor: takeover ? ["#161616"] : ["#e1f40b", "#f3f9ae", "#a4b200", "#e1f40b"] }}
+            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 9, repeat: Infinity, ease: "linear", delay: 3.5 }}
           />
         </div>
 
@@ -98,7 +118,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
         <div className="absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[10px] sm:gap-[14px] md:gap-[16px] lg:gap-[18px] xl:gap-[20px] z-10">
           {/* Projects (row 1, col 1) */}
           <button
-            onClick={onProjects}
+            onClick={handleProjects}
             aria-label="Projects"
             className="group relative z-10 rounded-[clamp(16px,3vw,40px)] text-left cursor-pointer transition-all duration-200 hover:ring-2 hover:ring-black/20 focus:outline-none focus-visible:ring-4 focus-visible:ring-black/30 active:scale-[0.99]"
             style={{ WebkitTapHighlightColor: 'transparent' }}
