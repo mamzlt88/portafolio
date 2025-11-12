@@ -52,11 +52,19 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
           {/* Empty cell (row 2, col 1) */}
           <div />
 
-          {/* Empty cell (row 2, col 2) — headline handled by overlay */}
-          <div />
+          {/* Row 2, Col 2 (bg-[#a4b200]) — centered 'Artist' */}
+          <div className="flex items-center justify-center relative z-0">
+            <p className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-[-0.02em]">
+              Artist
+            </p>
+          </div>
 
-          {/* Empty cell (row 3, col 1) */}
-          <div />
+          {/* Row 3, Col 1 (bg-black) — centered 'Designer' */}
+          <div className="flex items-center justify-center relative z-0">
+            <p className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-[-0.02em]">
+              Designer
+            </p>
+          </div>
 
           {/* Empty cell (row 3, col 2) — headline handled by overlay */}
           <div />
@@ -81,7 +89,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
         </div>
 
         {/* Model + shadow centered OVER the tiles (aligned to the stage) */}
-        <div className="pointer-events-none absolute inset-0 grid place-items-center z-10" aria-hidden>
+        <div className="pointer-events-none absolute inset-0 grid place-items-center z-20" aria-hidden>
           <div
             className="relative transition-all duration-700 ease-out min-w-[120px] max-w-[420px] h-[72%] w-auto sm:h-[72%] sm:w-auto md:h-auto md:w-[28%] lg:w-[41.5%] xl:w-[42%] -translate-y-[4%] md:-translate-y-[4%] lg:-translate-y-[5%]"
             style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
@@ -102,11 +110,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
         </div>
       </div>
 
-      {/* Headline overlay (all breakpoints), stacked and centered over the model */}
-      <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center gap-2 z-20" aria-hidden>
-        <p className="font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-4xl sm:text-5xl md:text-5xl lg:text-6xl tracking-[-0.02em]">Artist</p>
-        <p className="font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-4xl sm:text-5xl md:text-5xl lg:text-6xl tracking-[-0.02em]">Designer</p>
-      </div>
+      {/* Headline handled inside specific tiles; no global overlay */}
     </div>
   );
 }
