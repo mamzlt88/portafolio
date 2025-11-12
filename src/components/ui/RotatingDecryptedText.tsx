@@ -104,11 +104,14 @@ export const RotatingDecryptedText: React.FC<RotatingDecryptedTextProps> = ({
         <DecryptedText
           text={current}
           className={className}
+          encryptedClassName={className}
           animateOn="view"
-          speed={40}
-          maxIterations={12}
-          sequential={false}
+          speed={35}
+          maxIterations={8}
+          sequential={true}
           revealDirection="start"
+          useOriginalCharsOnly={true}
+          characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
         />
       </span>
 
