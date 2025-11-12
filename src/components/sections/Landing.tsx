@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DecryptedText } from "../ui/DecryptedText";
+import { RotatingDecryptedText } from "../ui/RotatingDecryptedText";
 import imgMmColorOrange from "figma:asset/717c32ec589970e1b541c572864d2fa741828374.png";
 
 interface LandingProps {
@@ -63,14 +64,14 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
             />
           </div>
 
-          {/* Row 3, Col 1 (bg-black) — centered 'Designer' with Decrypted animation */}
+          {/* Row 3, Col 1 (bg-black) — rotating decrypted titles */}
           <div className="[grid-area:3_/_1] flex items-center justify-center relative z-10">
-            <DecryptedText
-              text="Designer"
+            <RotatingDecryptedText
+              words={["Designer", "Product", "Manager", "Visual", "Experience"]}
               className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[min(8vw,132px)] tracking-[-0.02em]"
-              duration={1.0}
-              delay={0.25}
-              iterationsPerChar={6}
+              displayMs={2000}
+              fadeMs={400}
+              startDelayMs={250}
             />
           </div>
 
