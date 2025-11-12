@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { DecryptedText } from "../ui/DecryptedText";
 import imgMmColorOrange from "figma:asset/717c32ec589970e1b541c572864d2fa741828374.png";
 
 interface LandingProps {
@@ -51,18 +52,26 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
           {/* Empty cell (row 2, col 1) */}
           <div />
 
-          {/* Row 2, Col 2 (bg-[#a4b200]) — centered 'Artist' */}
+          {/* Row 2, Col 2 (bg-[#a4b200]) — centered 'Artist' with Decrypted animation */}
           <div className="[grid-area:2_/_2] flex items-center justify-center relative z-10">
-            <p className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[min(8vw,132px)] tracking-[-0.02em]">
-              Artist
-            </p>
+            <DecryptedText
+              text="Artist"
+              className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[min(8vw,132px)] tracking-[-0.02em]"
+              duration={1.0}
+              delay={0.1}
+              iterationsPerChar={6}
+            />
           </div>
 
-          {/* Row 3, Col 1 (bg-black) — centered 'Designer' */}
+          {/* Row 3, Col 1 (bg-black) — centered 'Designer' with Decrypted animation */}
           <div className="[grid-area:3_/_1] flex items-center justify-center relative z-10">
-            <p className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[min(8vw,132px)] tracking-[-0.02em]">
-              Designer
-            </p>
+            <DecryptedText
+              text="Designer"
+              className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[min(8vw,132px)] tracking-[-0.02em]"
+              duration={1.0}
+              delay={0.25}
+              iterationsPerChar={6}
+            />
           </div>
 
           {/* Empty cell (row 3, col 2) — headline handled by overlay */}
