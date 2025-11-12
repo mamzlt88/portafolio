@@ -58,8 +58,8 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
             <RotatingDecryptedText
               words={["Artist", "DogMom", "Dancer", "Astrologer"]}
               className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[min(8vw,132px)] tracking-[-0.02em]"
-              displayMs={6000}
-              fadeMs={400}
+              displayMs={600}
+              fadeMs={300}
               startDelayMs={100}
             />
           </div>
@@ -69,8 +69,8 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
             <RotatingDecryptedText
               words={["Designer", "Product", "Manager", "Visual", "Experience"]}
               className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[min(8vw,132px)] tracking-[-0.02em]"
-              displayMs={6000}
-              fadeMs={400}
+              displayMs={600}
+              fadeMs={300}
               startDelayMs={100}
             />
           </div>
