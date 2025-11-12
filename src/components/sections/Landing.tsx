@@ -71,7 +71,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
               className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[min(8vw,132px)] tracking-[-0.02em]"
               displayMs={2000}
               fadeMs={400}
-              startDelayMs={250}
+              startDelayMs={100}
             />
           </div>
 
