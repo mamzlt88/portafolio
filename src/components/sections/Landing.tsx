@@ -87,7 +87,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
         {/* Model + shadow centered OVER the tiles (aligned to the stage) */}
         <div className="pointer-events-none absolute inset-0 grid place-items-center z-50" aria-hidden>
           <div
-            className="relative transition-all duration-700 ease-out min-w-[150px] max-w-[420px] w-[28%] sm:w-[28%] md:w-[28%] lg:w-[41.5%] xl:w-[42%] -translate-y-[4%] md:-translate-y-[4%] lg:-translate-y-[5%]"
+            className="relative transition-all duration-700 ease-out min-w-[120px] max-w-[420px] h-[72%] w-auto sm:h-[72%] sm:w-auto md:h-auto md:w-[28%] lg:w-[41.5%] xl:w-[42%] -translate-y-[4%] md:-translate-y-[4%] lg:-translate-y-[5%]"
             style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
           >
             {/* Shadow behind */}
