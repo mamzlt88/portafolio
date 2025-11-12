@@ -22,30 +22,26 @@ export const RotatingDecryptedText: React.FC<RotatingDecryptedTextProps> = ({
   const [inActive, setInActive] = React.useState(false);
   const [outWord, setOutWord] = React.useState<string | null>(null);
   const [outActive, setOutActive] = React.useState(false);
+  const idxRef = React.useRef(0);
 
   React.useEffect(() => {
     const t = setTimeout(() => setMounted(true), startDelayMs);
     return () => clearTimeout(t);
   }, [startDelayMs]);
 
+  // Drive the loop with a stable interval to avoid missed cycles
   React.useEffect(() => {
     if (!mounted || words.length <= 1) return;
-    let timer: number;
-    const schedule = () => {
-      timer = window.setTimeout(() => {
-        setPrevIndex(index);
-        // set outgoing word and trigger its fade out
-        setOutWord(words[index]);
-        setOutActive(true); // start at opacity 1
-        // next frame flip to 0 to animate out
-        requestAnimationFrame(() => setOutActive(false));
-        // advance current index
-        setIndex((i) => (i + 1) % words.length);
-      }, displayMs);
-    };
-    schedule();
-    return () => clearTimeout(timer);
-  }, [mounted, index, words, displayMs]);
+    const id = window.setInterval(() => {
+      const curr = idxRef.current;
+      setPrevIndex(curr);
+      setOutWord(words[curr]);
+      setOutActive(true);
+      requestAnimationFrame(() => setOutActive(false));
+      setIndex((i) => (i + 1) % words.length);
+    }, displayMs);
+    return () => clearInterval(id);
+  }, [mounted, words, displayMs]);
 
   const current = words[index] ?? "";
   const prev = prevIndex != null ? words[prevIndex] : null;
@@ -55,6 +51,11 @@ export const RotatingDecryptedText: React.FC<RotatingDecryptedTextProps> = ({
     setInActive(false);
     const t = window.setTimeout(() => setInActive(true), 16); // next frame
     return () => clearTimeout(t);
+  }, [index]);
+
+  // Keep a ref of the current index for the interval callback
+  React.useEffect(() => {
+    idxRef.current = index;
   }, [index]);
 
   return (
