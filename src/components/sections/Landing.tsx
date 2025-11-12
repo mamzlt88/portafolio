@@ -43,7 +43,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
   }, [onAbout]);
   return (
     <div className="relative bg-[#6b34a2] min-h-screen grid place-items-center px-[clamp(12px,3vw,40px)] py-[clamp(12px,3vw,40px)] overflow-x-hidden" data-name="Landing">
-      {/* Full-screen takeover background (fades in when opening Projects) */}
+      {/* Full-screen takeover background (fades in when opening Projects/About) */}
       <motion.div
         className="fixed inset-0 z-0"
         initial={{ opacity: 0 }}
