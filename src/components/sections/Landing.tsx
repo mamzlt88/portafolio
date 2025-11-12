@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { DecryptedText } from "../ui/DecryptedText";
 import { RotatingDecryptedText } from "../ui/RotatingDecryptedText";
+import ClothingHueCanvas from "../ui/ClothingHueCanvas";
 import imgMmColorOrange from "figma:asset/717c32ec589970e1b541c572864d2fa741828374.png";
 
 interface LandingProps {
@@ -104,10 +105,16 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
             style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
           >
             {/* Model */}
-            <img
-              alt=""
+            <ClothingHueCanvas
               src={imgMmColorOrange}
-              className="absolute inset-0 object-contain w-full h-full filter-none drop-shadow-none"
+              className="absolute inset-0 w-full h-full"
+              cycleDurationMs={12000}
+              targetHue={28}
+              hueTolerance={22}
+              minSaturation={0.35}
+              maxSaturation={1}
+              minLightness={0.15}
+              maxLightness={0.85}
             />
           </div>
         </div>

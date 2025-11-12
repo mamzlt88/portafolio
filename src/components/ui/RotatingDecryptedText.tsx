@@ -103,8 +103,9 @@ export const RotatingDecryptedText: React.FC<RotatingDecryptedTextProps> = ({
         {/* Remount via wrapper key to trigger 'view' animation */}
         <DecryptedText
           text={current}
-          className={className}
-          encryptedClassName={className}
+          parentClassName={className}
+          className=""
+          encryptedClassName=""
           animateOn="view"
           speed={35}
           maxIterations={8}
