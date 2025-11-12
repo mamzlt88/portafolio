@@ -16,9 +16,9 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
   return (
     <div className="relative bg-[#6b34a2] w-full min-h-screen px-[clamp(12px,3vw,40px)] py-[clamp(12px,3vw,40px)] overflow-x-hidden" data-name="Landing">
       {/* Stage keeps a constant aspect so tiles scale with width */}
-      <div className="relative w-full mx-auto [aspect-ratio:420/972] md:[aspect-ratio:1648/1037] overflow-hidden rounded-[20px] sm:rounded-[28px] md:rounded-[40px]">
+      <div className="relative mx-auto w-full h-auto max-h-[calc(100vh-96px)] md:max-h-[calc(100vh-120px)] [aspect-ratio:420/972] md:[aspect-ratio:1648/1037] overflow-hidden rounded-[20px] sm:rounded-[28px] md:rounded-[40px]">
         {/* Background color grid (visual layer) */}
-        <div className="pointer-events-none absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[10px] sm:gap-[14px] md:gap-[16px] lg:gap-[20px]">
+        <div className="pointer-events-none absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[10px] sm:gap-[14px] md:gap-[16px] lg:gap-[18px] xl:gap-[20px]">
           <div className="bg-[#f3f9ae] rounded-[24px] sm:rounded-[32px] md:rounded-[40px]" />
           <div className="bg-[#ddccef] rounded-[24px] sm:rounded-[32px] md:rounded-[40px]" />
           <div className="bg-[#8923ee] rounded-[24px] sm:rounded-[32px] md:rounded-[40px]" />
@@ -30,7 +30,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
         </div>
 
         {/* Clickable overlay grid (interaction layer) */}
-        <div className="absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[10px] sm:gap-[14px] md:gap-[16px] lg:gap-[20px] z-10">
+        <div className="absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[10px] sm:gap-[14px] md:gap-[16px] lg:gap-[18px] xl:gap-[20px] z-10">
           {/* Projects (row 1, col 1) */}
           <button
             onClick={onProjects}
@@ -54,7 +54,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
 
           {/* Desktop-only 'Artist' title (row 2, col 2) */}
           <div className="hidden lg:flex items-center justify-center relative z-10">
-            <p className="font-['Poppins',_sans-serif] font-semibold text-white text-[min(6.5vw,80px)] tracking-[-0.02em]">Artist</p>
+            <p className="font-['Poppins',_sans-serif] font-semibold text-white text-[min(6.5vw,80px)] tracking-[-0.025em]">Artist</p>
           </div>
 
           {/* Empty cell (row 3, col 1) */}
@@ -62,7 +62,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
 
           {/* Desktop-only titles to match reference */}
           <div className="hidden lg:flex items-center justify-center relative z-10">
-            <p className="font-['Poppins',_sans-serif] font-semibold text-white text-[min(8vw,96px)] tracking-[-0.02em]">Designer</p>
+            <p className="font-['Poppins',_sans-serif] font-semibold text-white text-[min(8vw,96px)] tracking-[-0.025em]">Designer</p>
           </div>
 
           {/* Empty cell (row 4, col 1) */}
@@ -87,7 +87,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
         {/* Model + shadow centered OVER the tiles (aligned to the stage) */}
         <div className="pointer-events-none absolute inset-0 grid place-items-center z-50" aria-hidden>
           <div
-            className="relative transition-all duration-700 ease-out min-w-[150px] max-w-[420px] w-[24%] sm:w-[26%] md:w-[32%] lg:w-[40%] xl:w-[42%] -translate-y-[6%] md:-translate-y-[4%] lg:-translate-y-[6%]"
+            className="relative transition-all duration-700 ease-out min-w-[150px] max-w-[420px] w-[28%] sm:w-[28%] md:w-[28%] lg:w-[41.5%] xl:w-[42%] -translate-y-[4%] md:-translate-y-[4%] lg:-translate-y-[5%]"
             style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
           >
             {/* Shadow behind */}
