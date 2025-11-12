@@ -115,15 +115,18 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
             {/* Clothing Overlay Sequence (expects transparent PNGs in public/) */}
             <ClothingOverlaySequence
               className="absolute inset-0 w-full h-full"
-              autoPlay={false}
-              hueRotate
-              hueCycleMs={6000}
-              hueFromDeg={0}
-              hueToDeg={360}
-              saturate={1.05}
-              brightness={1}
+              stepDurationMs={10000}
+              fadeMs={700}
+              autoPlay
+              hueRotate={false}
               objectFit="contain"
-              sources={["/images/clothing/gray.png"]}
+              sources={[
+                "/images/clothing/magenta.png",
+                "/images/clothing/orange.png",
+                "/images/clothing/gray.png",
+                "/images/clothing/purple.png",
+                "/images/clothing/blue.png",
+              ]}
             />
           </div>
         </div>
