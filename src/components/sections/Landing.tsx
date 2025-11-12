@@ -53,7 +53,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
 
           {/* Row 2, Col 2 (bg-[#a4b200]) — centered 'Artist' */}
           <div className="[grid-area:2_/_2] flex items-center justify-center relative z-10">
-            <p className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[min(6vw,96px)] tracking-[-0.02em]">
+            <p className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[min(8vw,132px)] tracking-[-0.02em]">
               Artist
             </p>
           </div>
