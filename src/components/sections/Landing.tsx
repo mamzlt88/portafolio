@@ -3,6 +3,12 @@ import { DecryptedText } from "../ui/DecryptedText";
 import { RotatingDecryptedText } from "../ui/RotatingDecryptedText";
 import ClothingHueCanvas from "../ui/ClothingHueCanvas";
 import ClothingOverlaySequence from "../ui/ClothingOverlaySequence";
+// Clothing overlay PNGs (transparent)
+import imgClothBlue from "../../assets/clothing/mm_color_Blue.png";
+import imgClothGray from "../../assets/clothing/mm_color_Gray.png";
+import imgClothPink from "../../assets/clothing/mm_color_pink.png";
+import imgClothPurple from "../../assets/clothing/mm_color_purple.png";
+import imgClothYellow from "../../assets/clothing/mm_color_yellow.png";
 import imgMmColorOrange from "figma:asset/717c32ec589970e1b541c572864d2fa741828374.png";
 
 interface LandingProps {
@@ -121,11 +127,11 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
               hueRotate={false}
               objectFit="contain"
               sources={[
-                "/images/clothing/magenta.png",
-                "/images/clothing/orange.png",
-                "/images/clothing/gray.png",
-                "/images/clothing/purple.png",
-                "/images/clothing/blue.png",
+                imgClothPink,
+                imgClothYellow,
+                imgClothGray,
+                imgClothPurple,
+                imgClothBlue,
               ]}
             />
           </div>
