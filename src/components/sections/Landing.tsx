@@ -53,14 +53,14 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
           {/* Empty cell (row 2, col 1) */}
           <div />
 
-          {/* Row 2, Col 2 (bg-[#a4b200]) — centered 'Artist' with Decrypted animation */}
+          {/* Row 2, Col 2 (bg-[#a4b200]) — rotating decrypted titles */}
           <div className="[grid-area:2_/_2] flex items-center justify-center relative z-10">
-            <DecryptedText
-              text="Artist"
+            <RotatingDecryptedText
+              words={["Artist", "DogMom", "Dancer", "Astrologer"]}
               className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[min(8vw,132px)] tracking-[-0.02em]"
-              duration={1.0}
-              delay={0.1}
-              iterationsPerChar={6}
+              displayMs={2000}
+              fadeMs={400}
+              startDelayMs={100}
             />
           </div>
 
