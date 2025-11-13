@@ -20,6 +20,18 @@ export default function App() {
   // Controls Landing's background takeover color/animation
   const [activeOverlayLanding, setActiveOverlayLanding] = useState<'projects' | 'about' | null>(null);
 
+  // Lock body scroll while an overlay is active
+  useEffect(() => {
+    const body = document.body;
+    if (activeOverlayLanding) {
+      const prev = body.style.overflow;
+      body.style.overflow = 'hidden';
+      return () => { body.style.overflow = prev; };
+    } else {
+      body.style.overflow = '';
+    }
+  }, [activeOverlayLanding]);
+
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {

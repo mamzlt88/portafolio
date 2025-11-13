@@ -55,7 +55,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
     ? activeOverlay === 'projects'
       ? '#f3f9ae'
       : activeOverlay === 'about'
-        ? '#e1f40b'
+        ? '#E5F34D'
         : null
     : takeoverColor;
   return (
@@ -136,6 +136,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
             initial={{ backgroundColor: "#e1f40b" }}
             animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#e1f40b"] : ["#e1f40b", "#f3f9ae", "#a4b200", "#e1f40b"] }}
             transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 9, repeat: Infinity, ease: "linear", delay: 3.5 }}
+            layoutId="about-tile"
           />
         </div>
 
@@ -153,7 +154,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
               <svg className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 17L17 7M17 7H9M17 7V15" stroke="#161616" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-            </div>
+            </motion.div>
           </button>
 
           {/* Empty cell (row 1, col 2) */}
@@ -208,7 +209,8 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
 
         {/* Model centered OVER the tiles (aligned to the stage) */}
         <div className="pointer-events-none absolute inset-0 grid place-items-center z-20" aria-hidden>
-          <div
+          <motion.div
+            layoutId="model"
             className="relative transition-all duration-700 ease-out min-w-[120px] max-w-[420px] max-h-[85%] md:max-h-[85%] lg:max-h-[85%] h-[72%] w-auto sm:h-[72%] sm:w-auto md:h-auto md:w-[28%] lg:w-[40%] xl:w-[41%] translate-y-0 md:translate-y-0 lg:translate-y-0 xl:translate-y-0"
             style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
           >

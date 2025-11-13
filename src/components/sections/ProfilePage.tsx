@@ -112,11 +112,26 @@ function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: ()
       </div>
 
       {/* Content About Me Section */}
-      <section id="about-me" className="relative shrink-0 w-full min-h-screen sticky top-0 bg-[#e1f40b]">
+      <section id="about-me" className="relative shrink-0 w-full min-h-screen sticky top-0 bg-[#e1f40b] overflow-hidden">
+        {/* Shared layout background morph from Landing's Yellow 2 tile */}
+        <motion.div
+          layoutId="about-tile"
+          initial={{ borderRadius: 24 }}
+          animate={{ borderRadius: 0 }}
+          transition={{ duration: 0.8, ease: 'easeInOut' }}
+          className="absolute inset-0 -z-10"
+          style={{ background: '#E5F34D' }}
+          aria-hidden
+        />
         <div className="flex flex-col items-start justify-center size-full">
           <div className="box-border content-stretch flex flex-col lg:flex-row gap-[40px] md:gap-[50px] lg:gap-[60px] items-start justify-start pl-[80px] p-[40px] md:p-[60px] lg:p-[80px] relative w-full">
             {/* Text Content */}
-            <div className="content-stretch flex flex-col gap-[24px] md:gap-[28px] lg:gap-[32px] items-start relative shrink-0 w-full lg:w-[503px] pt-[148px] pr-[0px] pb-[0px] pl-[51px]">
+            <motion.div
+              className="content-stretch flex flex-col gap-[24px] md:gap-[28px] lg:gap-[32px] items-start relative shrink-0 w-full lg:w-[503px] pt-[148px] pr-[0px] pb-[0px] pl-[51px]"
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: 'easeOut', delay: 0.2 }}
+            >
               <div className="content-stretch flex flex-col gap-[8px] items-start not-italic relative shrink-0 text-black w-full">
                 <p className="font-['Trim',_'Courier_New',_monospace] leading-[1.5] relative shrink-0 md:text-[28px] lg:text-[32px] tracking-[0.8px] uppercase text-[32px]">About Me</p>
                 <p className="font-['Poppins',_sans-serif] leading-[1.5] relative shrink-0 text-[18px] md:text-[20px] lg:text-[24px] w-full">{`I'm a Venezuelan designer living in Colombia. I moved here 12 years ago, chasing new opportunities and a deeper sense of purpose. That experience taught me adaptability, resilience, empathy, and the beauty of starting over.`}</p>
@@ -133,15 +148,21 @@ function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: ()
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
             
 
             {/* Model on the right (visible on large screens) */}
-            <div className="relative w-full lg:flex-1 min-h-[420px] md:min-h-[520px] lg:min-h-[640px]">
+            <motion.div
+              layoutId="model"
+              className="relative w-full lg:flex-1 min-h-[420px] md:min-h-[520px] lg:min-h-[640px]"
+              initial={false}
+              animate={{ scale: 0.7, x: 24, y: 0 }}
+              transition={{ duration: 0.8, ease: 'easeInOut' }}
+            >
               <div className="absolute inset-y-0 right-[-4%] w-[380px] md:w-[480px] lg:w-[560px]">
                 <AnimatedModelImage />
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
