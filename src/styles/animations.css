@@ -34,7 +34,7 @@
 html.vt-opening-about::view-transition-group(about-tile) {
   animation-duration: 800ms;
   animation-timing-function: ease-in-out;
-  z-index: 40;
+  z-index: 42;
 }
 /* About text fades in on open */
 html.vt-opening-about::view-transition-new(about-content) {
@@ -43,7 +43,7 @@ html.vt-opening-about::view-transition-new(about-content) {
 html.vt-opening-about::view-transition-group(model) {
   animation-duration: 800ms;
   animation-timing-function: ease-in-out;
-  z-index: 50;
+  z-index: 45;
   transform-origin: center;
   /* subtle diagonal slide with scale bias toward 0.7 */
   animation-name: vt-model-open;
@@ -53,12 +53,12 @@ html.vt-opening-about::view-transition-group(model) {
 html.vt-closing-about::view-transition-group(about-tile) {
   animation-duration: 650ms;
   animation-timing-function: ease-in-out;
-  z-index: 40;
+  z-index: 42;
 }
 html.vt-closing-about::view-transition-group(model) {
   animation-duration: 300ms;
   animation-timing-function: ease-in;
-  z-index: 50;
+  z-index: 45;
 }
 /* About text fades out on close */
 html.vt-closing-about::view-transition-old(about-content) {

@@ -3,11 +3,19 @@ import imgRepayMockupHeader1 from "figma:asset/65aa5c7020d6202ddc28f12cbf528bfed
 import imgRectangle from "figma:asset/5f9a87327611670e4dc6fb3f068a42e2bf3f7759.png";
 import { ArrowRight } from "lucide-react";
 import React, { useState, useEffect, Suspense } from "react";
+import { flushSync } from "react-dom";
 import { motion, AnimatePresence } from "motion/react";
 // App.tsx — root page composition and view-state/animation orchestration
 import DecryptedText from "./components/visuals/DecryptedText";
 import AnimatedModelImage from "./components/visuals/AnimatedModelImage";
 const ProfilePage = React.lazy(() => import("./components/sections/ProfilePage"));
+let profilePagePreload: Promise<any> | null = null;
+const preloadProfilePage = () => {
+  if (!profilePagePreload) {
+    profilePagePreload = import("./components/sections/ProfilePage");
+  }
+  return profilePagePreload;
+};
 const PortfolioCasestudy = React.lazy(() => import("./components/sections/PortfolioCasestudy"));
 const CaseStudyPage = React.lazy(() => import("./components/sections/CaseStudyPage"));
 const Landing = React.lazy(() => import("./components/sections/Landing"));
@@ -31,6 +39,11 @@ export default function App() {
       body.style.overflow = '';
     }
   }, [activeOverlayLanding]);
+
+  // Preload ProfilePage chunk to avoid Suspense blank during VT
+  useEffect(() => {
+    preloadProfilePage();
+  }, []);
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
@@ -67,9 +80,14 @@ export default function App() {
     root.classList.add('vt-opening-about');
     const svt: any = (document as any).startViewTransition;
     if (typeof svt === 'function') {
-      svt(() => {
-        setIsProfileOpen(true);
-        setActiveOverlayLanding('about');
+      svt(async () => {
+        // Ensure module is loaded before snapshot to avoid Suspense blank
+        await preloadProfilePage();
+        // Flush React update synchronously so new DOM is ready for snapshot
+        flushSync(() => {
+          setIsProfileOpen(true);
+          setActiveOverlayLanding('about');
+        });
       }).finished.finally(() => {
         root.classList.remove('vt-opening-about');
       });
@@ -86,8 +104,10 @@ export default function App() {
     const svt: any = (document as any).startViewTransition;
     if (typeof svt === 'function') {
       svt(() => {
-        setIsProfileOpen(false);
-        setActiveOverlayLanding(null);
+        flushSync(() => {
+          setIsProfileOpen(false);
+          setActiveOverlayLanding(null);
+        });
       }).finished.finally(() => {
         root.classList.remove('vt-closing-about');
       });
@@ -111,20 +131,16 @@ export default function App() {
       </div>
    {/* Profile content overlay */}
         <AnimatePresence>
-          {isProfileOpen && (
+          {(isProfileOpen || activeOverlayLanding === 'about') && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ 
-                opacity: { 
-                  duration: 0.4, 
-                  delay: isProfileOpen ? 0.8 : 0 
-                }
-              }}
-              className="fixed inset-0 z-40"
+              transition={{ opacity: { duration: 0.35 } }}
+              className="fixed inset-0 z-50"
+              style={{ zIndex: 100 }}
             >
-              <Suspense fallback={null}>
+              <Suspense fallback={<div className="fixed inset-0" style={{ background: '#E5F34D', zIndex: 100 }} /> }>
                 <ProfilePage onClose={closeAboutWithVT} showImage={true} />
               </Suspense>
             </motion.div>

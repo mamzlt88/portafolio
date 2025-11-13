@@ -47,19 +47,15 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
     // Let App.tsx orchestrate the startViewTransition. Here we just update visual hints.
     setTakeoverColor('#e1f40b'); // Yellow 2 family
     setTakeover(true);
-    setShowGrids(false);
     onAbout?.();
   }, [onAbout]);
 
-  // If parent provides activeOverlay, derive the animation flags from it
+  // If parent provides activeOverlay, prefer it but fall back to local state during the same tick
   const controlled = typeof activeOverlay !== 'undefined';
-  const computedTakeover = controlled ? activeOverlay !== null : takeover;
-  const computedColor = controlled
-    ? activeOverlay === 'projects'
-      ? '#f3f9ae'
-      : activeOverlay === 'about'
-        ? '#E5F34D'
-        : null
+  const controlledActive = controlled && activeOverlay !== null;
+  const computedTakeover = (controlledActive ? true : false) || takeover;
+  const computedColor = controlledActive
+    ? (activeOverlay === 'projects' ? '#f3f9ae' : '#E5F34D')
     : takeoverColor;
   const isAboutTakeover = !!(computedTakeover && computedColor && computedColor.toUpperCase() === '#E5F34D');
 
