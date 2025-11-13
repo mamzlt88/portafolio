@@ -17,6 +17,8 @@ export default function App() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isProjectsOpen, setIsProjectsOpen] = useState(false);
   const [activeCaseStudy, setActiveCaseStudy] = useState<string | null>(null);
+  // Controls Landing's background takeover color/animation
+  const [activeOverlayLanding, setActiveOverlayLanding] = useState<'projects' | 'about' | null>(null);
 
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
@@ -52,8 +54,9 @@ export default function App() {
       <div className="h-screen w-full relative">
         <Suspense fallback={null}>
           <Landing 
-            onAbout={() => setIsProfileOpen(true)} 
-            onProjects={() => setIsProjectsOpen(true)} 
+            activeOverlay={activeOverlayLanding}
+            onAbout={() => { setIsProfileOpen(true); setActiveOverlayLanding('about'); }} 
+            onProjects={() => { setIsProjectsOpen(true); setActiveOverlayLanding('projects'); }} 
           />
         </Suspense>
       </div>
@@ -73,7 +76,7 @@ export default function App() {
               className="fixed inset-0 z-40"
             >
               <Suspense fallback={null}>
-                <ProfilePage onClose={() => setIsProfileOpen(false)} showImage={true} />
+                <ProfilePage onClose={() => { setIsProfileOpen(false); setActiveOverlayLanding(null); }} showImage={true} />
               </Suspense>
             </motion.div>
           )}
@@ -101,7 +104,7 @@ export default function App() {
                 {/* Close Button */}
                 <motion.div
                   className="bg-black content-stretch flex items-center justify-center absolute rounded-full shrink-0 size-[56px] cursor-pointer top-[40px] right-[40px] z-50"
-                  onClick={() => setIsProjectsOpen(false)}
+                  onClick={() => { setIsProjectsOpen(false); setActiveOverlayLanding(null); }}
                   whileHover={{ scale: 1.1 }}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}

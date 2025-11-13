@@ -1,11 +1,10 @@
-import imgApp from "figma:asset/3d085c9578974206b02761d0dcb6c75c0648a04d.png";
 import svgPaths from "../imports/svg-9xwtypm6ze";
 import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect, useRef } from "react";
 import TimelineSection from "./TimelineSection";
 import SkillsSection from "./SkillsSection";
 import Lenis from 'lenis';
-import AnimatedModelImage from "./AnimatedModelImage";
+import AnimatedModelImage from "../visuals/AnimatedModelImage";
 
 function PillButton({ children, onClick, active }: { children: string; onClick: () => void; active: boolean }) {
   if (active) {
@@ -76,10 +75,10 @@ function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: ()
   };
 
   return (
-      <div className="bg-[#f3f9ae] w-full">
+      <div className="bg-[#e1f40b] w-full">
         <div className="content-stretch flex flex-col items-end relative w-full">
           {/* Sticky Header */}
-          <div className="sticky top-0 z-40 bg-[#f3f9ae] relative shrink-0 w-full">
+          <div className="sticky top-0 z-40 bg-[#e1f40b] relative shrink-0 w-full">
         <div aria-hidden="true" className="absolute border-[0px_0px_1px] border-[rgba(0,0,0,0.1)] border-solid inset-0 pointer-events-none" />
         <div className="flex flex-row items-center size-full">
           <div className="box-border content-stretch flex items-center justify-between px-[40px] md:px-[60px] lg:px-[124px] py-[16px] md:py-[20px] lg:py-[24px] relative w-full">
@@ -113,7 +112,7 @@ function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: ()
       </div>
 
       {/* Content About Me Section */}
-      <section id="about-me" className="relative shrink-0 w-full min-h-screen sticky top-0 bg-[#f3f9ae]">
+      <section id="about-me" className="relative shrink-0 w-full min-h-screen sticky top-0 bg-[#e1f40b]">
         <div className="flex flex-col items-start justify-center size-full">
           <div className="box-border content-stretch flex flex-col lg:flex-row gap-[40px] md:gap-[50px] lg:gap-[60px] items-start justify-start pl-[80px] p-[40px] md:p-[60px] lg:p-[80px] relative w-full">
             {/* Text Content */}
@@ -136,6 +135,13 @@ function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: ()
               </div>
             </div>
             
+
+            {/* Model on the right (visible on large screens) */}
+            <div className="relative w-full lg:flex-1 min-h-[420px] md:min-h-[520px] lg:min-h-[640px]">
+              <div className="absolute inset-y-0 right-[-4%] w-[380px] md:w-[480px] lg:w-[560px]">
+                <AnimatedModelImage />
+              </div>
+            </div>
 
           </div>
         </div>

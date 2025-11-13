@@ -15,11 +15,15 @@ import imgMmColorOrange from "figma:asset/717c32ec589970e1b541c572864d2fa7418283
 interface LandingProps {
   onAbout?: () => void;
   onProjects?: () => void;
+  // Optional controlled prop: when provided, overrides internal takeover state
+  // 'projects' | 'about' to trigger takeover; null to revert to original landing
+  activeOverlay?: 'projects' | 'about' | null;
 }
 
-export default function Landing({ onAbout, onProjects }: LandingProps) {
+export default function Landing({ onAbout, onProjects, activeOverlay }: LandingProps) {
   const [mounted, setMounted] = useState(false);
   const [takeover, setTakeover] = useState(false);
+  const [takeoverColor, setTakeoverColor] = useState<string | null>(null);
   useEffect(() => {
     const t = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(t);
@@ -27,6 +31,7 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
 
   // Handlers to coordinate background takeover and external navigation
   const handleProjects = React.useCallback(() => {
+    setTakeoverColor('#f3f9ae'); // Yellow 1 family
     setTakeover(true);
     // Small delay to allow the takeover animation to start before opening Projects
     window.setTimeout(() => {
@@ -35,21 +40,33 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
   }, [onProjects]);
 
   const handleAbout = React.useCallback(() => {
+    setTakeoverColor('#e1f40b'); // Yellow 2 family
     setTakeover(true);
     // Small delay to allow the takeover animation to start before opening About
     window.setTimeout(() => {
       onAbout?.();
     }, 300);
   }, [onAbout]);
+
+  // If parent provides activeOverlay, derive the animation flags from it
+  const controlled = typeof activeOverlay !== 'undefined';
+  const computedTakeover = controlled ? activeOverlay !== null : takeover;
+  const computedColor = controlled
+    ? activeOverlay === 'projects'
+      ? '#f3f9ae'
+      : activeOverlay === 'about'
+        ? '#e1f40b'
+        : null
+    : takeoverColor;
   return (
     <div className="relative bg-[#6b34a2] min-h-screen grid place-items-center px-[clamp(12px,3vw,40px)] py-[clamp(12px,3vw,40px)] overflow-x-hidden" data-name="Landing">
       {/* Full-screen takeover background (fades in when opening Projects/About) */}
       <motion.div
         className="fixed inset-0 z-0"
         initial={{ opacity: 0 }}
-        animate={{ opacity: takeover ? 1 : 0 }}
+        animate={{ opacity: computedTakeover ? 1 : 0 }}
         transition={{ duration: 0.35, ease: "linear" }}
-        style={{ backgroundColor: "#161616", pointerEvents: "none" }}
+        style={{ backgroundColor: computedColor ?? '#161616', pointerEvents: "none" }}
         aria-hidden
       />
 
@@ -61,64 +78,64 @@ export default function Landing({ onAbout, onProjects }: LandingProps) {
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#f3f9ae" }}
-            animate={{ backgroundColor: takeover ? ["#161616"] : ["#f3f9ae", "#e1f40b", "#fbfde2", "#f3f9ae"] }}
-            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 11, repeat: Infinity, ease: "linear", delay: 2 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#f3f9ae"] : ["#f3f9ae", "#e1f40b", "#fbfde2", "#f3f9ae"] }}
+            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 11, repeat: Infinity, ease: "linear", delay: 2 }}
           />
 
           {/* Purple 1 */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#ddccef" }}
-            animate={{ backgroundColor: takeover ? ["#161616"] : ["#ddccef", "#a456f3", "#8923ee", "#ddccef"] }}
-            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 10, repeat: Infinity, ease: "linear", delay: 1 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#ddccef"] : ["#ddccef", "#a456f3", "#8923ee", "#ddccef"] }}
+            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 10, repeat: Infinity, ease: "linear", delay: 1 }}
           />
 
           {/* Purple 2 */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#8923ee" }}
-            animate={{ backgroundColor: takeover ? ["#161616"] : ["#8923ee", "#a456f3", "#600fb2", "#8923ee"] }}
-            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 14, repeat: Infinity, ease: "linear", delay: 1.5 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#8923ee"] : ["#8923ee", "#a456f3", "#600fb2", "#8923ee"] }}
+            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 14, repeat: Infinity, ease: "linear", delay: 1.5 }}
           />
 
           {/* Green 1 */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#a4b200" }}
-            animate={{ backgroundColor: takeover ? ["#161616"] : ["#a4b200", "#636b00", "#a4b200"] }}
-            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 13, repeat: Infinity, ease: "linear", delay: 3 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#a4b200"] : ["#a4b200", "#636b00", "#a4b200"] }}
+            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 13, repeat: Infinity, ease: "linear", delay: 3 }}
           />
 
           {/* Black/Green */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#161616" }}
-            animate={{ backgroundColor: takeover ? ["#161616"] : ["#161616", "#636b00", "#161616"] }}
-            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 16, repeat: Infinity, ease: "linear", delay: 0.5 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#161616"] : ["#161616", "#636b00", "#161616"] }}
+            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 16, repeat: Infinity, ease: "linear", delay: 0.5 }}
           />
 
           {/* Gray */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#B4B4B4" }}
-            animate={{ backgroundColor: takeover ? ["#161616"] : ["#B4B4B4", "#929292", "#161616", "#B4B4B4"] }}
-            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 15, repeat: Infinity, ease: "linear", delay: 2.5 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#B4B4B4"] : ["#B4B4B4", "#929292", "#161616", "#B4B4B4"] }}
+            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 15, repeat: Infinity, ease: "linear", delay: 2.5 }}
           />
 
           {/* Green 1 (variant to fill 7th cell) */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#636b00" }}
-            animate={{ backgroundColor: takeover ? ["#161616"] : ["#a4b200", "#636b00", "#a4b200"] }}
-            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 12, repeat: Infinity, ease: "linear", delay: 3.2 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#636b00"] : ["#a4b200", "#636b00", "#a4b200"] }}
+            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 12, repeat: Infinity, ease: "linear", delay: 3.2 }}
           />
 
           {/* Yellow 2 */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#e1f40b" }}
-            animate={{ backgroundColor: takeover ? ["#161616"] : ["#e1f40b", "#f3f9ae", "#a4b200", "#e1f40b"] }}
-            transition={takeover ? { duration: 0.3, ease: "linear" } : { duration: 9, repeat: Infinity, ease: "linear", delay: 3.5 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#e1f40b"] : ["#e1f40b", "#f3f9ae", "#a4b200", "#e1f40b"] }}
+            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 9, repeat: Infinity, ease: "linear", delay: 3.5 }}
           />
         </div>
 
