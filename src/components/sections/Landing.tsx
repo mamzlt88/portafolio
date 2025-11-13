@@ -44,14 +44,11 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
   }, [onProjects]);
 
   const handleAbout = React.useCallback(() => {
+    // Let App.tsx orchestrate the startViewTransition. Here we just update visual hints.
     setTakeoverColor('#e1f40b'); // Yellow 2 family
     setTakeover(true);
-    // Hide grids immediately so texts/buttons don't linger during morph
     setShowGrids(false);
-    // Small delay to allow the takeover animation to start before opening About
-    window.setTimeout(() => {
-      onAbout?.();
-    }, 300);
+    onAbout?.();
   }, [onAbout]);
 
   // If parent provides activeOverlay, derive the animation flags from it
@@ -162,6 +159,9 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
             animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#e1f40b"] : ["#e1f40b", "#f3f9ae", "#a4b200", "#e1f40b"], opacity: 1 }}
             transition={computedTakeover ? { duration: 0.8, ease: "easeInOut" } : { duration: 3.5, repeat: Infinity, ease: "linear", delay: 2.0 }}
             layoutId="about-tile"
+            // View Transitions: name the about tile for cross-page morph
+            data-vt="about-tile"
+            style={{ viewTransitionName: 'about-tile' } as any}
           />
         </div>
         )}
@@ -240,7 +240,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
           <motion.div
             layoutId="model"
             className="relative transition-all duration-700 ease-out min-w-[120px] max-w-[420px] max-h-[85%] md:max-h-[85%] lg:max-h-[85%] h-[72%] w-auto sm:h-[72%] sm:w-auto md:h-auto md:w-[28%] lg:w-[40%] xl:w-[41%] translate-y-0 md:translate-y-0 lg:translate-y-0 xl:translate-y-0"
-            style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0 }}
+            style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0, viewTransitionName: 'model' } as any}
           >
             {/* Base Model */}
             <img

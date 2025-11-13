@@ -122,7 +122,7 @@ function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: ()
           animate={{ borderRadius: 0 }}
           transition={{ duration: 0.8, ease: 'easeInOut' }}
           className="absolute inset-0 -z-10"
-          style={{ background: '#E5F34D' }}
+          style={{ background: '#E5F34D', viewTransitionName: 'about-tile' } as any}
           aria-hidden
         />
         <div className="flex flex-col items-start justify-center size-full">
@@ -133,6 +133,7 @@ function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: ()
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: 'easeOut', delay: 0.2 }}
+              style={{ viewTransitionName: 'about-content' } as any}
             >
               <div className="content-stretch flex flex-col gap-[8px] items-start not-italic relative shrink-0 text-black w-full">
                 <p className="font-['Trim',_'Courier_New',_monospace] leading-[1.5] relative shrink-0 md:text-[28px] lg:text-[32px] tracking-[0.8px] uppercase text-[32px]">About Me</p>
@@ -160,6 +161,7 @@ function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: ()
               initial={false}
               animate={{ scale: 0.7, x: 24, y: 0 }}
               transition={{ duration: 0.8, ease: 'easeInOut' }}
+              style={{ viewTransitionName: 'model' } as any}
             >
               <div className="absolute inset-y-0 right-[-4%] w-[380px] md:w-[480px] lg:w-[560px]">
                 <AnimatedModelImage />

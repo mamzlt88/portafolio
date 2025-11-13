@@ -1,3 +1,8 @@
+@keyframes vt-model-open {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(6px, -6px) scale(0.82); }
+  100% { transform: translate(12px, -12px) scale(0.7); }
+}
 /* animations.css — custom keyframes and transition utilities used across the site */
 
 @keyframes float-slow {
@@ -11,5 +16,53 @@
   100% { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes vt-fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes vt-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
 .float-slow { animation: float-slow 4s ease-in-out infinite; }
 .fade-in-up { animation: fade-in-up 400ms var(--default-transition-timing-function) both; }
+
+/* View Transitions customizations */
+/* Opening (Landing -> About) */
+html.vt-opening-about::view-transition-group(about-tile) {
+  animation-duration: 800ms;
+  animation-timing-function: ease-in-out;
+  z-index: 40;
+}
+html.vt-opening-about::view-transition-group(model) {
+  animation-duration: 800ms;
+  animation-timing-function: ease-in-out;
+  z-index: 50;
+  transform-origin: center;
+  /* subtle diagonal slide with scale bias toward 0.7 */
+  animation-name: vt-model-open;
+}
+
+/* Closing (About -> Landing) */
+html.vt-closing-about::view-transition-group(about-tile) {
+  animation-duration: 650ms;
+  animation-timing-function: ease-in-out;
+  z-index: 40;
+}
+html.vt-closing-about::view-transition-group(model) {
+  animation-duration: 300ms;
+  animation-timing-function: ease-in;
+  z-index: 50;
+}
+
+/* Fast fade-out of the old model on close */
+html.vt-closing-about::view-transition-old(model) {
+  animation: vt-fade-out 300ms ease-in forwards;
+}
+
+/* Avoid transitions for users preferring reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  :root::view-transition-group(*) { animation-duration: 1ms; }
+}

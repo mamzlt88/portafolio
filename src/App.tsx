@@ -61,13 +61,50 @@ export default function App() {
     return () => clearInterval(interval);
   }, []);
 
+  // View Transition wrappers for About section
+  const openAboutWithVT = () => {
+    const root = document.documentElement;
+    root.classList.add('vt-opening-about');
+    const svt: any = (document as any).startViewTransition;
+    if (typeof svt === 'function') {
+      svt(() => {
+        setIsProfileOpen(true);
+        setActiveOverlayLanding('about');
+      }).finished.finally(() => {
+        root.classList.remove('vt-opening-about');
+      });
+    } else {
+      setIsProfileOpen(true);
+      setActiveOverlayLanding('about');
+      root.classList.remove('vt-opening-about');
+    }
+  };
+
+  const closeAboutWithVT = () => {
+    const root = document.documentElement;
+    root.classList.add('vt-closing-about');
+    const svt: any = (document as any).startViewTransition;
+    if (typeof svt === 'function') {
+      svt(() => {
+        setIsProfileOpen(false);
+        setActiveOverlayLanding(null);
+      }).finished.finally(() => {
+        root.classList.remove('vt-closing-about');
+      });
+    } else {
+      setIsProfileOpen(false);
+      setActiveOverlayLanding(null);
+      root.classList.remove('vt-closing-about');
+    }
+  };
+
   return (
     <div className="bg-[#a456f3] min-h-screen relative overflow-hidden">
       <div className="h-screen w-full relative">
         <Suspense fallback={null}>
           <Landing 
             activeOverlay={activeOverlayLanding}
-            onAbout={() => { setIsProfileOpen(true); setActiveOverlayLanding('about'); }} 
+            onAbout={openAboutWithVT}
             onProjects={() => { setIsProjectsOpen(true); setActiveOverlayLanding('projects'); }} 
           />
         </Suspense>
@@ -88,7 +125,7 @@ export default function App() {
               className="fixed inset-0 z-40"
             >
               <Suspense fallback={null}>
-                <ProfilePage onClose={() => { setIsProfileOpen(false); setActiveOverlayLanding(null); }} showImage={true} />
+                <ProfilePage onClose={closeAboutWithVT} showImage={true} />
               </Suspense>
             </motion.div>
           )}
