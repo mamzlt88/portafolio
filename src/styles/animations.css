@@ -36,6 +36,10 @@ html.vt-opening-about::view-transition-group(about-tile) {
   animation-timing-function: ease-in-out;
   z-index: 40;
 }
+/* About text fades in on open */
+html.vt-opening-about::view-transition-new(about-content) {
+  animation: vt-fade-in 400ms ease-out both;
+}
 html.vt-opening-about::view-transition-group(model) {
   animation-duration: 800ms;
   animation-timing-function: ease-in-out;
@@ -55,6 +59,10 @@ html.vt-closing-about::view-transition-group(model) {
   animation-duration: 300ms;
   animation-timing-function: ease-in;
   z-index: 50;
+}
+/* About text fades out on close */
+html.vt-closing-about::view-transition-old(about-content) {
+  animation: vt-fade-out 250ms ease-in forwards;
 }
 
 /* Fast fade-out of the old model on close */
