@@ -605,7 +605,7 @@ function Frame39() {
         <div className="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] w-full h-full" data-name="Vector">
           <div className="absolute inset-[-0.07%]">
             <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 813 813">
-              <path d={svgPaths.p319a2700} id="Vector" opacity="0.3" stroke="var(--stroke-0, black)" strokeDasharray="6.03 3.02" strokeWidth="1.20667" />
+              <circle cx="406.5" cy="406.5" r="406" stroke="black" strokeOpacity="0.3" strokeDasharray="6 3" strokeWidth="1.2" />
             </svg>
           </div>
         </div>
@@ -635,8 +635,8 @@ function PillButton({ onClick, lenis }: { onClick?: () => void; lenis?: Lenis | 
       <p className="font-['Trim:Regular',sans-serif] leading-[16.8px] not-italic relative shrink-0 text-[14px] text-black text-nowrap tracking-[0.32px] uppercase whitespace-pre">SCROLL UP</p>
       <div className="overflow-clip relative shrink-0 size-[16px]" data-name="Navigation/north">
         <div className="absolute inset-[10.03%_22.57%_8.33%_22.57%]" data-name="Vector">
-          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 9 14">
-            <path d={svgPaths.p3cdca080} fill="var(--fill-0, black)" id="Vector" />
+          <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 9 14" aria-hidden>
+            <path d="M4.5 2 L8 6 H6 V12 H3 V6 H1 L4.5 2 Z" fill="currentColor" />
           </svg>
         </div>
       </div>
@@ -646,7 +646,7 @@ function PillButton({ onClick, lenis }: { onClick?: () => void; lenis?: Lenis | 
 
 function Frame40({ onScrollUp, lenis }: { onScrollUp?: () => void; lenis?: Lenis | null }) {
   return (
-    <div className="content-stretch flex flex-col gap-[8px] items-center justify-center w-full mt-[-6px] mr-[0px] mb-[93px] ml-[0px]">
+    <div className="content-stretch flex flex-col gap-[8px] items-start justify-center w-full">
       <p className="font-['Trim:Regular',sans-serif] leading-[28.8px] not-italic relative shrink-0 text-[24px] md:text-[28px] lg:text-[32px] text-black text-nowrap tracking-[0.8px] uppercase whitespace-pre">SKILLS</p>
       <PillButton onClick={onScrollUp} lenis={lenis} />
     </div>
@@ -667,9 +667,18 @@ function SkillsRadar50({ onScrollUp, lenis }: { onScrollUp?: () => void; lenis?:
 export default function SkillsSection({ onScrollUp, lenis }: { onScrollUp?: () => void; lenis?: Lenis | null }) {
   return (
     <div className="relative size-full bg-white" data-name="Container">
-      <div className="flex flex-row items-center justify-center size-full">
-        <div className="box-border content-stretch flex gap-[10px] items-center px-[20px] md:px-[40px] lg:px-[80px] py-[40px] md:py-[60px] lg:py-[80px] relative size-full px-[80px] py-[158px]">
-          <SkillsRadar50 onScrollUp={onScrollUp} lenis={lenis} />
+      <div className="relative w-full max-w-[1920px] mx-auto px-[20px] md:px-[40px] lg:px-[80px] py-[40px] md:py-[60px] lg:py-[80px]">
+        <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] items-center gap-[24px] md:gap-[40px]">
+          {/* Left column: Title + Scroll Up */}
+          <div className="flex flex-col gap-[8px] items-start justify-center lg:justify-center">
+            <Frame40 onScrollUp={onScrollUp} lenis={lenis} />
+          </div>
+          {/* Right column: Bubble matrix */}
+          <div className="relative w-full flex items-center justify-center">
+            <div className="relative w-[84vw] md:w-[72vw] lg:w-[66vw] max-w-[974px] aspect-square">
+              <Frame39 />
+            </div>
+          </div>
         </div>
       </div>
     </div>
