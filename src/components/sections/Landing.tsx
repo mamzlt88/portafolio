@@ -24,6 +24,10 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
   const [mounted, setMounted] = useState(false);
   const [takeover, setTakeover] = useState(false);
   const [takeoverColor, setTakeoverColor] = useState<string | null>(null);
+  // Hide Landing grids while About is open and for a short grace period when closing
+  const [showGrids, setShowGrids] = useState(true);
+  // Track when we are in the reverse (closing) phase to speed it up
+  const [isClosing, setIsClosing] = useState(false);
   useEffect(() => {
     const t = requestAnimationFrame(() => setMounted(true));
     return () => cancelAnimationFrame(t);
@@ -42,6 +46,8 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
   const handleAbout = React.useCallback(() => {
     setTakeoverColor('#e1f40b'); // Yellow 2 family
     setTakeover(true);
+    // Hide grids immediately so texts/buttons don't linger during morph
+    setShowGrids(false);
     // Small delay to allow the takeover animation to start before opening About
     window.setTimeout(() => {
       onAbout?.();
@@ -58,90 +64,111 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
         ? '#E5F34D'
         : null
     : takeoverColor;
+  const isAboutTakeover = !!(computedTakeover && computedColor && computedColor.toUpperCase() === '#E5F34D');
+
+  // Control visibility of Landing grids to avoid seeing loops during close
+  useEffect(() => {
+    if (computedTakeover) {
+      // Hide immediately on takeover
+      setShowGrids(false);
+      setIsClosing(false);
+    } else {
+      // Delay showing grids until the overlay fade/morph is done
+      setIsClosing(true);
+      const t = setTimeout(() => {
+        setShowGrids(true);
+        setIsClosing(false);
+      }, 650);
+      return () => clearTimeout(t);
+    }
+  }, [computedTakeover]);
   return (
     <div className="relative bg-[#6b34a2] min-h-screen grid place-items-center px-[clamp(12px,3vw,40px)] py-[clamp(12px,3vw,40px)] overflow-x-hidden" data-name="Landing">
-      {/* Full-screen takeover background (fades in when opening Projects/About) */}
+      {/* Full-screen takeover background (kept behind About content) */}
       <motion.div
-        className="fixed inset-0 z-0"
+        className="fixed inset-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: computedTakeover ? 1 : 0 }}
-        transition={{ duration: 0.35, ease: "linear" }}
-        style={{ backgroundColor: computedColor ?? '#161616', pointerEvents: "none" }}
+        transition={{ duration: isClosing ? 0.65 : 0.8, ease: "easeInOut" }}
+        style={{ backgroundColor: computedColor ?? '#161616', pointerEvents: "none", willChange: 'opacity', zIndex: (computedTakeover || isClosing) ? 40 : 0 }}
         aria-hidden
       />
 
       {/* Stage keeps a constant aspect so tiles scale with width */}
       <div className="relative mx-auto w-full max-w-[420px] md:max-w-none h-auto max-h-[calc(100vh-96px)] md:max-h-[calc(100vh-120px)] [aspect-ratio:640/1038] md:[aspect-ratio:1648/1037] overflow-hidden rounded-[32px] md:rounded-[40px]">
         {/* Background color grid (visual layer) - animated with Motion */}
-        <div className="pointer-events-none absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[10px] sm:gap-[14px] md:gap-[16px] lg:gap-[18px] xl:gap-[20px]">
+        {showGrids && (
+        <div className={`pointer-events-none absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[10px] sm:gap-[14px] md:gap-[16px] lg:gap-[18px] xl:gap-[20px] ${isAboutTakeover ? 'opacity-0 transition-opacity duration-800 ease-in-out' : ''}`}>
           {/* Yellow 1 */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#f3f9ae" }}
-            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#f3f9ae"] : ["#f3f9ae", "#e1f40b", "#fbfde2", "#f3f9ae"] }}
-            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 11, repeat: Infinity, ease: "linear", delay: 2 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#f3f9ae"] : ["#f3f9ae", "#e1f40b", "#fbfde2", "#f3f9ae"], opacity: isAboutTakeover ? 0 : 1 }}
+            transition={computedTakeover ? { duration: 0.8, ease: "easeInOut" } : { duration: 11, repeat: Infinity, ease: "linear", delay: 2 }}
           />
 
           {/* Purple 1 */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#ddccef" }}
-            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#ddccef"] : ["#ddccef", "#a456f3", "#8923ee", "#ddccef"] }}
-            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 10, repeat: Infinity, ease: "linear", delay: 1 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#ddccef"] : ["#ddccef", "#a456f3", "#8923ee", "#ddccef"], opacity: isAboutTakeover ? 0 : 1 }}
+            transition={computedTakeover ? { duration: 0.8, ease: "easeInOut" } : { duration: 10, repeat: Infinity, ease: "linear", delay: 1 }}
           />
 
           {/* Purple 2 */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#8923ee" }}
-            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#8923ee"] : ["#8923ee", "#a456f3", "#600fb2", "#8923ee"] }}
-            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 14, repeat: Infinity, ease: "linear", delay: 1.5 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#8923ee"] : ["#8923ee", "#a456f3", "#600fb2", "#8923ee"], opacity: isAboutTakeover ? 0 : 1 }}
+            transition={computedTakeover ? { duration: 0.8, ease: "easeInOut" } : { duration: 14, repeat: Infinity, ease: "linear", delay: 1.5 }}
           />
 
           {/* Green 1 */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#a4b200" }}
-            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#a4b200"] : ["#a4b200", "#636b00", "#a4b200"] }}
-            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 13, repeat: Infinity, ease: "linear", delay: 3 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#a4b200"] : ["#a4b200", "#636b00", "#a4b200"], opacity: isAboutTakeover ? 0 : 1 }}
+            transition={computedTakeover ? { duration: 0.8, ease: "easeInOut" } : { duration: 13, repeat: Infinity, ease: "linear", delay: 3 }}
           />
 
           {/* Black/Green */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#161616" }}
-            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#161616"] : ["#161616", "#636b00", "#161616"] }}
-            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 16, repeat: Infinity, ease: "linear", delay: 0.5 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#161616"] : ["#161616", "#636b00", "#161616"], opacity: isAboutTakeover ? 0 : 1 }}
+            transition={computedTakeover ? { duration: 0.8, ease: "easeInOut" } : { duration: 16, repeat: Infinity, ease: "linear", delay: 0.5 }}
           />
 
           {/* Gray */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#B4B4B4" }}
-            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#B4B4B4"] : ["#B4B4B4", "#929292", "#161616", "#B4B4B4"] }}
-            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 15, repeat: Infinity, ease: "linear", delay: 2.5 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#B4B4B4"] : ["#B4B4B4", "#929292", "#161616", "#B4B4B4"], opacity: isAboutTakeover ? 0 : 1 }}
+            transition={computedTakeover ? { duration: 0.8, ease: "easeInOut" } : { duration: 15, repeat: Infinity, ease: "linear", delay: 2.5 }}
           />
 
           {/* Green 1 (variant to fill 7th cell) */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#636b00" }}
-            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#636b00"] : ["#a4b200", "#636b00", "#a4b200"] }}
-            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 12, repeat: Infinity, ease: "linear", delay: 3.2 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#636b00"] : ["#a4b200", "#636b00", "#a4b200"], opacity: isAboutTakeover ? 0 : 1 }}
+            transition={computedTakeover ? { duration: 0.8, ease: "easeInOut" } : { duration: 12, repeat: Infinity, ease: "linear", delay: 3.2 }}
           />
 
           {/* Yellow 2 */}
           <motion.div
             className="rounded-[24px] sm:rounded-[32px] md:rounded-[40px]"
             initial={{ backgroundColor: "#e1f40b" }}
-            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#e1f40b"] : ["#e1f40b", "#f3f9ae", "#a4b200", "#e1f40b"] }}
-            transition={computedTakeover ? { duration: 0.3, ease: "linear" } : { duration: 9, repeat: Infinity, ease: "linear", delay: 3.5 }}
+            animate={{ backgroundColor: computedTakeover ? [computedColor ?? "#e1f40b"] : ["#e1f40b", "#f3f9ae", "#a4b200", "#e1f40b"], opacity: 1 }}
+            transition={computedTakeover ? { duration: 0.8, ease: "easeInOut" } : { duration: 3.5, repeat: Infinity, ease: "linear", delay: 2.0 }}
             layoutId="about-tile"
           />
         </div>
+        )}
 
         {/* Clickable overlay grid (interaction layer) */}
-        <div className="absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[10px] sm:gap-[14px] md:gap-[16px] lg:gap-[18px] xl:gap-[20px] z-10">
+        {showGrids && (
+        <div className={`absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[10px] sm:gap-[14px] md:gap-[16px] lg:gap-[18px] xl:gap-[20px] z-10 ${computedTakeover ? 'hidden' : ''}`}>
           {/* Projects (row 1, col 1) */}
           <button
             onClick={handleProjects}
@@ -154,7 +181,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
               <svg className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7 17L17 7M17 7H9M17 7V15" stroke="#161616" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
-            </motion.div>
+            </div>
           </button>
 
           {/* Empty cell (row 1, col 2) */}
@@ -206,6 +233,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
             </div>
           </button>
         </div>
+        )}
 
         {/* Model centered OVER the tiles (aligned to the stage) */}
         <div className="pointer-events-none absolute inset-0 grid place-items-center z-20" aria-hidden>
@@ -237,7 +265,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
                 imgClothBlue,
               ]}
             />
-          </div>
+          </motion.div>
         </div>
       </div>
 
