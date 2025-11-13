@@ -1,6 +1,5 @@
-import svgPaths from "../imports/svg-ywjvukk2y9";
-import BubbleContainer from "../imports/BubbleContainer";
 import Lenis from 'lenis';
+import { useEffect, useRef, useState } from 'react';
 
 function SkillsRadar() {
   return (
@@ -599,19 +598,44 @@ function Container1() {
 }
 
 function Frame39() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+    const update = () => {
+      const available = el.clientWidth;
+      const s = Math.min(1, available / 813);
+      setScale(s);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
-    <div className="relative w-full h-full flex items-center justify-center">
-      <div className="relative w-[84vw] md:w-[72vw] lg:w-[66vw] max-w-[974px] aspect-square">
-        <div className="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] w-full h-full" data-name="Vector">
-          <div className="absolute inset-[-0.07%]">
-            <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 813 813">
-              <circle cx="406.5" cy="406.5" r="406" stroke="black" strokeOpacity="0.3" strokeDasharray="6 3" strokeWidth="1.2" />
-            </svg>
+    <div ref={containerRef} className="relative w-full flex items-center justify-center">
+      {/* Outer box reserves the scaled size for layout/centering */}
+      <div style={{ width: 813 * scale, height: 813 * scale }}>
+        {/* Inner box is rendered at design size and scaled down responsively */}
+        <div className="relative" style={{ width: 813, height: 813, transform: `scale(${scale})`, transformOrigin: 'top left' }}>
+          <div className="absolute left-1/2 top-1/2 translate-x-[-50%] translate-y-[-50%] w-full h-full" data-name="Vector">
+            <div className="absolute inset-[-0.07%]">
+              <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 813 813">
+                <circle cx="406.5" cy="406.5" r="406" stroke="black" strokeOpacity="0.3" strokeDasharray="6 3" strokeWidth="1.2" />
+              </svg>
+            </div>
           </div>
-        </div>
-        <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-          <div className="relative w-full h-full">
-            <BubbleContainer />
+          {/* Bubble layers exactly as per Figma frames */}
+          <div className="absolute inset-0 overflow-hidden">
+            <Frame37 />
+            <Frame34 />
+            <Frame36 />
+            <Frame35 />
+            <Frame38 />
+            <Container1 />
           </div>
         </div>
       </div>

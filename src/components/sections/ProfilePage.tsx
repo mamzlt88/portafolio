@@ -86,7 +86,9 @@ function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: ()
             <div className="basis-0 content-stretch flex gap-[8px] md:gap-[12px] lg:gap-[16px] grow items-center min-h-px min-w-px relative shrink-0">
               <PillButton onClick={() => scrollToSection('about-me')} active={activeSection === 'about-me'}>About Me</PillButton>
               <PillButton onClick={() => scrollToSection('timeline')} active={activeSection === 'timeline'}>Timeline</PillButton>
-              <PillButton onClick={() => scrollToSection('skills')} active={activeSection === 'skills'}>Skills</PillButton>
+              <div className="hidden lg:block">
+                <PillButton onClick={() => scrollToSection('skills')} active={activeSection === 'skills'}>Skills</PillButton>
+              </div>
             </div>
             
             {/* Close Button */}
@@ -342,8 +344,8 @@ function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: ()
         <TimelineSection onClickSkills={() => scrollToSection('skills')} />
       </section>
 
-      {/* Skills Section */}
-      <section id="skills" className="relative shrink-0 w-full min-h-screen sticky top-0 rounded-tr-[32px] rounded-tl-[32px] overflow-hidden">
+      {/* Skills Section (hidden on small screens) */}
+      <section id="skills" className="hidden lg:block relative shrink-0 w-full min-h-screen sticky top-0 rounded-tr-[32px] rounded-tl-[32px] overflow-hidden">
         <SkillsSection onScrollUp={() => scrollToSection('about-me')} lenis={lenis} />
       </section>
         </div>
