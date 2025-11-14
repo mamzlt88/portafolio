@@ -38,9 +38,9 @@ export default function AnimatedModelImage() {
   };
 
   return (
-    <div className="relative size-full z-10">
+    <div className="relative size-full">
       {/* Color layers */}
-      <div className="absolute inset-0">
+      <div className="absolute h-[1038px] left-0 top-0 w-[640px]">
         {/* Stable base layer - always at 100% opacity */}
         <div className="absolute inset-0">
           <img 
