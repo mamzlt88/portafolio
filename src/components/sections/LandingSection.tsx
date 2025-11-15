@@ -9,7 +9,7 @@ export function LandingSection() {
   };
 
   return (
-    <section id="landing" className="relative min-h-screen bg-[#a456f3] flex items-center justify-center overflow-hidden">
+    <section id="landing" className="relative min-h-screen lg:min-h-0 bg-[#a456f3] flex items-center justify-center overflow-hidden">
       <div className="relative w-full max-w-[1440px] h-screen mx-auto px-[50px]">
         {/* Background color blocks grid - responsive scaled */}
         <div className="absolute gap-[30px] grid grid-cols-2 grid-rows-4 h-[85%] left-[50px] top-[7.5%] right-[50px]">

@@ -83,7 +83,7 @@ export default function App() {
   };
 
   return (
-    <div className="bg-[#a456f3] min-h-screen relative overflow-hidden">
+    <div className="bg-[#a456f3] min-h-screen lg:min-h-0 relative overflow-hidden">
       <div className="h-screen w-full relative">
         <Suspense fallback={null}>
           <Landing 

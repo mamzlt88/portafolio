@@ -53,7 +53,7 @@ export function Projects() {
   ];
 
   return (
-    <section id="projects" className="relative min-h-screen bg-[#a456f3] px-[40px] py-[80px]">
+    <section id="projects" className="relative min-h-screen lg:min-h-0 bg-[#a456f3] px-[40px] py-[80px]">
       <div className="max-w-[1600px] mx-auto">
         {/* Projects grid - brutalist minimal cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[24px]">

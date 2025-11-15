@@ -10,7 +10,7 @@ export function Hero() {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center overflow-hidden px-[50px] py-[55px]">
+    <section id="hero" className="relative min-h-screen lg:min-h-0 flex items-center justify-center overflow-hidden px-[50px] py-[55px]">
       {/* Background color blocks grid */}
       <div className="absolute gap-[71px] grid grid-cols-[repeat(2,_minmax(0px,_1fr))] grid-rows-[repeat(4,_minmax(0px,_1fr))] h-[2177px] left-[50px] rounded-[32px] top-[55px] w-[3011px]">
         <motion.div 

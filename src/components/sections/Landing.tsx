@@ -99,7 +99,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
   }, [computedTakeover]);
   return (
     <div
-      className="relative min-h-screen grid place-items-center px-[clamp(12px,3vw,40px)] py-[clamp(12px,3vw,40px)] overflow-x-hidden"
+      className="relative min-h-screen lg:min-h-0 grid place-items-center px-[clamp(12px,3vw,40px)] py-[clamp(12px,3vw,40px)] overflow-x-hidden"
       style={{ backgroundColor: colorMode === 'bw' ? '#ffffff' : '#6b34a2' }}
       data-name="Landing"
     >

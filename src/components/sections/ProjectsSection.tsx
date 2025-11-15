@@ -2,7 +2,7 @@ import imgFashionModel from "figma:asset/3d085c9578974206b02761d0dcb6c75c0648a04
 
 export function ProjectsSection() {
   return (
-    <section id="projects" className="relative min-h-screen bg-[#a456f3] flex items-center justify-center overflow-hidden">
+    <section id="projects" className="relative min-h-screen lg:min-h-0 bg-[#a456f3] flex items-center justify-center overflow-hidden">
       <div className="relative w-full max-w-[1440px] h-screen mx-auto px-[50px]">
         {/* Large yellow/lime block */}
         <div className="absolute bg-[#e1f40b] h-[75%] left-[80px] rounded-[80px] md:rounded-[120px] lg:rounded-[150px] top-[12.5%] right-[80px]" />

@@ -15,7 +15,7 @@ export function Profile() {
   ];
 
   return (
-    <section id="profile" className="relative min-h-screen px-[80px] py-[120px]">
+    <section id="profile" className="relative min-h-screen lg:min-h-0 px-[80px] py-[120px]">
       <div className="max-w-[1440px] mx-auto">
         {/* Two column layout */}
         <div className="grid grid-cols-2 gap-[80px]">

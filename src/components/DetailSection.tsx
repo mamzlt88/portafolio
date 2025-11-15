@@ -2,7 +2,7 @@ import imgFashionModel from "figma:asset/3d085c9578974206b02761d0dcb6c75c0648a04
 
 export function DetailSection() {
   return (
-    <section id="profile" className="relative min-h-screen bg-[#a456f3] py-[80px] overflow-hidden">
+    <section id="profile" className="relative min-h-screen lg:min-h-0 bg-[#a456f3] py-[80px] overflow-hidden">
       <div className="relative w-full max-w-[1920px] mx-auto px-[50px]">
         {/* Background color blocks grid - 5 columns */}
         <div className="grid grid-cols-5 gap-[30px] md:gap-[40px] lg:gap-[50px] mb-[80px]">
