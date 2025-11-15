@@ -18,6 +18,8 @@ interface ClothingOverlaySequenceProps {
   // Control playback and fit
   autoPlay?: boolean; // default true
   objectFit?: 'contain' | 'cover'; // default 'contain'
+  // Notify parent of active overlay index for handoff to About
+  onActiveChange?: (index: number) => void;
 }
 
 function usePrefersReducedMotion() {
@@ -46,6 +48,7 @@ export const ClothingOverlaySequence: React.FC<ClothingOverlaySequenceProps> = (
   brightness = 1,
   autoPlay = true,
   objectFit = 'contain',
+  onActiveChange,
 }) => {
   const reduced = usePrefersReducedMotion();
   const [loaded, setLoaded] = React.useState<boolean[]>(Array(sources.length).fill(false));
@@ -90,6 +93,13 @@ export const ClothingOverlaySequence: React.FC<ClothingOverlaySequenceProps> = (
     }, stepDurationMs);
     return () => window.clearInterval(id);
   }, [sources.length, stepDurationMs, reduced, autoPlay]);
+
+  // Notify parent whenever the active overlay changes (including initial)
+  React.useEffect(() => {
+    if (typeof onActiveChange === 'function') {
+      onActiveChange(active);
+    }
+  }, [active, onActiveChange]);
 
   if (!sources || sources.length === 0) return null;
 

@@ -13,7 +13,7 @@ import imgClothYellow from "../../assets/clothing/mm_color_yellow.png";
 import imgMmColorOrange from "figma:asset/717c32ec589970e1b541c572864d2fa741828374.png";
 
 interface LandingProps {
-  onAbout?: () => void;
+  onAbout?: (options?: { modelIndex?: number }) => void;
   onProjects?: () => void;
   // Optional controlled prop: when provided, overrides internal takeover state
   // 'projects' | 'about' to trigger takeover; null to revert to original landing
@@ -24,6 +24,18 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
   const [mounted, setMounted] = useState(false);
   const [takeover, setTakeover] = useState(false);
   const [takeoverColor, setTakeoverColor] = useState<string | null>(null);
+  // Color mode: 'color' shows the colorful grid; 'bw' shows a clean white background
+  const [colorMode, setColorMode] = useState<'color' | 'bw'>(() => {
+    try {
+      return (typeof window !== 'undefined' && localStorage.getItem('landing_color_mode') === 'bw') ? 'bw' : 'color';
+    } catch {
+      return 'color';
+    }
+  });
+  useEffect(() => {
+    try { localStorage.setItem('landing_color_mode', colorMode); } catch {}
+  }, [colorMode]);
+  const [activeOverlayIdx, setActiveOverlayIdx] = useState(0);
   // Hide Landing grids while About is open and for a short grace period when closing
   const [showGrids, setShowGrids] = useState(true);
   // Track when we are in the reverse (closing) phase to speed it up
@@ -43,19 +55,29 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
     }, 300);
   }, [onProjects]);
 
+  const overlayToBaseIndex = React.useCallback((i: number) => {
+    // Map overlay order [Pink, Yellow, Gray, Purple, Blue]
+    // to base model order [Orange(0), Fucsia(1), Yellow(2), Blue(3), Purple(4), Gray(5)]
+    const map = [1, 2, 5, 4, 3];
+    return map[i % map.length] ?? 0;
+  }, []);
+
   const handleAbout = React.useCallback(() => {
     // Let App.tsx orchestrate the startViewTransition. Here we just update visual hints.
     setTakeoverColor('#e1f40b'); // Yellow 2 family
     setTakeover(true);
-    onAbout?.();
-  }, [onAbout]);
+    onAbout?.({ modelIndex: overlayToBaseIndex(activeOverlayIdx) });
+  }, [onAbout, overlayToBaseIndex, activeOverlayIdx]);
 
-  // If parent provides activeOverlay, prefer it but fall back to local state during the same tick
+  // If parent provides activeOverlay, derive the animation flags from it
   const controlled = typeof activeOverlay !== 'undefined';
-  const controlledActive = controlled && activeOverlay !== null;
-  const computedTakeover = (controlledActive ? true : false) || takeover;
-  const computedColor = controlledActive
-    ? (activeOverlay === 'projects' ? '#f3f9ae' : '#E5F34D')
+  const computedTakeover = controlled ? activeOverlay !== null : takeover;
+  const computedColor = controlled
+    ? activeOverlay === 'projects'
+      ? '#f3f9ae'
+      : activeOverlay === 'about'
+        ? '#E5F34D'
+        : null
     : takeoverColor;
   const isAboutTakeover = !!(computedTakeover && computedColor && computedColor.toUpperCase() === '#E5F34D');
 
@@ -76,21 +98,53 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
     }
   }, [computedTakeover]);
   return (
-    <div className="relative bg-[#6b34a2] min-h-screen grid place-items-center px-[clamp(12px,3vw,40px)] py-[clamp(12px,3vw,40px)] overflow-x-hidden" data-name="Landing">
+    <div
+      className="relative min-h-screen grid place-items-center px-[clamp(12px,3vw,40px)] py-[clamp(12px,3vw,40px)] overflow-x-hidden"
+      style={{ backgroundColor: colorMode === 'bw' ? '#ffffff' : '#6b34a2' }}
+      data-name="Landing"
+    >
       {/* Full-screen takeover background (kept behind About content) */}
       <motion.div
         className="fixed inset-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: computedTakeover ? 1 : 0 }}
         transition={{ duration: isClosing ? 0.65 : 0.8, ease: "easeInOut" }}
-        style={{ backgroundColor: computedColor ?? '#161616', pointerEvents: "none", willChange: 'opacity', zIndex: (computedTakeover || isClosing) ? 40 : 0 }}
+        style={{ backgroundColor: colorMode === 'bw' ? '#ffffff' : (computedColor ?? '#161616'), pointerEvents: "none", willChange: 'opacity', zIndex: (computedTakeover || isClosing) ? 40 : 0 }}
         aria-hidden
       />
 
       {/* Stage keeps a constant aspect so tiles scale with width */}
       <div className="relative mx-auto w-full max-w-[420px] md:max-w-none h-auto max-h-[calc(100vh-96px)] md:max-h-[calc(100vh-120px)] [aspect-ratio:640/1038] md:[aspect-ratio:1648/1037] overflow-hidden rounded-[32px] md:rounded-[40px]">
+        {/* Color Toggle (top-right inside stage) - matches provided reference */}
+        <div className="absolute top-3 right-3 md:top-5 md:right-5 z-30 flex items-center gap-2 select-none">
+          <button
+            type="button"
+            aria-label="Toggle color mode"
+            aria-pressed={colorMode === 'color'}
+            onClick={() => setColorMode((m) => (m === 'color' ? 'bw' : 'color'))}
+            className={`relative w-[56px] h-[28px] rounded-full transition-colors duration-150 ${
+              colorMode === 'color' ? 'bg-[#E5F34D] border border-transparent' : 'bg-white border border-black'
+            }`}
+          >
+            <span
+              className={`absolute top-1/2 -translate-y-1/2 text-[10px] font-['DM_Mono',monospace] uppercase ${
+                colorMode === 'color' ? 'text-[#6b34a2]' : 'text-black'
+              }`}
+              style={{ left: colorMode === 'color' ? 10 : 30 }}
+            >
+              {colorMode === 'color' ? 'ON' : 'OFF'}
+            </span>
+            <span
+              className={`absolute top-1/2 left-[4px] -translate-y-1/2 w-[20px] h-[20px] rounded-full transform transition-transform duration-200 ease-out ${
+                colorMode === 'color' ? 'translate-x-[28px] bg-[#6b34a2]' : 'translate-x-0 bg-black'
+              }`}
+              style={{ willChange: 'transform' }}
+            />
+          </button>
+          <span className="text-xs md:text-sm font-['DM_Mono',monospace] uppercase tracking-wide text-black">COLOR</span>
+        </div>
         {/* Background color grid (visual layer) - animated with Motion */}
-        {showGrids && (
+        {showGrids && colorMode === 'color' && (
         <div className={`pointer-events-none absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[10px] sm:gap-[14px] md:gap-[16px] lg:gap-[18px] xl:gap-[20px] ${isAboutTakeover ? 'opacity-0 transition-opacity duration-800 ease-in-out' : ''}`}>
           {/* Yellow 1 */}
           <motion.div
@@ -190,7 +244,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
           <div className="[grid-area:2_/_2] flex items-center justify-center relative z-10">
             <RotatingDecryptedText
               words={["Artist", "DogMom", "Dancer", "Astrologer"]}
-              className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[min(8vw,132px)] tracking-[-0.02em]"
+              className={`pointer-events-none font-['Poppins',_sans-serif] font-semibold ${colorMode === 'bw' ? 'text-black' : 'text-white'} leading-[0.95] text-[min(8vw,132px)] tracking-[-0.02em]`}
               displayMs={5000}
               fadeMs={275}
               startDelayMs={100}
@@ -201,7 +255,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
           <div className="[grid-area:3_/_1] flex items-center justify-center relative z-10">
             <RotatingDecryptedText
               words={["Designer", "Product", "Manager", "Visual", "Experience"]}
-              className="pointer-events-none font-['Poppins',_sans-serif] font-semibold text-white leading-[0.95] text-[min(8vw,132px)] tracking-[-0.02em]"
+              className={`pointer-events-none font-['Poppins',_sans-serif] font-semibold ${colorMode === 'bw' ? 'text-black' : 'text-white'} leading-[0.95] text-[min(8vw,132px)] tracking-[-0.02em]`}
               displayMs={5000}
               fadeMs={275}
               startDelayMs={100}
@@ -234,9 +288,8 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
         {/* Model centered OVER the tiles (aligned to the stage) */}
         <div className="pointer-events-none absolute inset-0 grid place-items-center z-20" aria-hidden>
           <motion.div
-            layoutId="model"
-            className="relative transition-all duration-700 ease-out min-w-[120px] max-w-[420px] max-h-[85%] md:max-h-[85%] lg:max-h-[85%] h-[72%] w-auto sm:h-[72%] sm:w-auto md:h-auto md:w-[28%] lg:w-[40%] xl:w-[41%] translate-y-0 md:translate-y-0 lg:translate-y-0 xl:translate-y-0"
-            style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0, viewTransitionName: 'model' } as any}
+            className="vt-model relative transition-all duration-700 ease-out min-w-[120px] max-w-[420px] max-h-[85%] md:max-h-[85%] lg:max-h-[85%] h-[72%] w-auto sm:h-[72%] sm:w-auto md:h-auto md:w-[28%] lg:w-[40%] xl:w-[41%] translate-y-0 md:translate-y-0 lg:translate-y-0 xl:translate-y-0"
+            style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0, viewTransitionName: 'model', contain: 'paint' } as any}
           >
             {/* Base Model */}
             <img
@@ -260,6 +313,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
                 imgClothPurple,
                 imgClothBlue,
               ]}
+              onActiveChange={setActiveOverlayIdx}
             />
           </motion.div>
         </div>

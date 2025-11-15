@@ -5,6 +5,32 @@
 }
 /* animations.css — custom keyframes and transition utilities used across the site */
 
+/* Toggle knob micro-interaction */
+@keyframes toggle-bounce {
+  0% { transform: scale(1); }
+  45% { transform: scale(0.88); }
+  100% { transform: scale(1); }
+}
+
+.animate-toggle-bounce { animation: toggle-bounce 180ms ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-toggle-bounce { animation: none; }
+}
+
+/* Combined slide + press that preserves vertical centering */
+@keyframes toggle-press {
+  0% { transform: translateY(-50%) translateX(0) scale(1); }
+  45% { transform: translateY(-50%) translateX(-4px) scale(0.92); }
+  100% { transform: translateY(-50%) translateX(0) scale(1); }
+}
+
+.animate-toggle-press { animation: toggle-press 220ms cubic-bezier(0.22, 0.61, 0.36, 1); }
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-toggle-press { animation: none; }
+}
+
 @keyframes float-slow {
   0% { transform: translateY(0); }
   50% { transform: translateY(-4px); }
@@ -73,4 +99,29 @@ html.vt-closing-about::view-transition-old(model) {
 /* Avoid transitions for users preferring reduced motion */
 @media (prefers-reduced-motion: reduce) {
   :root::view-transition-group(*) { animation-duration: 1ms; }
+}
+
+/* Global: fade the rest of the UI (root) on view transitions. */
+@supports (view-transition-name: none) {
+  /* While a view transition runs, hide the live model DOM so only the snapshot is visible */
+  html.vt-running .vt-model { visibility: hidden !important; }
+
+  /* Old view fades out quickly */
+  ::view-transition-old(root) {
+    animation: vt-fade-out 200ms ease-in forwards;
+  }
+
+  /* New view fades in */
+  ::view-transition-new(root) {
+    animation: vt-fade-in 200ms ease-out both;
+  }
+
+  /* Ensure the named model track stays above the root cross-fade */
+  ::view-transition-group(model) {
+    z-index: 9999;
+    animation-duration: 320ms;
+    animation-timing-function: ease-in-out;
+  }
+
+  /* Allow default shared element animation between old and new model snapshots */
 }

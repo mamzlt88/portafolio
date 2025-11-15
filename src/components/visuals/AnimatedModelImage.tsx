@@ -4,10 +4,12 @@ import imgMmColorYellow from "figma:asset/2625cb3e78dcd7941cfcac6145a7513622c7d7
 import imgMmColorBlue from "figma:asset/137be2bd84d4f01382e0ca4158dde3d16b96eb35.png";
 import imgMmColorPurple from "figma:asset/5b55f5770f8be828c1d0e85f5e2e5d84e786bb07.png";
 import imgMmColorGray from "figma:asset/c58e5afa678b5fd3954515802a4cf1ff79d68266.png";
-import { motion } from "motion/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
-export default function AnimatedModelImage() {
+export default function AnimatedModelImage(
+  { pausedInitialMs = 0, cycle = true, initialIndex = 0 }:
+  { pausedInitialMs?: number; cycle?: boolean; initialIndex?: number }
+) {
   const colorImages = [
     imgMmColorOrange, 
     imgMmColorFucsia, 
@@ -17,56 +19,49 @@ export default function AnimatedModelImage() {
     imgMmColorGray
   ];
 
-  const [stableImageIndex, setStableImageIndex] = useState(0);
-  const [incomingImageIndex, setIncomingImageIndex] = useState<number | null>(null);
+  const [stableImageIndex, setStableImageIndex] = useState(initialIndex);
+  const [isFading, setIsFading] = useState(false);
+  const [paused, setPaused] = useState(pausedInitialMs > 0);
+  const intervalRef = useRef<number | null>(null);
+
+  // Release the pause after a short delay if requested
+  useEffect(() => {
+    if (pausedInitialMs <= 0) return;
+    const t = window.setTimeout(() => setPaused(false), pausedInitialMs);
+    return () => window.clearTimeout(t);
+  }, [pausedInitialMs]);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setIncomingImageIndex((prevStable) => {
-        const currentStable = stableImageIndex;
-        return (currentStable + 1) % colorImages.length;
-      });
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [stableImageIndex, colorImages.length]);
-
-  const handleAnimationComplete = () => {
-    if (incomingImageIndex !== null) {
-      setStableImageIndex(incomingImageIndex);
-      setIncomingImageIndex(null);
-    }
-  };
+    if (paused || !cycle) return;
+    // Clear any previous interval
+    if (intervalRef.current) window.clearInterval(intervalRef.current);
+    // Every 5s: fade out, swap src, fade in — single image only
+    intervalRef.current = window.setInterval(() => {
+      setIsFading(true);
+      // Wait for fade-out, then swap and fade-in
+      window.setTimeout(() => {
+        setStableImageIndex((prev) => (prev + 1) % colorImages.length);
+        setIsFading(false);
+      }, 250);
+    }, 5000) as unknown as number;
+    return () => {
+      if (intervalRef.current) window.clearInterval(intervalRef.current);
+    };
+  }, [paused, colorImages.length, cycle]);
 
   return (
     <div className="relative size-full">
       {/* Color layers */}
       <div className="absolute h-[1038px] left-0 top-0 w-[640px]">
-        {/* Stable base layer - always at 100% opacity */}
-        <div className="absolute inset-0">
-          <img 
-            alt="" 
-            className="absolute inset-0 object-center object-contain pointer-events-none size-full" 
-            src={colorImages[stableImageIndex]} 
-          />
-        </div>
-        
-        {/* Incoming layer - fades in from 0% to 100% */}
-        {incomingImageIndex !== null && (
-          <motion.div
-            key={incomingImageIndex}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 2, ease: [0.25, 0.1, 0.25, 1] }}
-            onAnimationComplete={handleAnimationComplete}
-            className="absolute inset-0"
-          >
-            <img 
-              alt="" 
-              className="absolute inset-0 object-center object-contain pointer-events-none size-full" 
-              src={colorImages[incomingImageIndex]} 
-            />
-          </motion.div>
-        )}
+        <img
+          alt=""
+          className="absolute inset-0 object-center object-contain pointer-events-none size-full"
+          src={colorImages[stableImageIndex]}
+          style={{
+            opacity: isFading ? 0 : 1,
+            transition: 'opacity 250ms ease-in-out',
+          }}
+        />
       </div>
     </div>
   );

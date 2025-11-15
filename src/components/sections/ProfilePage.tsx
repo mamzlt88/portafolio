@@ -1,5 +1,5 @@
 import svgPaths from "../imports/svg-9xwtypm6ze";
-import { motion, AnimatePresence } from "motion/react";
+import { motion } from "motion/react";
 import { useState, useEffect, useRef } from "react";
 import TimelineSection from "./TimelineSection";
 import SkillsSection from "./SkillsSection";
@@ -27,12 +27,12 @@ function PillButton({ children, onClick, active }: { children: string; onClick: 
   );
 }
 
-function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: () => void; lenis: Lenis | null; showImage?: boolean }) {
+function ProfilePageContent({ onClose, lenis, showImage = false, observerRoot, modelInitialIndex }: { onClose: () => void; lenis: Lenis | null; showImage?: boolean; observerRoot?: HTMLElement | null; modelInitialIndex?: number }) {
   const [activeSection, setActiveSection] = useState('about-me');
 
   useEffect(() => {
     const observerOptions = {
-      root: null,
+      root: observerRoot ?? null,
       rootMargin: '-50% 0px -50% 0px',
       threshold: 0
     };
@@ -114,18 +114,14 @@ function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: ()
       </div>
 
       {/* Content About Me Section */}
-      <section id="about-me" className="relative shrink-0 w-full min-h-screen sticky top-0 bg-[#e1f40b] overflow-hidden">
+      <section id="about-me" className="relative isolate shrink-0 w-full min-h-screen sticky top-0 bg-[#e1f40b] overflow-hidden">
         {/* Shared layout background morph from Landing's Yellow 2 tile */}
-        <motion.div
-          layoutId="about-tile"
-          initial={{ borderRadius: 24 }}
-          animate={{ borderRadius: 0 }}
-          transition={{ duration: 0.8, ease: 'easeInOut' }}
+          <div
           className="absolute inset-0 -z-10"
-          style={{ background: '#E5F34D', viewTransitionName: 'about-tile' } as any}
+          style={{ background: '#E5F34D' } as any}
           aria-hidden
         />
-        <div className="flex flex-col items-start justify-center size-full">
+        <div className="relative z-10 flex flex-col items-start justify-center size-full">
           <div className="box-border content-stretch flex flex-col lg:flex-row gap-[40px] md:gap-[50px] lg:gap-[60px] items-start justify-start pl-[80px] p-[40px] md:p-[60px] lg:p-[80px] relative w-full">
             {/* Text Content */}
             <motion.div
@@ -133,7 +129,7 @@ function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: ()
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: 'easeOut', delay: 0.2 }}
-              style={{ viewTransitionName: 'about-content' } as any}
+              
             >
               <div className="content-stretch flex flex-col gap-[8px] items-start not-italic relative shrink-0 text-black w-full">
                 <p className="font-['Trim',_'Courier_New',_monospace] leading-[1.5] relative shrink-0 md:text-[28px] lg:text-[32px] tracking-[0.8px] uppercase text-[32px]">About Me</p>
@@ -155,18 +151,17 @@ function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: ()
             
 
             {/* Model on the right (visible on large screens) */}
-            <motion.div
-              layoutId="model"
-              className="relative w-full lg:flex-1 min-h-[420px] md:min-h-[520px] lg:min-h-[640px]"
-              initial={false}
-              animate={{ scale: 0.7, x: 24, y: 0 }}
-              transition={{ duration: 0.8, ease: 'easeInOut' }}
-              style={{ viewTransitionName: 'model' } as any}
+            <div
+              className="vt-model relative w-full lg:flex-1 min-h-[420px] md:min-h-[520px] lg:min-h-[640px]"
+              style={{ viewTransitionName: 'model', contain: 'paint' } as any}
             >
-              <div className="absolute inset-y-0 right-[-4%] w-[380px] md:w-[480px] lg:w-[560px]">
-                <AnimatedModelImage />
+              <div
+                className="absolute inset-y-0 right-[-4%] w-[380px] md:w-[480px] lg:w-[560px]"
+                style={{ transform: 'translate(-40%, -20%) scale(0.6)', transformOrigin: 'right center' }}
+              >
+                <AnimatedModelImage pausedInitialMs={300} cycle={false} initialIndex={modelInitialIndex ?? 0} />
               </div>
-            </motion.div>
+            </div>
 
           </div>
         </div>
@@ -355,7 +350,7 @@ function ProfilePageContent({ onClose, lenis, showImage = false }: { onClose: ()
   );
 }
 
-export default function ProfilePage({ onClose, showImage = false }: { onClose: () => void; showImage?: boolean }) {
+export default function ProfilePage({ onClose, showImage = false, modelInitialIndex }: { onClose: () => void; showImage?: boolean; modelInitialIndex?: number }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [lenis, setLenis] = useState<Lenis | null>(null);
 
@@ -385,9 +380,9 @@ export default function ProfilePage({ onClose, showImage = false }: { onClose: (
   }, []);
 
   return (
-    <div ref={wrapperRef} className="size-full overflow-y-auto overflow-x-hidden">
+    <div ref={wrapperRef} className="size-full h-[100dvh] overflow-y-auto overflow-x-hidden overscroll-contain touch-pan-y">
       <div className="bg-[#f3f9ae] w-full min-h-screen">
-        <ProfilePageContent onClose={onClose} lenis={lenis} showImage={showImage} />
+        <ProfilePageContent onClose={onClose} lenis={lenis} showImage={showImage} observerRoot={wrapperRef.current ?? undefined} modelInitialIndex={modelInitialIndex} />
       </div>
     </div>
   );
