@@ -1,0 +1,40 @@
+{
+  "intro": "I started working at 22, editing photos for a fashion store in the mornings and helping in a production company in the afternoons (Study at night). That mix of creativity and pace taught me to adapt quickly and find beauty in process. After that, I joined an advertising agency for my internship, where I learned the power of storytelling through visuals. When I emigrated, freelancing became my way forward, designing for small brands across USA. That experience led me to create MAZA Boutique Creativa, my own studio focused on branding and digital identity. Those beginnings shaped the way I design, lead, and connect with others with curiosity, empathy, and structure.",
+  "roles": [
+    {
+      "title": "As a Leader and Coach",
+      "companies": ["Endava"],
+      "description": "With 6 years of leadership experience, I was part of the team that built the Product and Design capability at Endava Colombia. I currently lead a multidisciplinary team of over 30 designers, business analysts, and strategists across Colombia, focusing on developing talent, strengthening delivery excellence, and aligning design strategy with business growth. I also participate in strategic conversations with clients, helping position our team as a trusted partner by connecting creative capability with business needs and commercial opportunities.",
+      "yearGroups": [
+        { "years": ["2025", "2024", "2023", "2022", "2021", "2020"], "activeYears": ["2025"] }
+      ]
+    },
+    {
+      "title": "As a Senior Consultant",
+      "companies": ["Endava"],
+      "description": "With 8 years of experience in consultancy, I've led product design and strategy initiatives across industries such as fintech, healthcare, and insurance. My work focuses on transforming complex business challenges into clear, scalable, and user-centered digital solutions. I've facilitated discovery sessions, defined product strategies, and built design systems that connect business goals with user needs. Collaborating closely with multidisciplinary teams, I help organizations align vision, process, and design to deliver measurable impact.",
+      "yearGroups": [
+        { "years": ["2024", "2023", "2022", "2021", "2020", "2019", "2018"], "activeYears": [] },
+        { "years": ["2026", "2025"], "activeYears": ["2026", "2025"] }
+      ]
+    },
+    {
+      "title": "Brand Design",
+      "companies": ["Neri Design Group", "Freelance"],
+      "description": "With 8 years of experience in brand and visual design, I help clients transform ideas into identities that evoke emotion and clarity. My work focuses on connecting strategy with creativity — shaping color, typography, and form into coherent visual languages. From founding MAZA Boutique Creativa to collaborating on large-scale brand initiatives, I've developed systems that express purpose and strengthen recognition across platforms.",
+      "yearGroups": [
+        { "years": ["2018", "2017", "2016", "2015", "2014", "2013", "2012"], "activeYears": [] },
+        { "years": ["2025", "2024", "2023", "2022", "2021", "2020", "2019"], "activeYears": ["2025"] },
+        { "years": ["2026"], "activeYears": ["2026"] }
+      ]
+    },
+    {
+      "title": "Visual Designer",
+      "companies": ["Nolck Red America", "Neri Design Group", "eSmart Digital", "Freelance"],
+      "description": "I began my career in graphic design, creating visual content and marketing assets for agencies and digital brands. Those early years taught me the foundations of composition, color, and communication — skills that continue to influence my work today. From editing product photos and producing social media visuals to designing digital interfaces, I built a deep understanding of how design connects people to stories, products, and experiences.",
+      "yearGroups": [
+        { "years": ["2018", "2017", "2016", "2015", "2014", "2013", "2012"], "activeYears": [] }
+      ]
+    }
+  ]
+}

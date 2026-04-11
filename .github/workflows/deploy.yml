@@ -36,6 +36,9 @@ jobs:
       - name: Install dependencies (npm ci)
         run: npm ci --no-audit --prefer-offline --loglevel=verbose
 
+      - name: Type check
+        run: npx tsc --noEmit
+
       - name: Build site
         run: |
           set -o pipefail

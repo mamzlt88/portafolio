@@ -1,4 +1,12 @@
-/* tokens.css — design tokens (colors, typography, spacing) shared across the site */
+/*
+ * tokens.css — brand design tokens used in custom component CSS (e.g. components.css).
+ *
+ * NOTE: This file uses a --color-* / --brand-* naming scheme for the portfolio's
+ * own design system. It is SEPARATE from the Shadcn UI / Tailwind theme tokens in
+ * globals.css (--primary, --accent, --muted, etc.). Do not confuse them:
+ *   - Use var(--color-ink), var(--color-accent), etc. in hand-written CSS.
+ *   - Use Tailwind utilities (bg-primary, text-muted, etc.) for Shadcn components.
+ */
 
 :root {
   /* Brand palette */

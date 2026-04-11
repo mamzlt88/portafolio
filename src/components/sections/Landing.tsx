@@ -211,7 +211,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
             layoutId="about-tile"
             // View Transitions: name the about tile for cross-page morph
             data-vt="about-tile"
-            style={{ viewTransitionName: 'about-tile' } as any}
+            style={{ viewTransitionName: 'about-tile' }}
           />
         </div>
         )}
@@ -289,7 +289,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
         <div className="pointer-events-none absolute inset-0 grid place-items-center z-20" aria-hidden>
           <motion.div
             className="vt-model relative transition-all duration-700 ease-out min-w-[120px] max-w-[420px] max-h-[85%] md:max-h-[85%] lg:max-h-[85%] h-[72%] w-auto sm:h-[72%] sm:w-auto md:h-auto md:w-[28%] lg:w-[40%] xl:w-[41%] translate-y-0 md:translate-y-0 lg:translate-y-0 xl:translate-y-0"
-            style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0, viewTransitionName: 'model', contain: 'paint' } as any}
+            style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0, viewTransitionName: 'model', contain: 'paint' }}
           >
             {/* Base Model */}
             <img

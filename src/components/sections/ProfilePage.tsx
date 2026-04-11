@@ -1,6 +1,7 @@
 import svgPaths from "../imports/svg-9xwtypm6ze";
 import { motion } from "motion/react";
 import { useState, useEffect, useRef } from "react";
+import { X } from "lucide-react";
 import TimelineSection from "./TimelineSection";
 import SkillsSection from "./SkillsSection";
 import Lenis from 'lenis';
@@ -100,13 +101,8 @@ function ProfilePageContent({ onClose, lenis, showImage = false, observerRoot, m
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.3, delay: 1.0 }}
             >
-              <div className="relative shrink-0 size-[20px] md:size-[24px] lg:size-[28px]">
-                <svg className="block size-full" fill="none" preserveAspectRatio="none" viewBox="0 0 24 24">
-                  <g>
-                    <path d="M18 6L6 18" stroke="white" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-                    <path d="M6 6L18 18" stroke="white" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-                  </g>
-                </svg>
+              <div className="relative shrink-0 size-[20px] md:size-[24px] lg:size-[28px] flex items-center justify-center">
+                <X className="size-full" stroke="white" strokeWidth={2} />
               </div>
             </motion.div>
           </div>
@@ -153,7 +149,7 @@ function ProfilePageContent({ onClose, lenis, showImage = false, observerRoot, m
             {/* Model on the right (visible on large screens) */}
             <div
               className="vt-model relative w-full lg:flex-1 min-h-[420px] md:min-h-[520px] lg:min-h-[640px]"
-              style={{ viewTransitionName: 'model', contain: 'paint' } as any}
+              style={{ viewTransitionName: 'model', contain: 'paint' }}
             >
               <div
                 className="absolute inset-y-0 right-[-4%] w-[380px] md:w-[480px] lg:w-[560px]"

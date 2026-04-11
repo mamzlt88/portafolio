@@ -1,3 +1,12 @@
+/*
+ * globals.css — Shadcn UI / Tailwind theme tokens.
+ *
+ * NOTE: The --primary, --accent, --muted, etc. variables here are for Shadcn UI
+ * components and Tailwind utilities (bg-primary, text-muted-foreground, etc.).
+ * They are SEPARATE from the portfolio's own brand tokens in tokens.css
+ * (--color-primary, --color-accent, --color-ink). Do not mix the two systems.
+ */
+
 @custom-variant dark (&:is(.dark *));
 
 :root {

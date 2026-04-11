@@ -2,6 +2,7 @@
   "projects": [
     {
       "id": "trading-automation",
+      "slug": "payet-trading-interface",
       "title": "Trading Automation Interface Redesign",
       "summary": "Redesigned a trading automation interface for clarity and speed.",
       "links": {
@@ -10,6 +11,7 @@
     },
     {
       "id": "white-label",
+      "slug": "vastege-white-label-gateway",
       "title": "White Label Payment Gateway Modernization",
       "summary": "Modernized UI/UX for a white-label payments product.",
       "links": {

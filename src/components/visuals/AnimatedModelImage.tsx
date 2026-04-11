@@ -23,6 +23,7 @@ export default function AnimatedModelImage(
   const [isFading, setIsFading] = useState(false);
   const [paused, setPaused] = useState(pausedInitialMs > 0);
   const intervalRef = useRef<number | null>(null);
+  const timeoutRef = useRef<number | null>(null);
 
   // Release the pause after a short delay if requested
   useEffect(() => {
@@ -39,13 +40,14 @@ export default function AnimatedModelImage(
     intervalRef.current = window.setInterval(() => {
       setIsFading(true);
       // Wait for fade-out, then swap and fade-in
-      window.setTimeout(() => {
+      timeoutRef.current = window.setTimeout(() => {
         setStableImageIndex((prev) => (prev + 1) % colorImages.length);
         setIsFading(false);
       }, 250);
-    }, 5000) as unknown as number;
+    }, 5000);
     return () => {
       if (intervalRef.current) window.clearInterval(intervalRef.current);
+      if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
     };
   }, [paused, colorImages.length, cycle]);
 
