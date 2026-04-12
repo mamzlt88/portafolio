@@ -175,9 +175,6 @@ export default function App() {
               <Suspense fallback={null}>
                 {activeCaseStudy === 'trading-automation' && (
                   <CaseStudyPage 
-                    title={['Trading', 'Automation', 'Interface', 'Redesign']}
-                    headerImage={imgRepayMockupHeader1}
-                    backgroundImage={imgRectangle}
                     onClose={() => setActiveCaseStudy(null)}
                   />
                 )}

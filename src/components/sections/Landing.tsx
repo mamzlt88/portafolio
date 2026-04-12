@@ -18,9 +18,12 @@ interface LandingProps {
   // Optional controlled prop: when provided, overrides internal takeover state
   // 'projects' | 'about' to trigger takeover; null to revert to original landing
   activeOverlay?: 'projects' | 'about' | null;
+  // When 'compact', the model shrinks to the Projects overlay target size and
+  // elevates its z-index so it sits above the overlay.
+  modelScale?: 'full' | 'compact';
 }
 
-export default function Landing({ onAbout, onProjects, activeOverlay }: LandingProps) {
+export default function Landing({ onAbout, onProjects, activeOverlay, modelScale = 'full' }: LandingProps) {
   const [mounted, setMounted] = useState(false);
   const [takeover, setTakeover] = useState(false);
   const [takeoverColor, setTakeoverColor] = useState<string | null>(null);
@@ -286,10 +289,31 @@ export default function Landing({ onAbout, onProjects, activeOverlay }: LandingP
         )}
 
         {/* Model centered OVER the tiles (aligned to the stage) */}
-        <div className="pointer-events-none absolute inset-0 grid place-items-center z-20" aria-hidden>
+        {/* When modelScale is 'compact' the wrapper becomes fixed+viewport-centered
+            at a smaller width and elevates above the Projects overlay (z-[60]). */}
+        <div
+          className={`pointer-events-none grid place-items-center transition-all duration-700 ease-out ${
+            modelScale === 'compact'
+              ? 'fixed inset-0 z-[60]'
+              : 'absolute inset-0 z-20'
+          }`}
+          aria-hidden
+        >
           <motion.div
-            className="vt-model relative transition-all duration-700 ease-out min-w-[120px] max-w-[420px] max-h-[85%] md:max-h-[85%] lg:max-h-[85%] h-[72%] w-auto sm:h-[72%] sm:w-auto md:h-auto md:w-[28%] lg:w-[40%] xl:w-[41%] translate-y-0 md:translate-y-0 lg:translate-y-0 xl:translate-y-0"
-            style={{ aspectRatio: '640 / 1038', opacity: mounted ? 1 : 0, viewTransitionName: 'model', contain: 'paint' } as any}
+            className="vt-model relative min-w-[120px]"
+            animate={
+              modelScale === 'compact'
+                ? { width: 'clamp(180px, 22vw, 340px)' }
+                : { width: '100%' }
+            }
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            style={{
+              aspectRatio: '640 / 1038',
+              opacity: mounted ? 1 : 0,
+              viewTransitionName: 'model',
+              contain: 'paint',
+              ...(modelScale === 'full' ? { maxWidth: 420, maxHeight: '85%', height: '72%', width: 'auto' } : {}),
+            } as any}
           >
             {/* Base Model */}
             <img

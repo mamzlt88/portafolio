@@ -1,6 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import Landing from '../components/sections/Landing';
 import { useViewTransitionNavigate } from '../hooks/useViewTransitionNavigate';
+import { motion, AnimatePresence } from 'motion/react';
+
+const ProjectsOverlay = React.lazy(() => import('../components/sections/ProjectsOverlay'));
+const WhiteLabelCaseStudy = React.lazy(() => import('../components/sections/WhiteLabelCaseStudy'));
+const CaseStudyPage = React.lazy(() => import('../components/sections/CaseStudyPage'));
+const Brand1CaseStudy = React.lazy(() => import('../components/sections/Brand1CaseStudy'));
+const Brand2CaseStudy = React.lazy(() => import('../components/sections/Brand2CaseStudy'));
 // Prefetch the model color layers used by AnimatedModelImage for smoother first paint on About
 import imgMmColorOrange from "figma:asset/717c32ec589970e1b541c572864d2fa741828374.png";
 import imgMmColorFucsia from "figma:asset/5e760d0b1b85f18ad77bddef113b51317f7606e7.png";
@@ -11,8 +18,14 @@ import imgMmColorGray from "figma:asset/c58e5afa678b5fd3954515802a4cf1ff79d68266
 
 export default function LandingPage() {
   const vtNavigate = useViewTransitionNavigate();
+  const [isProjectsOpen, setIsProjectsOpen] = useState(false);
+  const [activeCaseStudy, setActiveCaseStudy] = useState<string | null>(null);
+
   const handleAbout = (opts?: { modelIndex?: number }) =>
     vtNavigate('/about', { state: { modelIndex: opts?.modelIndex } });
+  const handleProjects = () => setIsProjectsOpen(true);
+  const closeProjects = () => { setActiveCaseStudy(null); setIsProjectsOpen(false); };
+  const closeCaseStudy = () => setActiveCaseStudy(null);
 
   // Prefetch likely-needed images for the About model to reduce transition jank
   useEffect(() => {
@@ -27,9 +40,59 @@ export default function LandingPage() {
     sources.forEach((src) => { const i = new Image(); i.src = src; });
   }, []);
   return (
-    <Landing
-      onAbout={handleAbout}
-      activeOverlay={null}
-    />
+    <>
+      <Landing
+        onAbout={handleAbout}
+        onProjects={handleProjects}
+        activeOverlay={isProjectsOpen ? 'projects' : null}
+        modelScale={isProjectsOpen ? 'compact' : 'full'}
+      />
+      <AnimatePresence>
+        {isProjectsOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ opacity: { duration: 0.4, delay: 0.3 } }}
+            className="fixed inset-0 z-50"
+          >
+            <Suspense fallback={null}>
+              <ProjectsOverlay
+                onClose={closeProjects}
+                onProjectClick={(id) => setActiveCaseStudy(id)}
+              />
+            </Suspense>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Case study overlay — renders above ProjectsOverlay */}
+      <AnimatePresence>
+        {activeCaseStudy && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ opacity: { duration: 0.5 } }}
+            className="fixed inset-0 z-[70]"
+          >
+            <Suspense fallback={null}>
+              {activeCaseStudy === 'white-label' && (
+                <WhiteLabelCaseStudy onClose={closeCaseStudy} />
+              )}
+              {activeCaseStudy === 'trading-automation' && (
+                <CaseStudyPage onClose={closeCaseStudy} />
+              )}
+              {activeCaseStudy === 'brand-1' && (
+                <Brand1CaseStudy onClose={closeCaseStudy} />
+              )}
+              {activeCaseStudy === 'brand-2' && (
+                <Brand2CaseStudy onClose={closeCaseStudy} />
+              )}
+            </Suspense>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

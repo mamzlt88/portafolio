@@ -1,37 +1,100 @@
-<!-- content.md — Main case study content for 'vastege-white-label-gateway'. Follows the 12-section Case Study Template. -->
+---
+slug: "white-label"
+title:
+  - text: "White"
+    style: "bold"
+  - text: "Label"
+    style: "italic"
+  - text: "Payment"
+    style: "normal"
+  - text: "Gateway"
+    style: "semibold-italic"
+  - text: "Modernization"
+    style: "italic"
+category: "experience"
+colorScheme: "dark"
 
-# 1. Overview
-Brief overview of the project, problem space, and desired outcomes.
+metadata:
+  - label: "Role"
+    value: "Lead Product Designer / Consultant"
+  - label: "Timeline"
+    value: "3-Year Partnership"
+  - label: "Team"
+    value: "Product Manager, Developers, Designers, QA"
+  - label: "Tools Methods"
+    value: "Figma, Design Systems, Agile, Lean UX, Accessibility Review, Internal Interviews, HSL Color System"
 
-# 2. Context
+gallery:
+  - file: "01-hero.jpg"
+    alt: "Hero — Payet gateway dashboard overview"
+  - file: "02-before-after.jpg"
+    alt: "Before & after comparison of portal interfaces"
+  - file: "03-design-system.jpg"
+    alt: "Design system component library"
+  - file: "04-user-flows.jpg"
+    alt: "User flow diagrams — recurring payment setup"
+  - file: "05-color-system.jpg"
+    alt: "HSL color system tokens"
+  - file: "06-responsive.jpg"
+    alt: "Responsive layouts — desktop, tablet, mobile"
+  - file: "07-accessibility.jpg"
+    alt: "Accessibility audit results"
+  - file: "08-final.jpg"
+    alt: "Final dashboard — multi-brand theming"
+---
+
+# Intro
+
+Payet is a white-label payment gateway that enables financial, automotive, and healthcare institutions to manage recurring and one-time payments under their own brand.
+
+Over time, the platform became powerful but fragmented. Each portal looked and behaved differently, creating friction for users and inefficiencies for the business.
+
+To unify the experience and prepare for rapid growth, **a custom design system** and **phased redesign were introduced.**
+
+The initiative simplified user flows, reduced technical debt, and created a scalable foundation that supported more than 180 brands.
+
+By improving usability and delivery efficiency, **Payet** strengthened engagement and scalability, helping the company more than double its annual payment volume from $7.45 billion in 2018 to $15.2 billion in 2020.
+
+# Context
+
 Business context, constraints, timelines, stakeholders.
 
-# 3. Problem Statement
+# Problem Statement
+
 The core UX/Business problems the project addresses.
 
-# 4. Goals & Success Metrics
+# Goals & Success Metrics
+
 Clear goals and how success is measured (quantitative/qualitative).
 
-# 5. Audience & Research
+# Audience & Research
+
 Target users, key insights, research methods (interviews, surveys, analytics).
 
-# 6. Constraints & Assumptions
+# Constraints & Assumptions
+
 Tech, compliance, and operational constraints. Assumptions validated or pending.
 
-# 7. Information Architecture
+# Information Architecture
+
 IA diagrams, navigation models, content grouping rationale.
 
-# 8. Interaction Design
+# Interaction Design
+
 Key flows, wireframes, and behavior patterns.
 
-# 9. Visual Design
+# Visual Design
+
 Design language, components, accessibility, and responsive considerations.
 
-# 10. Implementation Notes
+# Implementation Notes
+
 Handoff details, tokens, components, and technical decisions.
 
-# 11. Outcomes & Impact
+# Outcomes & Impact
+
 Results, metrics, rollout notes, and user feedback.
 
-# 12. Learnings & Next Steps
-What worked, what didn’t, and prioritized future improvements.
+# Learnings & Next Steps
+
+What worked, what didn't, and prioritized future improvements.
