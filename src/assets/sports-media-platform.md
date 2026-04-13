@@ -1,47 +1,15 @@
----
-slug: "sports-media"
-title:
-  - text: "Sports"
-    style: "bold"
-  - text: "Media"
-    style: "italic"
-  - text: "Digital"
-    style: "normal"
-  - text: "Ecosystem"
-    style: "semibold-italic"
-category: "experience"
-colorScheme: "dark"
+# Designing the Foundation for a Future-Ready Digital Ecosystem
 
-metadata:
-  - label: "Role"
-    value: "UX / Product Designer"
-  - label: "Timeline"
-    value: "8 Weeks (Discovery + Design Foundation)"
-  - label: "Team"
-    value: "Product, Design, Architecture, Engineering, Stakeholders"
-  - label: "Scope"
-    value: "UI Audit, Branding Discovery, Proto-personas, User Flows, UI Kit, Stylescape, Hi-Fi Prototypes"
+## Metadata
 
-gallery:
-  - file: "01-hero.jpg"
-    alt: "Hero — Sports media platform overview"
-  - file: "02-ecosystem.jpg"
-    alt: "Digital ecosystem mapping"
-  - file: "03-personas.jpg"
-    alt: "Proto-personas"
-  - file: "04-user-flows.jpg"
-    alt: "User flow diagrams"
-  - file: "05-ui-audit.jpg"
-    alt: "UI audit and branding discovery"
-  - file: "06-stylescape.jpg"
-    alt: "Stylescape — visual direction"
-  - file: "07-ui-kit.jpg"
-    alt: "UI Kit components"
-  - file: "08-prototype.jpg"
-    alt: "High-fidelity prototype"
+- **Role:** UX / Product Designer
+- **Duration:** 8 Weeks (Discovery + Design Foundation)
+- **Team:** Product, Design, Architecture, Engineering, Stakeholders
+- **Tools & Methods:** UI Audit, Branding Discovery, Proto-personas, User Flows, UI Kit, Stylescape, High-Fidelity Prototypes
+
 ---
 
-# Executive Summary
+## 01. Executive Summary
 
 A leading sports media platform focused on high school football content, rankings, and live coverage needed to evolve its digital experience to support growth.
 
@@ -58,7 +26,9 @@ Within an 8-week discovery and design phase, the work focused on defining the **
 - Established proto-personas, user flows, and IA
 - Aligned stakeholders across product, design, and engineering
 
-# About the Business
+---
+
+## 02. About the Business
 
 The client is a well-established sports media brand with a strong legacy in editorial content and audience engagement, particularly within high school and college football communities.
 
@@ -71,7 +41,9 @@ Its business model combines:
 
 As user behavior shifted toward digital consumption, the platform needed to transition from a content-focused site into a **fully integrated digital ecosystem** capable of supporting engagement, monetization, and scalability.
 
-# Discovery: Understanding the Ecosystem
+---
+
+## 03. Discovery: Understanding the Ecosystem
 
 The platform ecosystem included multiple interconnected systems:
 
@@ -84,7 +56,9 @@ Each system had evolved independently, resulting in a fragmented experience for 
 
 The discovery phase focused on understanding how these systems interacted and how users moved across them.
 
-# Uncovering the Core Challenge
+---
+
+## 04. Uncovering the Core Challenge
 
 The challenge was not simply improving an interface — it was **redefining an entire digital ecosystem**.
 
@@ -105,7 +79,9 @@ From a business and system perspective:
 
 This created the need to move toward a **fully integrated, scalable platform** that could support both user engagement and business growth.
 
-# The Strategy
+---
+
+## 05. The Strategy
 
 The approach focused on building **clarity before scale**.
 
@@ -117,7 +93,9 @@ Instead of designing isolated features, the work aligned three key layers:
 
 This ensured that design decisions supported both **user experience and business goals**.
 
-# Research & Insights
+---
+
+## 06. Research & Insights
 
 Research focused on understanding both the audience and internal stakeholders.
 
@@ -136,7 +114,9 @@ Research focused on understanding both the audience and internal stakeholders.
 
 These personas guided design decisions and prioritization.
 
-# Planning the Design Direction
+---
+
+## 07. Planning the Design Direction
 
 The work was structured through collaborative sessions and milestones:
 
@@ -147,7 +127,9 @@ The work was structured through collaborative sessions and milestones:
 
 This ensured alignment across business, product, and technical teams.
 
-# UI Audit & Branding Discovery
+---
+
+## 08. UI Audit & Branding Discovery
 
 A UI audit revealed inconsistencies in the existing experience:
 
@@ -159,7 +141,9 @@ Branding discovery explored how the platform could better reflect the identity a
 
 This resulted in a **Stylescape** that defined the look and feel of the new platform.
 
-# Building the Foundation
+---
+
+## 09. Building the Foundation
 
 The foundation focused on creating a scalable design system.
 
@@ -177,7 +161,9 @@ The foundation focused on creating a scalable design system.
 
 This created a shared design language across teams.
 
-# Designing the Experience
+---
+
+## 10. Designing the Experience
 
 **User Flows** — Defined to simplify navigation between content, streaming, and subscriptions.
 
@@ -189,7 +175,9 @@ This created a shared design language across teams.
 
 These prototypes connected system structure with real user experiences.
 
-# Testing & Validation
+---
+
+## 11. Testing & Validation
 
 Usability testing validated:
 
@@ -199,7 +187,9 @@ Usability testing validated:
 
 Feedback was used to refine designs and improve usability.
 
-# The System in Action
+---
+
+## 12. The System in Action
 
 The outputs enabled the next phase of development:
 
@@ -213,7 +203,9 @@ Additionally:
 - Epics defined for future phases
 - Roadmap aligned across teams
 
-# Results
+---
+
+## 13. Results
 
 | Focus Area | Before | Outcome |
 | --- | --- | --- |
@@ -223,13 +215,17 @@ Additionally:
 | **System Alignment** | Disconnected tools | Integrated ecosystem approach |
 | **Team Alignment** | Siloed work | Shared direction and roadmap |
 
-# Reflections
+---
+
+## 14. Reflections
 
 This project highlighted the complexity of designing for a content-driven platform evolving into a full digital ecosystem.
 
 Balancing editorial needs, streaming capabilities, and monetization required aligning multiple perspectives into one coherent experience.
 
-# Lessons Learned
+---
+
+## 15. Lessons Learned
 
 - Media platforms require both content and system thinking
 - Branding plays a key role in engagement
@@ -237,7 +233,9 @@ Balancing editorial needs, streaming capabilities, and monetization required ali
 - Design systems enable consistency at scale
 - UX must connect content, technology, and business
 
-# Closing Thought
+---
+
+## 16. Closing Thought
 
 This project was not about designing a single product.
 

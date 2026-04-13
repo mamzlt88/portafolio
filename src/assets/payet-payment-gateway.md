@@ -1,49 +1,15 @@
----
-slug: "white-label"
-title:
-  - text: "White"
-    style: "bold"
-  - text: "Label"
-    style: "italic"
-  - text: "Payment"
-    style: "normal"
-  - text: "Gateway"
-    style: "semibold-italic"
-  - text: "Modernization"
-    style: "italic"
-category: "experience"
-colorScheme: "dark"
+# Building a Scalable Design System for a White-Label Payment Platform
 
-metadata:
-  - label: "Role"
-    value: "Lead Product Designer / Consultant"
-  - label: "Timeline"
-    value: "3-Year Partnership"
-  - label: "Team"
-    value: "Product Manager, Developers, Designers, QA"
-  - label: "Tools Methods"
-    value: "Figma, Design Systems, Agile, Lean UX, Accessibility Review, Internal Interviews, HSL Color System"
+## Metadata
 
-gallery:
-  - file: "01-hero.jpg"
-    alt: "Hero — Payet gateway dashboard overview"
-  - file: "02-before-after.jpg"
-    alt: "Before & after comparison of portal interfaces"
-  - file: "03-design-system.jpg"
-    alt: "Design system component library"
-  - file: "04-user-flows.jpg"
-    alt: "User flow diagrams — recurring payment setup"
-  - file: "05-color-system.jpg"
-    alt: "HSL color system tokens"
-  - file: "06-responsive.jpg"
-    alt: "Responsive layouts — desktop, tablet, mobile"
-  - file: "07-accessibility.jpg"
-    alt: "Accessibility audit results"
-  - file: "08-final.jpg"
-    alt: "Final dashboard — multi-brand theming"
+- **Role:** Lead Product Designer / Consultant
+- **Duration:** 3 Years
+- **Team:** Product Manager, Developers, Designers, QA
+- **Tools & Methods:** Figma, Design Systems, Agile, Lean UX, Accessibility Review, Internal Interviews, HSL Color System
+
 ---
 
-# Executive Summary
+## 01. Executive Summary
 
 Payet is a white-label payment gateway that enables financial, automotive, and healthcare institutions to manage recurring and one-time payments under their own brand.
 
@@ -60,7 +26,9 @@ By simplifying user flows and improving scalability, the platform became easier 
 - −40% design-to-development time
 - Unified experience across all portals
 
-# Discovery
+---
+
+## 02. Discovery
 
 Payet operates through three main environments:
 
@@ -72,7 +40,9 @@ Each environment worked, but they did not feel connected. Navigation patterns ch
 
 The discovery made one thing clear: the product did not need just a redesign. **It needed a system.**
 
-# Core Challenge
+---
+
+## 03. Core Challenge
 
 The lack of consistency created real problems:
 
@@ -85,7 +55,9 @@ At the same time, the business was growing. The platform needed to scale without
 
 The challenge was to **modernize the experience** while keeping the system stable and adaptable.
 
-# Strategy
+---
+
+## 04. The Strategy
 
 The solution focused on building a strong foundation instead of redesigning isolated screens.
 
@@ -95,7 +67,9 @@ The goal was to make the platform easier to use, faster to build, and scalable a
 
 This was not a one-time redesign. It was a shift toward a more structured and collaborative way of building products.
 
-# Research & Insights
+---
+
+## 05. Research & Insights
 
 Because of compliance restrictions, direct user interviews were not possible. Insights came from sales, support, and development teams who worked closely with users.
 
@@ -107,7 +81,9 @@ Three key personas guided the work:
 
 These personas helped ensure that design decisions were grounded in **real needs, not assumptions**.
 
-# Planning the Redesign
+---
+
+## 06. Planning the Redesign
 
 A full UI audit revealed inconsistencies in layout, typography, and components across the platform.
 
@@ -121,7 +97,9 @@ To align teams, a **Design Principles Workshop** was held with stakeholders from
 
 These principles guided every decision moving forward.
 
-# Building the Foundation
+---
+
+## 07. Building the Foundation
 
 The team evaluated existing design libraries but found them too rigid for a white-label platform. A **custom design system** was built to support flexibility while maintaining consistency.
 
@@ -133,7 +111,9 @@ The team evaluated existing design libraries but found them too rigid for a whit
 
 This system became the foundation for all future work.
 
-# Design Language
+---
+
+## 08. Design Language
 
 The design language defined the structure and behavior of the product:
 
@@ -145,7 +125,9 @@ The design language defined the structure and behavior of the product:
 
 This created a shared visual and functional language across teams.
 
-# Designing While Rebuilding
+---
+
+## 09. Designing While Rebuilding
 
 The system and the product were built at the same time.
 
@@ -153,7 +135,9 @@ Each sprint involved designing, testing, and refining components in real use. De
 
 This iterative approach allowed continuous improvement without disrupting the platform.
 
-# Improving the Product
+---
+
+## 10. Improving the Product
 
 With the system in place, key flows were improved:
 
@@ -164,7 +148,9 @@ With the system in place, key flows were improved:
 
 Each improvement made the product clearer and more efficient.
 
-# The System in Action
+---
+
+## 11. The System in Action
 
 The design system became part of daily work across teams:
 
@@ -174,7 +160,9 @@ The design system became part of daily work across teams:
 
 The system enabled the product to scale while maintaining quality.
 
-# Results
+---
+
+## 12. Results
 
 | Focus Area | Before | Outcome |
 | --- | --- | --- |
@@ -183,7 +171,9 @@ The system enabled the product to scale while maintaining quality.
 | **Design-to-Dev Time** | Slow delivery cycles | −40% design-to-development time with reusable components |
 | **Customer Transactions** | Inconsistent experience | +4% recurring customer transactions through clearer flows |
 
-# Reflections
+---
+
+## 13. Reflections
 
 Building a design system while redesigning a live product required balancing **improvement with stability**.
 
@@ -191,7 +181,9 @@ The biggest challenge was alignment. Moving from individual screens to a shared 
 
 Once teams experienced the benefits, the system became part of how they worked.
 
-# Lessons Learned
+---
+
+## 14. Lessons Learned
 
 - Building and scaling at the same time requires a **structured approach**
 - Design systems are as much about **culture** as they are about components
@@ -199,7 +191,9 @@ Once teams experienced the benefits, the system became part of how they worked.
 - **Iteration** leads to better adoption than large changes
 - Clear **principles** make scaling possible
 
-# Closing Thought
+---
+
+## 15. Closing Thought
 
 This project transformed more than the interface.
 

@@ -1,61 +1,15 @@
----
-slug: "trading-automation"
-title:
-  - text: "Trading"
-    style: "bold"
-  - text: "Automation"
-    style: "italic"
-  - text: "Interface"
-    style: "normal"
-  - text: "Redesign"
-    style: "semibold-italic"
-category: "experience"
-colorScheme: "dark"
+# Vastage — Designing a Scalable Trading Platform Experience
 
-metadata:
-  - label: "Role"
-    value: "Product Designer / Consultant"
-  - label: "Timeline"
-    value: "1 Year"
-  - label: "Team"
-    value: "Product Owner, Developers, Designers"
-  - label: "Deliverables"
-    value: "UI Kit, Style Guide, High-Fidelity Prototypes"
+## Metadata
 
-gallery:
-  - file: "01-hero-payet-across-devices.png"
-    alt: "Hero — Payet across devices"
-  - file: "02-user-personas.jpg"
-    alt: "User Personas"
-  - file: "03-process-overview.jpg"
-    alt: "Process Overview"
-  - file: "04-design-system-framework.png"
-    alt: "Design System Framework"
-  - file: "05-color-scheme-foundations.png"
-    alt: "Color Scheme Foundations"
-  - file: "06-color-scheme-generator.svg"
-    alt: "Color Scheme Generator"
-  - file: "07-color-theming-output.svg"
-    alt: "Color Theming Output"
-  - file: "08-typography-system.jpg"
-    alt: "Typography System"
-  - file: "09-grid-system-responsive.png"
-    alt: "Grid System Responsive"
-  - file: "10-portal-green-theme.svg"
-    alt: "Portal Green Theme"
-  - file: "11-portal-pink-theme.svg"
-    alt: "Portal Pink Theme"
-  - file: "12-portal-blue-theme.svg"
-    alt: "Portal Blue Theme"
-  - file: "13-dashboard-detail.jpg"
-    alt: "Dashboard Detail"
-  - file: "14-tablet-responsive.jpg"
-    alt: "Tablet Responsive"
-  - file: "15-mobile-responsive.jpg"
-    alt: "Mobile Responsive"
+- **Role:** Product Designer / Consultant
+- **Duration:** 1 Year
+- **Team:** Product Owner, Developers, Designers
+- **Deliverables:** UI Kit, Style Guide, High-Fidelity Prototypes
+
 ---
 
-# Executive Summary
+## 01. Executive Summary
 
 Vastedge is a German company specializing in trading automation systems for financial institutions. Their product, **Varepo**, supports repo transactions, which are essential for short-term liquidity and collateral management in banking.
 
@@ -70,7 +24,9 @@ The solution focused on building a **scalable UI system**, redesigning key flows
 - Established reusable design foundations for future systems
 - Supported successful client acquisition
 
-# Discovery: Understanding the Product
+---
+
+## 02. Discovery: Understanding the Product
 
 Varepo is a platform designed to manage **repo transactions**, a financial mechanism where institutions temporarily sell securities in exchange for liquidity, with an agreement to repurchase them later.
 
@@ -83,7 +39,9 @@ The system was powerful but complex, with dense data, multiple workflows, and te
 
 The initial discovery revealed a gap between **technical capability and user experience**.
 
-# Uncovering the Core Challenge
+---
+
+## 03. Uncovering the Core Challenge
 
 The platform faced three main challenges:
 
@@ -95,7 +53,9 @@ At the same time, the product needed to impress a high-level banking client.
 
 The challenge was not only to redesign, but to **elevate the product to enterprise-level expectations**.
 
-# The Strategy
+---
+
+## 04. The Strategy
 
 The approach focused on creating a **scalable and reusable design foundation** while improving usability.
 
@@ -107,7 +67,9 @@ Instead of redesigning isolated screens, the strategy was to:
 
 The goal was to create a system that could be reused across Vastedge's products, not just Varepo.
 
-# Research & Insights
+---
+
+## 05. Research & Insights
 
 The initial analysis focused on reviewing existing UI assets, documentation, and workflows.
 
@@ -120,7 +82,9 @@ Key findings included:
 
 These insights showed that the main issue was not feature complexity, but **lack of structure and guidance**.
 
-# Planning the Redesign
+---
+
+## 06. Planning the Redesign
 
 To align the redesign, a structured approach was defined:
 
@@ -131,7 +95,9 @@ To align the redesign, a structured approach was defined:
 
 The goal was to reduce friction, improve usability, and create a scalable system that could support both D2D and D2C products.
 
-# Building the Foundation
+---
+
+## 07. Building the Foundation
 
 A **UI system** was created using atomic design methodology, breaking the interface into:
 
@@ -147,7 +113,9 @@ This structure enabled:
 
 The foundation focused on reusability and clarity.
 
-# Building the Design Language
+---
+
+## 08. Building the Design Language
 
 A cohesive design language was established to unify the product:
 
@@ -158,7 +126,9 @@ A cohesive design language was established to unify the product:
 
 This created a visual system that supported both usability and technical constraints.
 
-# Designing While Adapting to Velox
+---
+
+## 09. Designing While Adapting to Velox
 
 One of the main challenges was working within the **Velox framework**, which dictated certain structural and technical limitations.
 
@@ -170,7 +140,9 @@ Instead of resisting those constraints, the design adapted to them:
 
 This collaboration ensured that designs were not only ideal, but also buildable.
 
-# Improving the Product
+---
+
+## 10. Improving the Product
 
 The redesign focused on simplifying key workflows:
 
@@ -181,7 +153,9 @@ The redesign focused on simplifying key workflows:
 
 High-fidelity prototypes were used to validate flows and communicate solutions clearly to stakeholders.
 
-# The System in Action
+---
+
+## 11. The System in Action
 
 The UI Kit and Style Guide became essential tools for the team:
 
@@ -191,7 +165,9 @@ The UI Kit and Style Guide became essential tools for the team:
 
 The system enabled Vastedge to extend the design to other products, improving efficiency beyond the initial scope.
 
-# Results
+---
+
+## 12. Results
 
 | Focus Area | Before | Outcome |
 | --- | --- | --- |
@@ -201,7 +177,9 @@ The system enabled Vastedge to extend the design to other products, improving ef
 | **Delivery** | Slow, manual processes | Faster design and development cycles |
 | **Business Impact** | Limited client readiness | Enabled enterprise-level presentation and sales |
 
-# Reflections
+---
+
+## 13. Reflections
 
 This project highlighted the importance of balancing **design ambition with technical reality**.
 
@@ -209,14 +187,18 @@ Working within the Velox framework required flexibility and collaboration, showi
 
 The introduction of a UI system shifted the team from reactive design work to a more structured and scalable approach.
 
-# Lessons Learned
+---
+
+## 14. Lessons Learned
 
 - **Structure simplifies complexity** — Breaking down systems into reusable components makes complex products manageable
 - **Constraints drive better solutions** — Working within a framework forces clarity and focus
 - **Consistency improves confidence** — Users trust systems that behave predictably
 - **Design systems create long-term value** — They extend beyond a single product and enable future growth
 
-# Closing Thought
+---
+
+## 15. Closing Thought
 
 What began as a redesign became a foundation for scalability.
 

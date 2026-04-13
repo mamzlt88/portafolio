@@ -1,47 +1,15 @@
----
-slug: "unified-health"
-title:
-  - text: "Process"
-    style: "bold"
-  - text: "Redesign"
-    style: "italic"
-  - text: "&"
-    style: "normal"
-  - text: "Unification"
-    style: "semibold-italic"
-category: "experience"
-colorScheme: "dark"
+# UnifiedHealth Solutions — Process Redesign & Unification on Salesforce Service Cloud
 
-metadata:
-  - label: "Role"
-    value: "UX Lead"
-  - label: "Timeline"
-    value: "4 Months (Discovery Phase)"
-  - label: "Team"
-    value: "Product Lead, Product Strategist, Solutions Architect, 2 Business Analysts, UX Lead"
-  - label: "Tools Methods"
-    value: "Process Mapping, Stakeholder Interviews, OOUX (ORCA), Salesforce Service Cloud, Wireframing"
+## Metadata
 
-gallery:
-  - file: "01-hero.jpg"
-    alt: "Hero — UnifiedHealth process overview"
-  - file: "02-ecosystem.jpg"
-    alt: "Ecosystem mapping across acquired companies"
-  - file: "03-process-map.jpg"
-    alt: "Current state process mapping"
-  - file: "04-ooux.jpg"
-    alt: "OOUX ORCA analysis"
-  - file: "05-salesforce.jpg"
-    alt: "Salesforce Service Cloud alignment"
-  - file: "06-wireframes.jpg"
-    alt: "Wireframes — unified process"
-  - file: "07-future-state.jpg"
-    alt: "Future state process model"
-  - file: "08-deliverables.jpg"
-    alt: "Final deliverables overview"
+- **Role:** UX Lead
+- **Duration:** 4 Months (Discovery Phase)
+- **Team:** Product Lead, Product Strategist, Solutions Architect, 2 Business Analysts, UX Lead
+- **Tools & Methods:** Process Mapping, Stakeholder Interviews, OOUX (ORCA), Salesforce Service Cloud, Wireframing
+
 ---
 
-# Executive Summary
+## 01. Executive Summary
 
 UnifiedHealth Solutions experienced rapid growth through multiple acquisitions. While this expanded their market presence, it also created fragmented processes, duplicated work, and inconsistent service delivery across products.
 
@@ -56,7 +24,9 @@ The work focused on understanding the current state, defining a scalable process
 - Created a scalable foundation aligned with Salesforce
 - Identified automation opportunities to improve speed and consistency
 
-# Discovery: Understanding the Ecosystem
+---
+
+## 02. Discovery: Understanding the Ecosystem
 
 The organization operated through multiple acquired companies, each with its own workflows, tools, and service models.
 
@@ -66,7 +36,9 @@ This created a complex operational landscape where visibility was limited and co
 
 The discovery phase focused on understanding how these different parts worked together and where the main friction points existed.
 
-# Uncovering the Core Challenge
+---
+
+## 03. Uncovering the Core Challenge
 
 The main issue was **process fragmentation**.
 
@@ -85,7 +57,9 @@ This led to:
 
 The challenge was to create a **unified process** that could work across all products while remaining flexible enough to support future growth.
 
-# The Strategy
+---
+
+## 04. The Strategy
 
 The approach focused on two key directions:
 
@@ -109,7 +83,9 @@ Additional focus areas included:
 
 This strategy ensured that the solution was not only consistent but also technically viable and scalable.
 
-# Research & Insights
+---
+
+## 05. Research & Insights
 
 Research was conducted through interviews with stakeholders and users involved in the processes.
 
@@ -121,7 +97,9 @@ This helped identify:
 
 **Key insight:** The problem was not a lack of processes, but a lack of **alignment and structure** across them.
 
-# Planning the Redesign
+---
+
+## 06. Planning the Redesign
 
 The team structured the work into clear phases:
 
@@ -141,7 +119,9 @@ Key questions guided the work:
 
 This created a clear path from understanding the current state to defining a future state.
 
-# Building the Foundation
+---
+
+## 07. Building the Foundation
 
 The foundation of the solution was a **unified process model** that could be applied across all products.
 
@@ -157,7 +137,9 @@ The process was designed to:
 - Enable scalability
 - Support integration with Salesforce
 
-# Structuring the System (OOUX + Salesforce Alignment)
+---
+
+## 08. Structuring the System (OOUX + Salesforce Alignment)
 
 To ensure the process aligned with the system, OOUX (ORCA analysis) was used.
 
@@ -176,7 +158,9 @@ The processes were then mapped into Salesforce Service Cloud:
 
 This ensured that the solution was both conceptually clear and technically implementable.
 
-# Designing While Structuring
+---
+
+## 09. Designing While Structuring
 
 The design phase translated processes into system flows and interfaces.
 
@@ -194,7 +178,9 @@ Design decisions balanced:
 
 This ensured the solution worked across all dimensions.
 
-# Improving the Process
+---
+
+## 10. Improving the Process
 
 The redesigned process introduced:
 
@@ -206,7 +192,9 @@ The redesigned process introduced:
 
 This made operations more efficient and predictable.
 
-# The Solution in Action
+---
+
+## 11. The Solution in Action
 
 The outputs of the discovery phase included:
 
@@ -217,7 +205,9 @@ The outputs of the discovery phase included:
 
 These deliverables provided a strong foundation for implementation.
 
-# Results
+---
+
+## 12. Results
 
 | Focus Area | Before | Outcome |
 | --- | --- | --- |
@@ -227,7 +217,9 @@ These deliverables provided a strong foundation for implementation.
 | **Consistency** | Different approaches per product | Aligned service delivery |
 | **Scalability** | Difficult to expand | Foundation for growth |
 
-# Reflections
+---
+
+## 13. Reflections
 
 This project highlighted the complexity of working across multiple systems and teams.
 
@@ -235,7 +227,9 @@ The biggest challenge was not defining a better process, but aligning stakeholde
 
 Balancing business goals, user needs, and Salesforce constraints required continuous collaboration and iteration.
 
-# Lessons Learned
+---
+
+## 14. Lessons Learned
 
 - Process clarity is essential for scalability
 - Alignment across teams is as important as system design
@@ -243,7 +237,9 @@ Balancing business goals, user needs, and Salesforce constraints required contin
 - Systems like Salesforce require adaptation, not just implementation
 - Structure enables better decision-making
 
-# Closing Thought
+---
+
+## 15. Closing Thought
 
 This project transformed fragmented operations into a structured and scalable model.
 
