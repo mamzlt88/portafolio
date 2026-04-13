@@ -31,17 +31,34 @@ const EXPERIENCE_ENTRIES: ProjectEntry[] = [
       [{ text: 'Interface', style: 'normal' }, { text: 'Redesign', style: 'semibold-italic' }],
     ],
     x: '6%',
-    y: '20%',
+    y: '12%',
   },
   {
     id: 'white-label',
     lines: [
       [{ text: 'White', style: 'bold' }, { text: 'Label', style: 'italic' }],
       [{ text: 'Payment', style: 'normal' }, { text: 'Gateway', style: 'semibold-italic' }],
-      [{ text: 'Modernization', style: 'italic' }],
     ],
-    x: '69%',
-    y: '60%',
+    x: '60%',
+    y: '12%',
+  },
+  {
+    id: 'sports-media',
+    lines: [
+      [{ text: 'Sports', style: 'bold' }, { text: 'Media', style: 'italic' }],
+      [{ text: 'Digital', style: 'normal' }, { text: 'Ecosystem', style: 'semibold-italic' }],
+    ],
+    x: '6%',
+    y: '55%',
+  },
+  {
+    id: 'unified-health',
+    lines: [
+      [{ text: 'Process', style: 'bold' }, { text: 'Redesign', style: 'italic' }],
+      [{ text: '&', style: 'normal' }, { text: 'Unification', style: 'semibold-italic' }],
+    ],
+    x: '60%',
+    y: '55%',
   },
 ];
 

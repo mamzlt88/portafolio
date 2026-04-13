@@ -15,6 +15,22 @@
       "links": {
         "caseStudy": "/case-studies/white-label"
       }
+    },
+    {
+      "id": "sports-media",
+      "title": "Sports Media Digital Ecosystem",
+      "summary": "Designed the UX foundation for a future-ready sports media platform.",
+      "links": {
+        "caseStudy": "/case-studies/sports-media"
+      }
+    },
+    {
+      "id": "unified-health",
+      "title": "Process Redesign & Unification",
+      "summary": "Redesigned and unified processes on Salesforce Service Cloud.",
+      "links": {
+        "caseStudy": "/case-studies/unified-health"
+      }
     }
   ]
 }

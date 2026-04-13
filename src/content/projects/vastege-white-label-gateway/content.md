@@ -49,52 +49,80 @@ Payet is a white-label payment gateway that enables financial, automotive, and h
 
 Over time, the platform became powerful but fragmented. Each portal looked and behaved differently, creating friction for users and inefficiencies for the business.
 
-To unify the experience and prepare for rapid growth, **a custom design system** and **phased redesign were introduced.**
+To address this, a custom design system and phased redesign were introduced to unify the experience and support long-term growth.
 
-The initiative simplified user flows, reduced technical debt, and created a scalable foundation that supported more than 180 brands.
+By simplifying user flows and improving scalability, the platform became easier to use, faster to evolve, and more reliable. These improvements helped support business growth, with annual payment volume more than doubling from **$7.45B in 2018 to $15.2B in 2020**.
 
-By improving usability and delivery efficiency, **Payet** strengthened engagement and scalability, helping the company more than double its annual payment volume from $7.45 billion in 2018 to $15.2 billion in 2020.
+**Results:** +30% merchant engagement · +4% recurring customer transactions · −40% design-to-development time · Unified experience across all portals
 
-# Context
+# Discovery
 
-Business context, constraints, timelines, stakeholders.
+Payet operates through three main environments:
 
-# Problem Statement
+- **Merchant Portal:** Businesses manage accounts, clients, and payments
+- **End-Customer Portal:** Users make and schedule payments
+- **Admin Portal:** Internal system for configuring merchants and branding
 
-The core UX/Business problems the project addresses.
+Each environment worked, but they did not feel connected. Navigation patterns changed between portals, visual styles were inconsistent, and similar features were rebuilt multiple times.
 
-# Goals & Success Metrics
+The system had grown without a shared structure. What once enabled flexibility was now creating complexity. The product did not need just a redesign — it needed a **system**.
 
-Clear goals and how success is measured (quantitative/qualitative).
+# Core Challenge
 
-# Audience & Research
+The lack of consistency created real problems:
 
-Target users, key insights, research methods (interviews, surveys, analytics).
+- Users struggled with unclear and inconsistent interfaces
+- Developers duplicated work across products
+- New merchants required manual customization
+- Updates were slow and difficult to maintain
 
-# Constraints & Assumptions
+The business was growing. The platform needed to scale without breaking usability or increasing complexity. The challenge was to modernize the experience while keeping the system stable and adaptable.
 
-Tech, compliance, and operational constraints. Assumptions validated or pending.
+# Strategy
 
-# Information Architecture
+The solution focused on building a strong foundation instead of redesigning isolated screens.
 
-IA diagrams, navigation models, content grouping rationale.
+A **custom design system** was introduced to unify all portals under a shared structure, combined with a **phased redesign** to improve the product gradually without disrupting ongoing work.
 
-# Interaction Design
+The goal was to make the platform easier to use, faster to build, and scalable across more than 180 brands. This was not a one-time redesign — it was a shift toward a more structured and collaborative way of building products.
 
-Key flows, wireframes, and behavior patterns.
+# Research
 
-# Visual Design
+Because of compliance restrictions, direct user interviews were not possible. Insights came from sales, support, and development teams who worked closely with users.
 
-Design language, components, accessibility, and responsive considerations.
+Three key personas guided the work:
 
-# Implementation Notes
+**Erin — Developer:** Needs clear documentation and reusable components to reduce rework and improve delivery speed.
 
-Handoff details, tokens, components, and technical decisions.
+**Taylor — Merchant Manager:** Needs simple setup, automation, and visibility into payment activity.
 
-# Outcomes & Impact
+**Sam — End-Customer:** Needs a clear, flexible, and trustworthy payment experience.
 
-Results, metrics, rollout notes, and user feedback.
+# Design System
 
-# Learnings & Next Steps
+The design language defined the structure and behavior of the product:
 
-What worked, what didn't, and prioritized future improvements.
+- **Color:** HSL-based system to support brand customization and accessibility
+- **Grid:** 8px system for consistent layout
+- **Typography:** Clear hierarchy based on a 16px base
+- **Components:** Standardized patterns across all portals
+- **Accessibility:** Built into every element
+
+The system and the product were built at the same time. Each sprint involved designing, testing, and refining components in real use.
+
+# Outcomes
+
+With the system in place, key flows were improved: payment flows simplified, recurring payments made easier, new methods like PayPal and Apple Pay added, and sales tools redesigned — reducing setup time by **40%**.
+
+| Focus Area | Before | Outcome |
+|---|---|---|
+| **Business Scale** | Fragmented system | Unified platform supporting 180+ brands |
+| **User Experience** | Complex and inconsistent | Clear flows and improved usability |
+| **Efficiency** | Slow delivery cycles | −40% design-to-dev time |
+| **Engagement** | Lower adoption | +30% merchant engagement |
+
+# Reflections
+
+Building a design system while redesigning a live product required balancing improvement with stability. The biggest challenge was alignment — moving from individual screens to a shared system required collaboration and trust across teams.
+
+**Lessons:** Building and scaling at the same time requires a structured approach. Design systems are as much about culture as they are about components. Consistency improves both usability and efficiency. Iteration leads to better adoption than large changes.

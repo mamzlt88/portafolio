@@ -238,7 +238,7 @@ function Sidebar({
       <div
         role="complementary"
         aria-label="Case study content"
-        className="fixed top-0 right-0 h-full z-[65] overflow-y-auto transition-transform duration-[400ms]"
+        className="fixed top-0 right-0 h-full z-[65] flex flex-col transition-transform duration-[400ms]"
         style={{
           width: "min(380px, 100vw)",
           background: palette.sidebarBg,
@@ -250,21 +250,20 @@ function Sidebar({
         {/* Vertical title along left edge */}
         <VerticalTitle words={title} />
 
-        {/* Close button */}
-        <button
-          onClick={onToggle}
-          aria-label="Close sidebar"
-          className="absolute top-[16px] left-[16px] z-10 flex items-center justify-center cursor-pointer rounded-full hover:opacity-70 transition-opacity"
-          style={{ width: 40, height: 40, color: palette.text }}
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M18 6L6 18" />
-            <path d="M6 6L18 18" />
-          </svg>
-        </button>
-
-        {/* Content area — offset from the vertical title */}
-        <div className="pl-[48px] pr-[24px] pt-[24px] pb-[80px]">
+        {/* Scrollable content area */}
+        <div className="flex-1 overflow-y-auto pl-[48px] pr-[24px] pt-[24px] pb-[24px]">
+          {/* Close button — in flow, above the pill */}
+          <button
+            onClick={onToggle}
+            aria-label="Close sidebar"
+            className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity mb-[16px]"
+            style={{ width: 32, height: 32, color: palette.text }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 6L6 18" />
+              <path d="M6 6L18 18" />
+            </svg>
+          </button>
           {/* Section pill */}
           {activeSection && (
             <span
@@ -294,10 +293,10 @@ function Sidebar({
                   }}
                 >
                   <span
-                    className="uppercase tracking-[0.1em] shrink-0"
+                    className="uppercase tracking-[0.1em] shrink-0 font-bold"
                     style={{
                       fontSize: 13,
-                      color: palette.muted,
+                      color: palette.text,
                       fontFamily: "'DM Mono', monospace",
                     }}
                   >
@@ -305,7 +304,7 @@ function Sidebar({
                   </span>
                   <span
                     className="text-right"
-                    style={{ fontSize: 15, color: palette.text, maxWidth: "55%" }}
+                    style={{ fontSize: 14, color: palette.muted, maxWidth: "55%" }}
                   >
                     {field.value}
                   </span>
@@ -317,8 +316,14 @@ function Sidebar({
           {/* Section heading */}
           {activeSection?.heading && (
             <h2
-              className="font-bold mb-[16px]"
-              style={{ fontSize: 20, color: palette.text }}
+              className="uppercase mb-[24px] leading-[1.15]"
+              style={{
+                fontSize: 'clamp(1.5rem, 4vw, 1.75rem)',
+                color: palette.text,
+                fontFamily: "'DM Mono', monospace",
+                fontWeight: 700,
+                letterSpacing: '0.04em',
+              }}
             >
               {activeSection.heading}
             </h2>
@@ -326,29 +331,29 @@ function Sidebar({
 
           {/* Section body */}
           <div
-            className="leading-[1.6]"
+            className="leading-[1.7] case-study-prose"
             style={{ fontSize: 15, color: palette.text }}
           >
             {activeSection?.content}
           </div>
         </div>
 
-        {/* Section navigation — bottom arrow */}
+        {/* Section navigation — pinned to bottom */}
         {sections.length > 1 && (
           <div
-            className="sticky bottom-0 left-0 right-0 flex items-center justify-between px-[48px] py-[16px]"
+            className="shrink-0 flex items-center justify-between px-[48px] py-[16px]"
             style={{ background: palette.sidebarBg }}
           >
-            {/* Section dots */}
-            <div className="flex gap-[6px]">
+            {/* Section dashes — left aligned */}
+            <div className="flex gap-[5px] items-center">
               {sections.map((_, idx) => (
                 <button
                   key={idx}
                   onClick={() => onSectionChange(idx)}
-                  className="rounded-full cursor-pointer transition-all duration-200"
+                  className="cursor-pointer transition-all duration-200 rounded-[2px]"
                   style={{
-                    width: idx === activeSectionIdx ? 20 : 8,
-                    height: 8,
+                    width: idx === activeSectionIdx ? 18 : 8,
+                    height: 4,
                     background:
                       idx === activeSectionIdx ? palette.accent : palette.border,
                   }}
@@ -366,7 +371,7 @@ function Sidebar({
               style={{ color: palette.text }}
               aria-label="Next section"
             >
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M5 12h14" />
                 <path d="M12 5l7 7-7 7" />
               </svg>
