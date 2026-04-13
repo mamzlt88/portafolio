@@ -133,10 +133,10 @@ const WORD_FONT: Record<StyledWord["style"], string> = {
   normal: "font-['Poppins:Regular',sans-serif] not-italic",
 };
 
-function VerticalTitle({ words }: { words: StyledWord[] }) {
+function VerticalTitle({ words, color }: { words: StyledWord[]; color?: string }) {
   return (
     <div
-      className="absolute left-[14px] top-1/2 -translate-y-1/2 origin-center"
+      className="absolute left-[20px] top-1/2 -translate-y-1/2 origin-center"
       style={{ writingMode: "vertical-rl", transform: "rotate(180deg) translateX(50%)" }}
     >
       <div className="flex gap-[6px] items-baseline text-nowrap whitespace-pre leading-[1.12]">
@@ -144,7 +144,7 @@ function VerticalTitle({ words }: { words: StyledWord[] }) {
           <span
             key={i}
             className={`${WORD_FONT[w.style]} tracking-[-0.04em] text-[14px] uppercase`}
-            style={{ letterSpacing: "0.15em" }}
+            style={{ letterSpacing: "0.15em", color: color ?? "inherit" }}
           >
             {w.text}
           </span>
@@ -158,6 +158,9 @@ function VerticalTitle({ words }: { words: StyledWord[] }) {
 /*  Sidebar                                                            */
 /* ------------------------------------------------------------------ */
 
+/** Width of the visible spine when the drawer is collapsed */
+const SPINE_WIDTH = 48;
+
 interface SidebarProps {
   open: boolean;
   onToggle: () => void;
@@ -167,6 +170,8 @@ interface SidebarProps {
   activeSectionIdx: number;
   onSectionChange: (idx: number) => void;
   palette: ReturnType<typeof usePalette>;
+  onToggleTheme: () => void;
+  scheme: "dark" | "light";
 }
 
 function Sidebar({
@@ -178,6 +183,8 @@ function Sidebar({
   activeSectionIdx,
   onSectionChange,
   palette,
+  onToggleTheme,
+  scheme,
 }: SidebarProps) {
   const activeSection = sections[activeSectionIdx];
 
@@ -194,192 +201,214 @@ function Sidebar({
   }, [handleKeyDown]);
 
   return (
-    <>
-      {/* Toggle button — always visible */}
-      <button
-        onClick={onToggle}
-        aria-label="Toggle case study sidebar"
-        aria-expanded={open}
-        className="fixed right-0 top-1/2 -translate-y-1/2 z-[70] flex items-center justify-center cursor-pointer transition-transform duration-300 md:block hidden"
-        style={{
-          width: 44,
-          height: 44,
-          background: palette.sidebarBg,
-          borderRadius: "8px 0 0 8px",
-          transform: open
-            ? "translateY(-50%) translateX(0)"
-            : "translateY(-50%) translateX(0)",
-        }}
-      >
-        <span className="text-[18px]" style={{ color: palette.text }}>
-          {open ? "→" : "←"}
-        </span>
-      </button>
+    <div
+      role="complementary"
+      aria-label="Case study content"
+      className="fixed top-0 right-0 h-full z-[65] flex flex-col transition-[transform,box-shadow] duration-[400ms]"
+      style={{
+        width: "clamp(380px, 30vw, 520px)",
+        maxWidth: "100vw",
+        background: palette.sidebarBg,
+        transform: open
+          ? "translateX(0)"
+          : `translateX(calc(100% - ${SPINE_WIDTH}px))`,
+        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+        boxShadow: open ? "rgba(0,0,0,0.3) -10px 0 30px" : "none",
+      }}
+    >
+      {/* Vertical title along left edge — always visible (spine) */}
+      <VerticalTitle words={title} color={palette.text} />
 
-      {/* Mobile toggle — bottom-right */}
-      <button
-        onClick={onToggle}
-        aria-label="Toggle case study sidebar"
-        aria-expanded={open}
-        className="fixed right-[16px] bottom-[16px] z-[70] flex items-center justify-center cursor-pointer md:hidden"
-        style={{
-          width: 44,
-          height: 44,
-          background: palette.sidebarBg,
-          borderRadius: 8,
-        }}
-      >
-        <span className="text-[18px]" style={{ color: palette.text }}>
-          {open ? "→" : "←"}
-        </span>
-      </button>
-
-      {/* Sidebar panel */}
-      <div
-        role="complementary"
-        aria-label="Case study content"
-        className="fixed top-0 right-0 h-full z-[65] flex flex-col transition-transform duration-[400ms]"
-        style={{
-          width: "min(380px, 100vw)",
-          background: palette.sidebarBg,
-          transform: open ? "translateX(0)" : "translateX(100%)",
-          transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-          boxShadow: open ? "rgba(0,0,0,0.3) -10px 0 30px" : "none",
-        }}
-      >
-        {/* Vertical title along left edge */}
-        <VerticalTitle words={title} />
-
-        {/* Scrollable content area */}
-        <div className="flex-1 overflow-y-auto pl-[48px] pr-[24px] pt-[24px] pb-[24px]">
-          {/* Close button — in flow, above the pill */}
-          <button
-            onClick={onToggle}
-            aria-label="Close sidebar"
-            className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity mb-[16px]"
-            style={{ width: 32, height: 32, color: palette.text }}
+      {/* Top bar — arrow toggle (left in spine) + theme toggle (right, open only) */}
+      <div className="shrink-0 flex items-center justify-between px-[6px] pt-[16px] pb-[8px]">
+        {/* Arrow toggle — always in the left 48px zone (spine) */}
+        <button
+          onClick={onToggle}
+          aria-label={open ? "Collapse sidebar" : "Expand sidebar"}
+          aria-expanded={open}
+          className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-all rounded-full"
+          style={{
+            width: 36,
+            height: 36,
+            color: palette.text,
+            border: `1.5px solid ${palette.border}`,
+          }}
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            style={{
+              transform: open ? "rotate(0deg)" : "rotate(180deg)",
+              transition: "transform 300ms cubic-bezier(0.4, 0, 0.2, 1)",
+            }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 6L6 18" />
-              <path d="M6 6L18 18" />
-            </svg>
-          </button>
-          {/* Section pill */}
-          {activeSection && (
-            <span
-              className="inline-block px-[12px] py-[4px] rounded-[4px] text-[12px] uppercase tracking-[0.1em] mb-[32px]"
-              style={{
-                background: palette.accent,
-                color: "#000",
-                fontFamily: "'DM Mono', monospace",
-              }}
-            >
-              {activeSection.label}
-            </span>
-          )}
+            <path d="M5 12h14" />
+            <path d="M12 5l7 7-7 7" />
+          </svg>
+        </button>
 
-          {/* Metadata block */}
-          {activeSectionIdx === 0 && metadata.length > 0 && (
-            <div className="mb-[40px]">
-              {metadata.map((field, idx) => (
-                <div
-                  key={field.label}
-                  className="flex justify-between py-[12px]"
+        {/* Dark / light toggle — visible only when open */}
+        <button
+          onClick={onToggleTheme}
+          aria-label={`Switch to ${scheme === "dark" ? "light" : "dark"} mode`}
+          className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity rounded-full"
+          style={{
+            width: 36,
+            height: 36,
+            color: palette.text,
+            opacity: open ? 1 : 0,
+            pointerEvents: open ? "auto" : "none",
+            transition: "opacity 200ms",
+          }}
+        >
+          {scheme === "dark" ? (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="5" />
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+            </svg>
+          ) : (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          )}
+        </button>
+      </div>
+
+      {/* Scrollable content area */}
+      <div
+        className="flex-1 overflow-y-auto pl-[48px] pr-[24px] pb-[24px]"
+        style={{
+          opacity: open ? 1 : 0,
+          transition: "opacity 250ms ease",
+          pointerEvents: open ? "auto" : "none",
+        }}
+      >
+        {/* Section pill */}
+        {activeSection && (
+          <span
+            className="inline-block px-[12px] py-[4px] rounded-[4px] text-[12px] uppercase tracking-[0.1em] mb-[32px]"
+            style={{
+              background: palette.accent,
+              color: "#000",
+              fontFamily: "'DM Mono', monospace",
+            }}
+          >
+            {activeSection.label}
+          </span>
+        )}
+
+        {/* Metadata block */}
+        {activeSectionIdx === 0 && metadata.length > 0 && (
+          <div className="mb-[40px]">
+            {metadata.map((field, idx) => (
+              <div
+                key={field.label}
+                className="flex justify-between py-[12px]"
+                style={{
+                  borderBottom:
+                    idx < metadata.length - 1
+                      ? `1px solid ${palette.border}`
+                      : "none",
+                }}
+              >
+                <span
+                  className="uppercase tracking-[0.1em] shrink-0 font-bold"
                   style={{
-                    borderBottom:
-                      idx < metadata.length - 1
-                        ? `1px solid ${palette.border}`
-                        : "none",
+                    fontSize: 13,
+                    color: palette.text,
+                    fontFamily: "'DM Mono', monospace",
                   }}
                 >
-                  <span
-                    className="uppercase tracking-[0.1em] shrink-0 font-bold"
-                    style={{
-                      fontSize: 13,
-                      color: palette.text,
-                      fontFamily: "'DM Mono', monospace",
-                    }}
-                  >
-                    {field.label}
-                  </span>
-                  <span
-                    className="text-right"
-                    style={{ fontSize: 14, color: palette.muted, maxWidth: "55%" }}
-                  >
-                    {field.value}
-                  </span>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Section heading */}
-          {activeSection?.heading && (
-            <h2
-              className="uppercase mb-[24px] leading-[1.15]"
-              style={{
-                fontSize: 'clamp(1.5rem, 4vw, 1.75rem)',
-                color: palette.text,
-                fontFamily: "'DM Mono', monospace",
-                fontWeight: 700,
-                letterSpacing: '0.04em',
-              }}
-            >
-              {activeSection.heading}
-            </h2>
-          )}
-
-          {/* Section body */}
-          <div
-            className="leading-[1.7] case-study-prose"
-            style={{ fontSize: 15, color: palette.text }}
-          >
-            {activeSection?.content}
-          </div>
-        </div>
-
-        {/* Section navigation — pinned to bottom */}
-        {sections.length > 1 && (
-          <div
-            className="shrink-0 flex items-center justify-between px-[48px] py-[16px]"
-            style={{ background: palette.sidebarBg }}
-          >
-            {/* Section dashes — left aligned */}
-            <div className="flex gap-[5px] items-center">
-              {sections.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => onSectionChange(idx)}
-                  className="cursor-pointer transition-all duration-200 rounded-[2px]"
-                  style={{
-                    width: idx === activeSectionIdx ? 18 : 8,
-                    height: 4,
-                    background:
-                      idx === activeSectionIdx ? palette.accent : palette.border,
-                  }}
-                  aria-label={`Go to section ${idx + 1}`}
-                />
-              ))}
-            </div>
-
-            {/* Next arrow */}
-            <button
-              onClick={() =>
-                onSectionChange((activeSectionIdx + 1) % sections.length)
-              }
-              className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity"
-              style={{ color: palette.text }}
-              aria-label="Next section"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M5 12h14" />
-                <path d="M12 5l7 7-7 7" />
-              </svg>
-            </button>
+                  {field.label}
+                </span>
+                <span
+                  className="text-right"
+                  style={{ fontSize: 14, color: palette.muted, maxWidth: "55%" }}
+                >
+                  {field.value}
+                </span>
+              </div>
+            ))}
           </div>
         )}
+
+        {/* Section heading */}
+        {activeSection?.heading && (
+          <h2
+            className="uppercase mb-[24px] leading-[1.15]"
+            style={{
+              fontSize: 'clamp(1.5rem, 4vw, 1.75rem)',
+              color: palette.text,
+              fontFamily: "'DM Mono', monospace",
+              fontWeight: 700,
+              letterSpacing: '0.04em',
+            }}
+          >
+            {activeSection.heading}
+          </h2>
+        )}
+
+        {/* Section body */}
+        <div
+          className="leading-[1.7] case-study-prose"
+          style={{ fontSize: 15, color: palette.text }}
+        >
+          {activeSection?.content}
+        </div>
       </div>
-    </>
+
+      {/* Section navigation — pinned to bottom */}
+      {sections.length > 1 && (
+        <div
+          className="shrink-0 flex items-center justify-between px-[48px] py-[16px]"
+          style={{
+            background: palette.sidebarBg,
+            opacity: open ? 1 : 0,
+            transition: "opacity 250ms ease",
+            pointerEvents: open ? "auto" : "none",
+          }}
+        >
+          {/* Section dashes — left aligned */}
+          <div className="flex gap-[5px] items-center">
+            {sections.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => onSectionChange(idx)}
+                className="cursor-pointer transition-all duration-200 rounded-[2px]"
+                style={{
+                  width: idx === activeSectionIdx ? 18 : 8,
+                  height: 4,
+                  background:
+                    idx === activeSectionIdx ? palette.accent : palette.border,
+                }}
+                aria-label={`Go to section ${idx + 1}`}
+              />
+            ))}
+          </div>
+
+          {/* Next arrow */}
+          <button
+            onClick={() =>
+              onSectionChange((activeSectionIdx + 1) % sections.length)
+            }
+            className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity"
+            style={{ color: palette.text }}
+            aria-label="Next section"
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M5 12h14" />
+              <path d="M12 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      )}
+    </div>
   );
 }
 
@@ -565,7 +594,8 @@ export default function CaseStudyLayout({
   colorScheme = "dark",
   onClose,
 }: CaseStudyLayoutProps) {
-  const palette = usePalette(colorScheme);
+  const [scheme, setScheme] = useState<"dark" | "light">(colorScheme);
+  const palette = usePalette(scheme);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeSectionIdx, setActiveSectionIdx] = useState(0);
 
@@ -602,6 +632,8 @@ export default function CaseStudyLayout({
         activeSectionIdx={activeSectionIdx}
         onSectionChange={setActiveSectionIdx}
         palette={palette}
+        onToggleTheme={() => setScheme((s) => (s === "dark" ? "light" : "dark"))}
+        scheme={scheme}
       />
     </div>
   );
