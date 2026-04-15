@@ -599,7 +599,7 @@ export default function CaseStudyLayout({
 }: CaseStudyLayoutProps) {
   const [scheme, setScheme] = useState<"dark" | "light">(colorScheme);
   const palette = usePalette(scheme);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [activeSectionIdx, setActiveSectionIdx] = useState(0);
 
   return (

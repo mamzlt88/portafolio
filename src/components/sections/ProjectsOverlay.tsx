@@ -28,7 +28,7 @@ const EXPERIENCE_ENTRIES: ProjectEntry[] = [
       [{ text: 'Trading', style: 'bold' }, { text: 'Automation', style: 'italic' }],
       [{ text: 'Interface', style: 'normal' }, { text: 'Redesign', style: 'semibold-italic' }],
     ],
-    x: '14%',
+    x: 'calc(14% + 100px)',
     y: '12%',
   },
   {
@@ -46,7 +46,7 @@ const EXPERIENCE_ENTRIES: ProjectEntry[] = [
       [{ text: 'Sports', style: 'bold' }, { text: 'Media', style: 'italic' }],
       [{ text: 'Digital', style: 'normal' }, { text: 'Ecosystem', style: 'semibold-italic' }],
     ],
-    x: '14%',
+    x: 'calc(14% + 100px)',
     y: '55%',
   },
   {
