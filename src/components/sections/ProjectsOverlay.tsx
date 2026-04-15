@@ -28,7 +28,7 @@ const EXPERIENCE_ENTRIES: ProjectEntry[] = [
       [{ text: 'Trading', style: 'bold' }, { text: 'Automation', style: 'italic' }],
       [{ text: 'Interface', style: 'normal' }, { text: 'Redesign', style: 'semibold-italic' }],
     ],
-    x: '6%',
+    x: '14%',
     y: '12%',
   },
   {
@@ -46,7 +46,7 @@ const EXPERIENCE_ENTRIES: ProjectEntry[] = [
       [{ text: 'Sports', style: 'bold' }, { text: 'Media', style: 'italic' }],
       [{ text: 'Digital', style: 'normal' }, { text: 'Ecosystem', style: 'semibold-italic' }],
     ],
-    x: '6%',
+    x: '14%',
     y: '55%',
   },
   {
@@ -59,6 +59,8 @@ const EXPERIENCE_ENTRIES: ProjectEntry[] = [
     y: '55%',
   },
 ];
+
+type FilterTab = 'experience';
 
 const TAB_CONFIG: Record<FilterTab, { bg: string; entries: ProjectEntry[] }> = {
   experience: { bg: '#e1f40b', entries: EXPERIENCE_ENTRIES },

@@ -167,6 +167,8 @@ interface SidebarProps {
   activeSectionIdx: number;
   onSectionChange: (idx: number) => void;
   palette: ReturnType<typeof usePalette>;
+  onToggleTheme: () => void;
+  scheme: "dark" | "light";
 }
 
 function Sidebar({
@@ -178,6 +180,8 @@ function Sidebar({
   activeSectionIdx,
   onSectionChange,
   palette,
+  onToggleTheme,
+  scheme,
 }: SidebarProps) {
   const activeSection = sections[activeSectionIdx];
 
@@ -247,8 +251,37 @@ function Sidebar({
           </svg>
         </button>
 
+        {/* Dark / light toggle — visible only when open */}
+        <button
+          onClick={onToggleTheme}
+          aria-label={`Switch to ${scheme === "dark" ? "light" : "dark"} mode`}
+          className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity rounded-full"
+          style={{
+            width: 36,
+            height: 36,
+            color: palette.text,
+            opacity: open ? 1 : 0,
+            pointerEvents: open ? "auto" : "none",
+            transition: "opacity 200ms",
+            position: "absolute",
+            top: 20,
+            right: 56,
+          }}
+        >
+          {scheme === "dark" ? (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="5" />
+              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
+            </svg>
+          ) : (
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          )}
+        </button>
+
         {/* Content area */}
-        <div className="pl-[24px] md:pl-[48px] pr-[24px] pt-[24px] pb-[80px]">
+        <div className="pl-[24px] md:pl-[48px] pr-[24px] pt-[20px] pb-[80px]" style={{ paddingTop: 20 }}>
           {/* Section pill */}
           {activeSection && (
             <span
@@ -564,7 +597,8 @@ export default function CaseStudyLayout({
   colorScheme = "dark",
   onClose,
 }: CaseStudyLayoutProps) {
-  const palette = usePalette(colorScheme);
+  const [scheme, setScheme] = useState<"dark" | "light">(colorScheme);
+  const palette = usePalette(scheme);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeSectionIdx, setActiveSectionIdx] = useState(0);
 
@@ -675,7 +709,7 @@ export default function CaseStudyLayout({
           <button
             onClick={() => setSidebarOpen((v) => !v)}
             aria-label="Toggle case study details"
-            className="absolute bottom-[20px] flex items-center justify-center cursor-pointer rounded-full hover:opacity-70 transition-opacity"
+            className="absolute bottom-[20px] left-1/2 -translate-x-1/2 flex items-center justify-center cursor-pointer rounded-full hover:opacity-70 transition-opacity"
             style={{ width: 36, height: 36, color: palette.text, background: "rgba(255,255,255,0.1)" }}
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -704,6 +738,8 @@ export default function CaseStudyLayout({
         activeSectionIdx={activeSectionIdx}
         onSectionChange={setActiveSectionIdx}
         palette={palette}
+        onToggleTheme={() => setScheme((s) => (s === "dark" ? "light" : "dark"))}
+        scheme={scheme}
       />
     </div>
   );
