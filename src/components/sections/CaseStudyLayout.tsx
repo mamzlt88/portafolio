@@ -133,10 +133,10 @@ const WORD_FONT: Record<StyledWord["style"], string> = {
   normal: "font-['Poppins:Regular',sans-serif] not-italic",
 };
 
-function VerticalTitle({ words, color }: { words: StyledWord[]; color?: string }) {
+function VerticalTitle({ words }: { words: StyledWord[] }) {
   return (
     <div
-      className="absolute left-[20px] top-1/2 -translate-y-1/2 origin-center"
+      className="absolute left-[14px] top-1/2 -translate-y-1/2 origin-center"
       style={{ writingMode: "vertical-rl", transform: "rotate(180deg) translateX(50%)" }}
     >
       <div className="flex gap-[6px] items-baseline text-nowrap whitespace-pre leading-[1.12]">
@@ -144,7 +144,7 @@ function VerticalTitle({ words, color }: { words: StyledWord[]; color?: string }
           <span
             key={i}
             className={`${WORD_FONT[w.style]} tracking-[-0.04em] text-[14px] uppercase`}
-            style={{ letterSpacing: "0.15em", color: color ?? "inherit" }}
+            style={{ letterSpacing: "0.15em" }}
           >
             {w.text}
           </span>
@@ -158,9 +158,6 @@ function VerticalTitle({ words, color }: { words: StyledWord[]; color?: string }
 /*  Sidebar                                                            */
 /* ------------------------------------------------------------------ */
 
-/** Width of the visible spine when the drawer is collapsed */
-const SPINE_WIDTH = 48;
-
 interface SidebarProps {
   open: boolean;
   onToggle: () => void;
@@ -170,8 +167,6 @@ interface SidebarProps {
   activeSectionIdx: number;
   onSectionChange: (idx: number) => void;
   palette: ReturnType<typeof usePalette>;
-  onToggleTheme: () => void;
-  scheme: "dark" | "light";
 }
 
 function Sidebar({
@@ -183,8 +178,6 @@ function Sidebar({
   activeSectionIdx,
   onSectionChange,
   palette,
-  onToggleTheme,
-  scheme,
 }: SidebarProps) {
   const activeSection = sections[activeSectionIdx];
 
@@ -201,214 +194,171 @@ function Sidebar({
   }, [handleKeyDown]);
 
   return (
-    <div
-      role="complementary"
-      aria-label="Case study content"
-      className="fixed top-0 right-0 h-full z-[65] flex flex-col transition-[transform,box-shadow] duration-[400ms]"
-      style={{
-        width: "clamp(380px, 30vw, 520px)",
-        maxWidth: "100vw",
-        background: palette.sidebarBg,
-        transform: open
-          ? "translateX(0)"
-          : `translateX(calc(100% - ${SPINE_WIDTH}px))`,
-        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
-        boxShadow: open ? "rgba(0,0,0,0.3) -10px 0 30px" : "none",
-      }}
-    >
-      {/* Vertical title along left edge — always visible (spine) */}
-      <VerticalTitle words={title} color={palette.text} />
+    <>
+      {/* Sidebar panel — right on desktop, bottom sheet on mobile */}
+      <div
+        role="complementary"
+        aria-label="Case study content"
+        className={`sidebar-panel absolute z-[70] overflow-y-auto transition-transform duration-[400ms] ${open ? "sidebar-open" : "sidebar-closed"}`}
+        style={{
+          background: palette.sidebarBg,
+          transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+          boxShadow: open ? "rgba(0,0,0,0.3) 0 -10px 30px" : "none",
+        }}
+      >
+        <style>{`
+          .sidebar-panel {
+            bottom: 0; left: 0; right: 0;
+            width: 100%; max-height: 70vh;
+            border-radius: 16px 16px 0 0;
+          }
+          .sidebar-panel.sidebar-closed { transform: translateY(100%); }
+          .sidebar-panel.sidebar-open { transform: translateY(0); }
+          @media (min-width: 768px) {
+            .sidebar-panel {
+              top: 0; bottom: auto; left: auto; right: 0;
+              width: min(380px, 100vw); max-height: 100%; height: 100%;
+              border-radius: 0;
+            }
+            .sidebar-panel.sidebar-closed { transform: translateX(100%); }
+            .sidebar-panel.sidebar-open { transform: translateX(0); }
+          }
+        `}</style>
+        {/* Drag handle — mobile only */}
+        <div className="flex justify-center pt-[10px] pb-[6px] md:hidden">
+          <div style={{ width: 40, height: 4, borderRadius: 2, background: palette.border }} />
+        </div>
 
-      {/* Top bar — arrow toggle (left in spine) + theme toggle (right, open only) */}
-      <div className="shrink-0 flex items-center justify-between px-[6px] pt-[16px] pb-[8px]">
-        {/* Arrow toggle — always in the left 48px zone (spine) */}
+        {/* Vertical title along left edge — desktop only */}
+        <div className="hidden md:block">
+          <VerticalTitle words={title} />
+        </div>
+
+        {/* Close button */}
         <button
           onClick={onToggle}
-          aria-label={open ? "Collapse sidebar" : "Expand sidebar"}
-          aria-expanded={open}
-          className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-all rounded-full"
-          style={{
-            width: 36,
-            height: 36,
-            color: palette.text,
-            border: `1.5px solid ${palette.border}`,
-          }}
+          aria-label="Close sidebar"
+          className="absolute top-[16px] right-[16px] md:left-[16px] md:right-auto z-10 flex items-center justify-center cursor-pointer rounded-full hover:opacity-70 transition-opacity"
+          style={{ width: 40, height: 40, color: palette.text }}
         >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            style={{
-              transform: open ? "rotate(0deg)" : "rotate(180deg)",
-              transition: "transform 300ms cubic-bezier(0.4, 0, 0.2, 1)",
-            }}
-          >
-            <path d="M5 12h14" />
-            <path d="M12 5l7 7-7 7" />
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 6L6 18" />
+            <path d="M6 6L18 18" />
           </svg>
         </button>
 
-        {/* Dark / light toggle — visible only when open */}
-        <button
-          onClick={onToggleTheme}
-          aria-label={`Switch to ${scheme === "dark" ? "light" : "dark"} mode`}
-          className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity rounded-full"
-          style={{
-            width: 36,
-            height: 36,
-            color: palette.text,
-            opacity: open ? 1 : 0,
-            pointerEvents: open ? "auto" : "none",
-            transition: "opacity 200ms",
-          }}
-        >
-          {scheme === "dark" ? (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="5" />
-              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
-            </svg>
-          ) : (
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-            </svg>
+        {/* Content area */}
+        <div className="pl-[24px] md:pl-[48px] pr-[24px] pt-[24px] pb-[80px]">
+          {/* Section pill */}
+          {activeSection && (
+            <span
+              className="inline-block px-[12px] py-[4px] rounded-[4px] text-[12px] uppercase tracking-[0.1em] mb-[32px]"
+              style={{
+                background: palette.accent,
+                color: "#000",
+                fontFamily: "'DM Mono', monospace",
+              }}
+            >
+              {activeSection.label}
+            </span>
           )}
-        </button>
-      </div>
 
-      {/* Scrollable content area */}
-      <div
-        className="flex-1 overflow-y-auto pl-[48px] pr-[24px] pb-[24px]"
-        style={{
-          opacity: open ? 1 : 0,
-          transition: "opacity 250ms ease",
-          pointerEvents: open ? "auto" : "none",
-        }}
-      >
-        {/* Section pill */}
-        {activeSection && (
-          <span
-            className="inline-block px-[12px] py-[4px] rounded-[4px] text-[12px] uppercase tracking-[0.1em] mb-[32px]"
-            style={{
-              background: palette.accent,
-              color: "#000",
-              fontFamily: "'DM Mono', monospace",
-            }}
-          >
-            {activeSection.label}
-          </span>
-        )}
-
-        {/* Metadata block */}
-        {activeSectionIdx === 0 && metadata.length > 0 && (
-          <div className="mb-[40px]">
-            {metadata.map((field, idx) => (
-              <div
-                key={field.label}
-                className="flex justify-between py-[12px]"
-                style={{
-                  borderBottom:
-                    idx < metadata.length - 1
-                      ? `1px solid ${palette.border}`
-                      : "none",
-                }}
-              >
-                <span
-                  className="uppercase tracking-[0.1em] shrink-0 font-bold"
+          {/* Metadata block */}
+          {activeSectionIdx === 0 && metadata.length > 0 && (
+            <div className="mb-[40px]">
+              {metadata.map((field, idx) => (
+                <div
+                  key={field.label}
+                  className="flex justify-between py-[12px]"
                   style={{
-                    fontSize: 13,
-                    color: palette.text,
-                    fontFamily: "'DM Mono', monospace",
+                    borderBottom:
+                      idx < metadata.length - 1
+                        ? `1px solid ${palette.border}`
+                        : "none",
                   }}
                 >
-                  {field.label}
-                </span>
-                <span
-                  className="text-right"
-                  style={{ fontSize: 14, color: palette.muted, maxWidth: "55%" }}
-                >
-                  {field.value}
-                </span>
-              </div>
-            ))}
+                  <span
+                    className="uppercase tracking-[0.1em] shrink-0"
+                    style={{
+                      fontSize: 13,
+                      color: palette.muted,
+                      fontFamily: "'DM Mono', monospace",
+                    }}
+                  >
+                    {field.label}
+                  </span>
+                  <span
+                    className="text-right"
+                    style={{ fontSize: 15, color: palette.text, maxWidth: "55%" }}
+                  >
+                    {field.value}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Section heading */}
+          {activeSection?.heading && (
+            <h2
+              className="font-bold mb-[16px]"
+              style={{ fontSize: 20, color: palette.text }}
+            >
+              {activeSection.heading}
+            </h2>
+          )}
+
+          {/* Section body */}
+          <div
+            className="leading-[1.6]"
+            style={{ fontSize: 15, color: palette.text }}
+          >
+            {activeSection?.content}
+          </div>
+        </div>
+
+        {/* Section navigation — bottom arrow */}
+        {sections.length > 1 && (
+          <div
+            className="sticky bottom-0 left-0 right-0 flex items-center justify-between px-[48px] py-[16px]"
+            style={{ background: palette.sidebarBg }}
+          >
+            {/* Section dots */}
+            <div className="flex gap-[6px]">
+              {sections.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => onSectionChange(idx)}
+                  className="rounded-full cursor-pointer transition-all duration-200"
+                  style={{
+                    width: idx === activeSectionIdx ? 20 : 8,
+                    height: 8,
+                    background:
+                      idx === activeSectionIdx ? palette.accent : palette.border,
+                  }}
+                  aria-label={`Go to section ${idx + 1}`}
+                />
+              ))}
+            </div>
+
+            {/* Next arrow */}
+            <button
+              onClick={() =>
+                onSectionChange((activeSectionIdx + 1) % sections.length)
+              }
+              className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity"
+              style={{ color: palette.text }}
+              aria-label="Next section"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14" />
+                <path d="M12 5l7 7-7 7" />
+              </svg>
+            </button>
           </div>
         )}
-
-        {/* Section heading */}
-        {activeSection?.heading && (
-          <h2
-            className="uppercase mb-[24px] leading-[1.15]"
-            style={{
-              fontSize: 'clamp(1.5rem, 4vw, 1.75rem)',
-              color: palette.text,
-              fontFamily: "'DM Mono', monospace",
-              fontWeight: 700,
-              letterSpacing: '0.04em',
-            }}
-          >
-            {activeSection.heading}
-          </h2>
-        )}
-
-        {/* Section body */}
-        <div
-          className="leading-[1.7] case-study-prose"
-          style={{ fontSize: 15, color: palette.text }}
-        >
-          {activeSection?.content}
-        </div>
       </div>
-
-      {/* Section navigation — pinned to bottom */}
-      {sections.length > 1 && (
-        <div
-          className="shrink-0 flex items-center justify-between px-[48px] py-[16px]"
-          style={{
-            background: palette.sidebarBg,
-            opacity: open ? 1 : 0,
-            transition: "opacity 250ms ease",
-            pointerEvents: open ? "auto" : "none",
-          }}
-        >
-          {/* Section dashes — left aligned */}
-          <div className="flex gap-[5px] items-center">
-            {sections.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => onSectionChange(idx)}
-                className="cursor-pointer transition-all duration-200 rounded-[2px]"
-                style={{
-                  width: idx === activeSectionIdx ? 18 : 8,
-                  height: 4,
-                  background:
-                    idx === activeSectionIdx ? palette.accent : palette.border,
-                }}
-                aria-label={`Go to section ${idx + 1}`}
-              />
-            ))}
-          </div>
-
-          {/* Next arrow */}
-          <button
-            onClick={() =>
-              onSectionChange((activeSectionIdx + 1) % sections.length)
-            }
-            className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity"
-            style={{ color: palette.text }}
-            aria-label="Next section"
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14" />
-              <path d="M12 5l7 7-7 7" />
-            </svg>
-          </button>
-        </div>
-      )}
-    </div>
+    </>
   );
 }
 
@@ -423,159 +373,179 @@ function Gallery({
   items: GalleryItem[];
   palette: ReturnType<typeof usePalette>;
 }) {
-  const wrapperRef = useRef<HTMLDivElement>(null);
-  const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const sceneRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
+  // Split: hero (first image) is a static bg, rest animate
+  const heroItem = items[0];
+  const animItems = items.slice(1);
+
   useEffect(() => {
-    const wrapper = wrapperRef.current;
-    if (!wrapper) return;
+    const track = trackRef.current;
+    const scene = sceneRef.current;
+    const scroller = track?.parentElement;
+    if (!track || !scene || !scroller || animItems.length === 0) return;
+
+    const cards = cardRefs.current.filter(Boolean) as HTMLElement[];
+    if (cards.length === 0) return;
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
-      cardRefs.current.forEach((el) => {
-        if (el) { el.style.opacity = "1"; el.style.transform = "scale(1)"; }
-      });
+      cards.forEach((el) => { el.style.opacity = "1"; el.style.transform = "scale(1)"; });
       return;
     }
 
-    let lenisInstance: any = null;
-    let raf = 0;
-    let cancelled = false;
+    // Size the scene to match the scroller's visible area
+    const viewH = scroller.clientHeight;
+    scene.style.height = `${viewH}px`;
 
-    (async () => {
-      const [gsapMod, scrollTriggerMod, lenisMod] = await Promise.all([
-        import("gsap"),
-        import("gsap/ScrollTrigger"),
-        import("lenis"),
-      ]);
-      if (cancelled) return;
+    // Set initial state for animated cards
+    cards.forEach((card, i) => {
+      card.style.transformOrigin = "center center";
+      card.style.willChange = "transform, opacity";
+      if (i === 0) {
+        card.style.transform = "scale(1)";
+        card.style.opacity = "1";
+      } else {
+        card.style.transform = "scale(0.5)";
+        card.style.opacity = "0";
+      }
+    });
 
-      const gsap: any = gsapMod.default || gsapMod;
-      const ScrollTrigger: any = scrollTriggerMod.ScrollTrigger || scrollTriggerMod.default;
-      const Lenis = lenisMod.default;
+    // Update scene height on resize
+    const onResize = () => { scene.style.height = `${scroller.clientHeight}px`; };
+    window.addEventListener("resize", onResize);
 
-      gsap.registerPlugin(ScrollTrigger);
+    const transitions = cards.length - 1;
+    const segmentSize = transitions > 0 ? 1 / transitions : 1;
 
-      // Lenis smooth scroll
-      const content = wrapper.querySelector(".gallery-inner") as HTMLElement;
-      lenisInstance = new Lenis({
-        wrapper,
-        content,
-        smoothWheel: true,
-        lerp: 0.08,
+    const applyTransforms = (progress: number) => {
+      cards.forEach((card, i) => {
+        if (transitions === 0) {
+          card.style.transform = "scale(1)";
+          card.style.opacity = "1";
+          return;
+        }
+
+        const outStart = i * segmentSize;
+        const outEnd = (i + 1) * segmentSize;
+        const inStart = (i - 1) * segmentSize;
+        const inEnd = i * segmentSize;
+
+        let scale = 0;
+        let opacity = 0;
+
+        if (i === 0) {
+          if (progress <= outStart) { scale = 1; opacity = 1; }
+          else if (progress >= outEnd) { scale = 3; opacity = 0; }
+          else { const t = (progress - outStart) / segmentSize; scale = 1 + 2 * t; opacity = 1 - t; }
+        } else if (i === cards.length - 1) {
+          if (progress <= inStart) { scale = 0.5; opacity = 0; }
+          else if (progress >= inEnd) { scale = 1; opacity = 1; }
+          else { const t = (progress - inStart) / segmentSize; scale = 0.5 + 0.5 * t; opacity = t; }
+        } else {
+          if (progress <= inStart) { scale = 0.5; opacity = 0; }
+          else if (progress < inEnd) { const t = (progress - inStart) / segmentSize; scale = 0.5 + 0.5 * t; opacity = t; }
+          else if (progress < outEnd) { const t = (progress - outStart) / segmentSize; scale = 1 + 2 * t; opacity = 1 - t; }
+          else { scale = 3; opacity = 0; }
+        }
+
+        card.style.transform = `scale(${scale})`;
+        card.style.opacity = `${opacity}`;
       });
+    };
 
-      // Scroller proxy for Lenis ↔ ScrollTrigger
-      ScrollTrigger.scrollerProxy(wrapper, {
-        scrollTop(value?: number) {
-          if (typeof value === "number") lenisInstance.scrollTo(value, { immediate: true });
-          return lenisInstance.scroll;
-        },
-        getBoundingClientRect() {
-          return { top: 0, left: 0, width: wrapper.clientWidth, height: wrapper.clientHeight };
-        },
-      });
+    const onScroll = () => {
+      const scrollTop = scroller.scrollTop;
+      const maxScroll = track.scrollHeight - scroller.clientHeight;
+      const progress = maxScroll > 0 ? Math.min(Math.max(scrollTop / maxScroll, 0), 1) : 0;
+      applyTransforms(progress);
+    };
 
-      lenisInstance.on("scroll", () => ScrollTrigger.update());
-
-      const tick = (time: number) => { lenisInstance.raf(time); raf = requestAnimationFrame(tick); };
-      raf = requestAnimationFrame(tick);
-
-      // Wait for layout
-      requestAnimationFrame(() => {
-        if (cancelled) return;
-
-        cardRefs.current.forEach((card, i) => {
-          const section = sectionRefs.current[i];
-          if (!card || !section) return;
-
-          // Initial state: scaled down + transparent
-          gsap.set(card, { scale: 0.65, opacity: 0, transformOrigin: "center center" });
-
-          // Pin the card while the tall section scrolls past,
-          // scrub scale 0.65→1 and opacity 0→1
-          gsap.to(card, {
-            scale: 1,
-            opacity: 1,
-            ease: "power2.out",
-            scrollTrigger: {
-              trigger: section,
-              scroller: wrapper,
-              start: "top top",
-              end: "bottom top",
-              pin: card,
-              pinSpacing: false,
-              scrub: 1.5,
-            },
-          });
-        });
-
-        ScrollTrigger.refresh();
-      });
-    })();
+    scroller.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
 
     return () => {
-      cancelled = true;
-      import("gsap/ScrollTrigger").then((mod) => {
-        const ST: any = mod.ScrollTrigger || mod.default;
-        ST.getAll().forEach((t: any) => t.kill());
-      }).catch(() => {});
-      if (lenisInstance) lenisInstance.destroy();
-      if (raf) cancelAnimationFrame(raf);
+      scroller.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
     };
-  }, [items]);
+  }, [items, animItems.length]);
+
+  // Track height based on animated items (not hero)
+  const trackHeight = Math.max(animItems.length * 150, 100);
 
   return (
     <div
-      ref={wrapperRef}
-      className="w-full h-full overflow-y-auto"
-      style={{ background: palette.bg, overscrollBehavior: "contain" }}
+      ref={trackRef}
+      className="w-full"
+      style={{ height: `${trackHeight}dvh`, background: palette.bg }}
     >
-      <div className="gallery-inner">
-        {items.map((item, idx) => (
-          // Each section is 200vh tall — the extra height is scroll distance for the pin
+      {/* Scene: pinned via JS transform */}
+      <div
+        ref={sceneRef}
+        className="w-full overflow-hidden"
+        style={{ position: "sticky", top: 0, background: palette.bg }}
+      >
+        {/* Hero — static background layer (z-0) */}
+        <div
+          className="absolute inset-0 w-full h-full"
+          style={{ zIndex: 0 }}
+          role="img"
+          aria-label={heroItem?.label}
+        >
+          {heroItem?.imageSrc ? (
+            <img
+              src={heroItem.imageSrc}
+              alt={heroItem.label}
+              className="w-full h-full object-contain md:object-cover"
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <span style={{ fontSize: 16, color: palette.muted }}>
+                {heroItem?.label}
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Animated cards — stacked on top (z-10) */}
+        {animItems.map((item, idx) => (
           <div
             key={idx}
-            ref={(el) => { sectionRefs.current[idx] = el; }}
-            className="relative"
-            style={{ height: "200vh" }}
+            ref={(el) => { cardRefs.current[idx] = el; }}
+            className="absolute inset-0 w-full h-full"
+            style={{
+              zIndex: 10,
+              background: item.imageSrc ? "transparent" : palette.placeholderBg,
+            }}
+            role="img"
+            aria-label={item.label}
           >
-            {/* The card itself fills the viewport */}
-            <div
-              ref={(el) => { cardRefs.current[idx] = el; }}
-              className="w-full h-screen overflow-hidden will-change-transform"
-              style={{
-                background: item.imageSrc ? "transparent" : palette.placeholderBg,
-                opacity: 0,
-                transform: "scale(0.65)",
-                transformOrigin: "center center",
-              }}
-              role="img"
-              aria-label={item.label}
-            >
-              {item.imageSrc ? (
-                <img
-                  src={item.imageSrc}
-                  alt={item.label}
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center">
-                  <span style={{ fontSize: 16, color: palette.muted }}>
-                    {item.label}
-                  </span>
-                </div>
-              )}
-            </div>
+            {item.imageSrc ? (
+              <img
+                src={item.imageSrc}
+                alt={item.label}
+                className="w-full h-full object-contain md:object-cover"
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center">
+                <span style={{ fontSize: 16, color: palette.muted }}>
+                  {item.label}
+                </span>
+              </div>
+            )}
           </div>
         ))}
       </div>
 
-      {/* Reduced-motion fallback */}
+      {/* Hide scrollbar + reduced-motion fallback */}
       <style>{`
+        .gallery-scroll::-webkit-scrollbar { display: none; }
+        .gallery-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+        .gallery-scroll { overscroll-behavior: none; -webkit-overflow-scrolling: touch; }
         @media (prefers-reduced-motion: reduce) {
-          .gallery-inner > div > div { opacity: 1 !important; transform: none !important; }
+          [role="img"] { opacity: 1 !important; transform: none !important; }
         }
       `}</style>
     </div>
@@ -594,35 +564,137 @@ export default function CaseStudyLayout({
   colorScheme = "dark",
   onClose,
 }: CaseStudyLayoutProps) {
-  const [scheme, setScheme] = useState<"dark" | "light">(colorScheme);
-  const palette = usePalette(scheme);
+  const palette = usePalette(colorScheme);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [activeSectionIdx, setActiveSectionIdx] = useState(0);
 
   return (
-    <div className="relative w-full h-full overflow-hidden" style={{ background: palette.bg }}>
-      {/* Close / back button */}
-      <button
-        onClick={onClose}
-        className="fixed top-[16px] left-[16px] md:top-[24px] md:left-[24px] z-[75] flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer hover:opacity-80 transition-opacity"
-        style={{ background: palette.sidebarBg, color: palette.text }}
+    <div className="relative w-full h-full flex flex-col md:flex-row" style={{ background: palette.bg }}>
+      {/* Gallery — scrollable, takes remaining space */}
+      <div
+        className="flex-1 min-w-0 min-h-0 overflow-y-auto relative gallery-scroll"
+        style={{ overscrollBehavior: "contain" }}
       >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M19 12H5" />
-          <path d="M12 19l-7-7 7-7" />
-        </svg>
-        <span
-          className="uppercase tracking-tight text-[13px]"
-          style={{ fontFamily: "'DM Mono', monospace" }}
+        {/* Close / back button — inside the scrollable area so it stays on top */}
+        <button
+          onClick={onClose}
+          className="absolute top-[16px] left-[16px] md:top-[24px] md:left-[24px] z-[10] flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer hover:opacity-80 transition-opacity"
+          style={{ background: palette.sidebarBg, color: palette.text }}
         >
-          Close
-        </span>
-      </button>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M19 12H5" />
+            <path d="M12 19l-7-7 7-7" />
+          </svg>
+          <span
+            className="uppercase tracking-tight text-[13px]"
+            style={{ fontFamily: "'DM Mono', monospace" }}
+          >
+            Close
+          </span>
+        </button>
 
-      {/* Gallery */}
-      <Gallery items={galleryItems} palette={palette} />
+        <Gallery items={galleryItems} palette={palette} />
+      </div>
 
-      {/* Sidebar */}
+      {/* Sidebar strip — bottom bar on mobile, right strip on desktop */}
+      <div
+        className="relative shrink-0"
+        style={{ background: palette.sidebarBg }}
+      >
+        <style>{`
+          .strip-outer { height: 56px; width: 100%; }
+          @media (min-width: 768px) { .strip-outer { height: 100%; width: 56px; min-width: 56px; } }
+        `}</style>
+
+        {/* ── Mobile bottom bar ── */}
+        <div className="strip-outer flex md:hidden items-center justify-between px-[16px]">
+          {/* Horizontal title */}
+          <div className="flex gap-[4px] items-baseline overflow-hidden">
+            {title.map((w, i) => (
+              <span
+                key={i}
+                className={`${WORD_FONT[w.style]} text-[13px] leading-none whitespace-nowrap`}
+                style={{ color: palette.text }}
+              >
+                {w.text}
+              </span>
+            ))}
+          </div>
+
+          {/* Up arrow in circle */}
+          <button
+            onClick={() => setSidebarOpen((v) => !v)}
+            aria-label="Toggle case study details"
+            className="shrink-0 ml-[12px] flex items-center justify-center cursor-pointer rounded-full border hover:opacity-70 transition-opacity"
+            style={{ width: 36, height: 36, color: palette.text, borderColor: palette.border }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 5v14" />
+              <path d="M5 12l7-7 7 7" />
+            </svg>
+          </button>
+        </div>
+
+        {/* ── Desktop right strip ── */}
+        <div className="strip-outer hidden md:flex flex-col items-center">
+          {/* X close at top */}
+          <button
+            onClick={onClose}
+            aria-label="Close case study"
+            className="mt-[20px] flex items-center justify-center cursor-pointer rounded-full hover:opacity-70 transition-opacity"
+            style={{ width: 32, height: 32, color: palette.text }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M18 6L6 18" />
+              <path d="M6 6L18 18" />
+            </svg>
+          </button>
+
+          {/* Vertical title */}
+          <div
+            className="absolute top-1/2 left-1/2"
+            style={{
+              writingMode: "vertical-rl",
+              transform: "translate(-50%, -50%) rotate(180deg)",
+            }}
+          >
+            <div className="flex gap-[6px] items-baseline text-nowrap whitespace-pre leading-[1.12]">
+              {title.map((w, i) => (
+                <span
+                  key={i}
+                  className={`${WORD_FONT[w.style]} tracking-[0.15em] text-[13px] uppercase`}
+                  style={{ color: palette.text }}
+                >
+                  {w.text}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Left arrow at bottom */}
+          <button
+            onClick={() => setSidebarOpen((v) => !v)}
+            aria-label="Toggle case study details"
+            className="absolute bottom-[20px] flex items-center justify-center cursor-pointer rounded-full hover:opacity-70 transition-opacity"
+            style={{ width: 36, height: 36, color: palette.text, background: "rgba(255,255,255,0.1)" }}
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5" />
+              <path d="M12 19l-7-7 7-7" />
+            </svg>
+          </button>
+        </div>
+
+        {/* Clickable area — entire strip toggles the drawer */}
+        <button
+          onClick={() => setSidebarOpen((v) => !v)}
+          aria-label="Toggle case study details"
+          className="absolute inset-0 w-full h-full cursor-pointer opacity-0"
+          style={{ zIndex: -1 }}
+        />
+      </div>
+
+      {/* Full sidebar panel — absolute over everything */}
       <Sidebar
         open={sidebarOpen}
         onToggle={() => setSidebarOpen((v) => !v)}
@@ -632,8 +704,6 @@ export default function CaseStudyLayout({
         activeSectionIdx={activeSectionIdx}
         onSectionChange={setActiveSectionIdx}
         palette={palette}
-        onToggleTheme={() => setScheme((s) => (s === "dark" ? "light" : "dark"))}
-        scheme={scheme}
       />
     </div>
   );
