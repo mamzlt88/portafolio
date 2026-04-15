@@ -21,8 +21,6 @@ interface ProjectEntry {
   y: string;
 }
 
-type FilterTab = 'experience' | 'branding';
-
 const EXPERIENCE_ENTRIES: ProjectEntry[] = [
   {
     id: 'trading-automation',
@@ -62,28 +60,8 @@ const EXPERIENCE_ENTRIES: ProjectEntry[] = [
   },
 ];
 
-const BRANDING_ENTRIES: ProjectEntry[] = [
-  {
-    id: 'brand-1',
-    lines: [
-      [{ text: 'Brand', style: 'bold' }, { text: 'number 1', style: 'italic' }],
-    ],
-    x: '6%',
-    y: '24%',
-  },
-  {
-    id: 'brand-2',
-    lines: [
-      [{ text: 'Brand', style: 'bold' }, { text: 'number 2', style: 'italic' }],
-    ],
-    x: '69%',
-    y: '62%',
-  },
-];
-
 const TAB_CONFIG: Record<FilterTab, { bg: string; entries: ProjectEntry[] }> = {
   experience: { bg: '#e1f40b', entries: EXPERIENCE_ENTRIES },
-  branding:   { bg: '#a456f3', entries: BRANDING_ENTRIES },
 };
 
 const WORD_FONT_MAP: Record<WordStyle, string> = {
@@ -149,16 +127,6 @@ export default function ProjectsOverlay({ onClose, onProjectClick }: ProjectsOve
           }`}
         >
           Experience
-        </button>
-        <button
-          onClick={() => setActiveTab('branding')}
-          className={`px-[16px] py-[8px] rounded-full text-[13px] font-['DM_Mono',monospace] uppercase tracking-wide transition-colors cursor-pointer ${
-            activeTab === 'branding'
-              ? 'bg-black text-white'
-              : 'bg-transparent text-black border border-black hover:bg-black/5'
-          }`}
-        >
-          Branding
         </button>
       </motion.div>
 

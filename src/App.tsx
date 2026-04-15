@@ -12,8 +12,6 @@ const PortfolioCasestudy = React.lazy(() => import("./components/sections/Portfo
 const TradingCaseStudy = React.lazy(() => import("./components/sections/TradingCaseStudy"));
 const Landing = React.lazy(() => import("./components/sections/Landing"));
 const WhiteLabelCaseStudy = React.lazy(() => import("./components/sections/WhiteLabelCaseStudy"));
-const Brand1CaseStudy = React.lazy(() => import("./components/sections/Brand1CaseStudy"));
-const Brand2CaseStudy = React.lazy(() => import("./components/sections/Brand2CaseStudy"));
 const SportsMediaCaseStudy = React.lazy(() => import("./components/sections/SportsMediaCaseStudy"));
 const UnifiedHealthCaseStudy = React.lazy(() => import("./components/sections/UnifiedHealthCaseStudy"));
 
@@ -179,20 +177,6 @@ export default function App() {
               <Suspense fallback={null}>
                 {activeCaseStudy === 'trading-automation' && (
                   <TradingCaseStudy 
-                    onClose={() => setActiveCaseStudy(null)}
-                  />
-                )}
-              </Suspense>
-              <Suspense fallback={null}>
-                {activeCaseStudy === 'brand-1' && (
-                  <Brand1CaseStudy 
-                    onClose={() => setActiveCaseStudy(null)}
-                  />
-                )}
-              </Suspense>
-              <Suspense fallback={null}>
-                {activeCaseStudy === 'brand-2' && (
-                  <Brand2CaseStudy 
                     onClose={() => setActiveCaseStudy(null)}
                   />
                 )}

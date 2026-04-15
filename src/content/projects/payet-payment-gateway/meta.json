@@ -1,6 +1,6 @@
 {
-  "__comment": "Metadata for the 'vastege-white-label-gateway' case study. Consumed by the app to render lists and details.",
-  "slug": "vastege-white-label-gateway",
+  "__comment": "Metadata for the 'payet-payment-gateway' case study. Consumed by the app to render lists and details.",
+  "slug": "payet-payment-gateway",
   "title": "White-Label Payment Gateway Modernization",
   "client": "Vastege",
   "year": "2024",

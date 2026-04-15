@@ -5,9 +5,9 @@ import { motion, AnimatePresence } from 'motion/react';
 
 const ProjectsOverlay = React.lazy(() => import('../components/sections/ProjectsOverlay'));
 const WhiteLabelCaseStudy = React.lazy(() => import('../components/sections/WhiteLabelCaseStudy'));
-const CaseStudyPage = React.lazy(() => import('../components/sections/CaseStudyPage'));
-const Brand1CaseStudy = React.lazy(() => import('../components/sections/Brand1CaseStudy'));
-const Brand2CaseStudy = React.lazy(() => import('../components/sections/Brand2CaseStudy'));
+const TradingCaseStudy = React.lazy(() => import('../components/sections/TradingCaseStudy'));
+const SportsMediaCaseStudy = React.lazy(() => import('../components/sections/SportsMediaCaseStudy'));
+const UnifiedHealthCaseStudy = React.lazy(() => import('../components/sections/UnifiedHealthCaseStudy'));
 // Prefetch the model color layers used by AnimatedModelImage for smoother first paint on About
 import imgMmColorOrange from "figma:asset/717c32ec589970e1b541c572864d2fa741828374.png";
 import imgMmColorFucsia from "figma:asset/5e760d0b1b85f18ad77bddef113b51317f7606e7.png";
@@ -81,13 +81,13 @@ export default function LandingPage() {
                 <WhiteLabelCaseStudy onClose={closeCaseStudy} />
               )}
               {activeCaseStudy === 'trading-automation' && (
-                <CaseStudyPage onClose={closeCaseStudy} />
+                <TradingCaseStudy onClose={closeCaseStudy} />
               )}
-              {activeCaseStudy === 'brand-1' && (
-                <Brand1CaseStudy onClose={closeCaseStudy} />
+              {activeCaseStudy === 'sports-media' && (
+                <SportsMediaCaseStudy onClose={closeCaseStudy} />
               )}
-              {activeCaseStudy === 'brand-2' && (
-                <Brand2CaseStudy onClose={closeCaseStudy} />
+              {activeCaseStudy === 'unified-health' && (
+                <UnifiedHealthCaseStudy onClose={closeCaseStudy} />
               )}
             </Suspense>
           </motion.div>
