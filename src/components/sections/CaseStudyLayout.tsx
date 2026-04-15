@@ -203,7 +203,7 @@ function Sidebar({
       <div
         role="complementary"
         aria-label="Case study content"
-        className={`sidebar-panel absolute z-[70] overflow-y-auto transition-transform duration-[400ms] ${open ? "sidebar-open" : "sidebar-closed"}`}
+        className={`sidebar-panel absolute z-[70] flex flex-col transition-transform duration-[400ms] ${open ? "sidebar-open" : "sidebar-closed"}`}
         style={{
           background: palette.sidebarBg,
           transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
@@ -221,7 +221,7 @@ function Sidebar({
           @media (min-width: 768px) {
             .sidebar-panel {
               top: 0; bottom: auto; left: auto; right: 0;
-              width: min(380px, 100vw); max-height: 100%; height: 100%;
+              width: 30vw; max-height: 100%; height: 100%;
               border-radius: 0;
             }
             .sidebar-panel.sidebar-closed { transform: translateX(100%); }
@@ -246,8 +246,8 @@ function Sidebar({
           style={{ width: 40, height: 40, color: palette.text }}
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M18 6L6 18" />
-            <path d="M6 6L18 18" />
+            <path d="M5 12h14" />
+            <path d="M12 5l7 7-7 7" />
           </svg>
         </button>
 
@@ -281,7 +281,7 @@ function Sidebar({
         </button>
 
         {/* Content area */}
-        <div className="pl-[24px] md:pl-[48px] pr-[24px] pt-[20px] pb-[80px]" style={{ paddingTop: 20 }}>
+        <div className="pl-[24px] md:pl-[48px] pr-[24px] pt-[20px] pb-[24px] flex-1 overflow-y-auto" style={{ paddingTop: 20 }}>
           {/* Section pill */}
           {activeSection && (
             <span
@@ -353,7 +353,7 @@ function Sidebar({
         {/* Section navigation — bottom arrow */}
         {sections.length > 1 && (
           <div
-            className="sticky bottom-0 left-0 right-0 flex items-center justify-between px-[48px] py-[16px]"
+            className="shrink-0 flex items-center justify-between px-[48px] py-[16px]"
             style={{ background: palette.sidebarBg }}
           >
             {/* Section dots */}
@@ -671,16 +671,16 @@ export default function CaseStudyLayout({
 
         {/* ── Desktop right strip ── */}
         <div className="strip-outer hidden md:flex flex-col items-center">
-          {/* X close at top */}
+          {/* Arrow toggle at top */}
           <button
-            onClick={onClose}
-            aria-label="Close case study"
+            onClick={() => setSidebarOpen((v) => !v)}
+            aria-label="Toggle case study details"
             className="mt-[20px] flex items-center justify-center cursor-pointer rounded-full hover:opacity-70 transition-opacity"
-            style={{ width: 32, height: 32, color: palette.text }}
+            style={{ width: 36, height: 36, color: palette.text, background: "rgba(255,255,255,0.1)" }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M18 6L6 18" />
-              <path d="M6 6L18 18" />
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M19 12H5" />
+              <path d="M12 19l-7-7 7-7" />
             </svg>
           </button>
 
@@ -704,19 +704,6 @@ export default function CaseStudyLayout({
               ))}
             </div>
           </div>
-
-          {/* Left arrow at bottom */}
-          <button
-            onClick={() => setSidebarOpen((v) => !v)}
-            aria-label="Toggle case study details"
-            className="absolute bottom-[20px] left-1/2 -translate-x-1/2 flex items-center justify-center cursor-pointer rounded-full hover:opacity-70 transition-opacity"
-            style={{ width: 36, height: 36, color: palette.text, background: "rgba(255,255,255,0.1)" }}
-          >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M19 12H5" />
-              <path d="M12 19l-7-7 7-7" />
-            </svg>
-          </button>
         </div>
 
         {/* Clickable area — entire strip toggles the drawer */}
