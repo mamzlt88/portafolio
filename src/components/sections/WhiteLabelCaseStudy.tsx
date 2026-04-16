@@ -2,38 +2,64 @@
 import MarkdownCaseStudy from "./MarkdownCaseStudy";
 import rawContent from "../../content/projects/payet-payment-gateway/content.md?raw";
 
-const imgBase = "../../content/projects/payet-payment-gateway/media/images/";
+import img01 from "../../content/projects/payet-payment-gateway/media/images/01-hero-payet-across-devices.webp";
+import img1 from "../../content/projects/payet-payment-gateway/media/images/1.webp";
+import img2 from "../../content/projects/payet-payment-gateway/media/images/2.webp";
+import img3 from "../../content/projects/payet-payment-gateway/media/images/3.webp";
+import img4 from "../../content/projects/payet-payment-gateway/media/images/4.webp";
+import imgDashboard from "../../content/projects/payet-payment-gateway/media/images/Dashboard.webp";
+import imgAdmin from "../../content/projects/payet-payment-gateway/media/images/Admin.webp";
+import imgLanding from "../../content/projects/payet-payment-gateway/media/images/Landing components.webp";
+import imgStyleguide from "../../content/projects/payet-payment-gateway/media/images/Styleguide.webp";
+import imgButtons from "../../content/projects/payet-payment-gateway/media/images/buttons.webp";
+import imgComponents from "../../content/projects/payet-payment-gateway/media/images/components.webp";
+import imgShapes from "../../content/projects/payet-payment-gateway/media/images/shapes.webp";
+import imgMerchant01 from "../../content/projects/payet-payment-gateway/media/images/MErchant01.webp";
+import imgMerchant02 from "../../content/projects/payet-payment-gateway/media/images/MErchant02.webp";
+import imgMerchant03 from "../../content/projects/payet-payment-gateway/media/images/MErchant03.webp";
+import imgMerchant04 from "../../content/projects/payet-payment-gateway/media/images/MErchant04.webp";
+import imgMerchant05 from "../../content/projects/payet-payment-gateway/media/images/MErchant05.webp";
+import imgMerchant06 from "../../content/projects/payet-payment-gateway/media/images/MErchant06.webp";
+import imgCust01 from "../../content/projects/payet-payment-gateway/media/images/cust01.webp";
+import imgCust02 from "../../content/projects/payet-payment-gateway/media/images/cust02.webp";
+import imgCust03 from "../../content/projects/payet-payment-gateway/media/images/cust03.webp";
+import imgCust04 from "../../content/projects/payet-payment-gateway/media/images/cust04.webp";
+import imgScreenshot from "../../content/projects/payet-payment-gateway/media/images/screenshot-preview.webp";
+
+import vidAudit from "../../content/projects/payet-payment-gateway/media/videos/Audit-web.mp4";
+import vidColor from "../../content/projects/payet-payment-gateway/media/videos/Color scheme.mp4";
+import vidUI from "../../content/projects/payet-payment-gateway/media/videos/UI color.mp4";
+
 const imageMap: Record<string, string> = {
-  "01-hero-payet-across-devices.webp": new URL(`${imgBase}01-hero-payet-across-devices.webp`, import.meta.url).href,
-  "1.webp": new URL(`${imgBase}1.webp`, import.meta.url).href,
-  "2.webp": new URL(`${imgBase}2.webp`, import.meta.url).href,
-  "3.webp": new URL(`${imgBase}3.webp`, import.meta.url).href,
-  "4.webp": new URL(`${imgBase}4.webp`, import.meta.url).href,
-  "Dashboard.webp": new URL(`${imgBase}Dashboard.webp`, import.meta.url).href,
-  "Admin.webp": new URL(`${imgBase}Admin.webp`, import.meta.url).href,
-  "Landing components.webp": new URL(`${imgBase}Landing components.webp`, import.meta.url).href,
-  "Styleguide.webp": new URL(`${imgBase}Styleguide.webp`, import.meta.url).href,
-  "buttons.webp": new URL(`${imgBase}buttons.webp`, import.meta.url).href,
-  "components.webp": new URL(`${imgBase}components.webp`, import.meta.url).href,
-  "shapes.webp": new URL(`${imgBase}shapes.webp`, import.meta.url).href,
-  "MErchant01.webp": new URL(`${imgBase}MErchant01.webp`, import.meta.url).href,
-  "MErchant02.webp": new URL(`${imgBase}MErchant02.webp`, import.meta.url).href,
-  "MErchant03.webp": new URL(`${imgBase}MErchant03.webp`, import.meta.url).href,
-  "MErchant04.webp": new URL(`${imgBase}MErchant04.webp`, import.meta.url).href,
-  "MErchant05.webp": new URL(`${imgBase}MErchant05.webp`, import.meta.url).href,
-  "MErchant06.webp": new URL(`${imgBase}MErchant06.webp`, import.meta.url).href,
-  "cust01.webp": new URL(`${imgBase}cust01.webp`, import.meta.url).href,
-  "cust02.webp": new URL(`${imgBase}cust02.webp`, import.meta.url).href,
-  "cust03.webp": new URL(`${imgBase}cust03.webp`, import.meta.url).href,
-  "cust04.webp": new URL(`${imgBase}cust04.webp`, import.meta.url).href,
-  "Screenshot 2026-04-15 at 1.14.15 PM.webp": new URL(`${imgBase}Screenshot 2026-04-15 at 1.14.15 PM.webp`, import.meta.url).href,
+  "01-hero-payet-across-devices.webp": img01,
+  "1.webp": img1,
+  "2.webp": img2,
+  "3.webp": img3,
+  "4.webp": img4,
+  "Dashboard.webp": imgDashboard,
+  "Admin.webp": imgAdmin,
+  "Landing components.webp": imgLanding,
+  "Styleguide.webp": imgStyleguide,
+  "buttons.webp": imgButtons,
+  "components.webp": imgComponents,
+  "shapes.webp": imgShapes,
+  "MErchant01.webp": imgMerchant01,
+  "MErchant02.webp": imgMerchant02,
+  "MErchant03.webp": imgMerchant03,
+  "MErchant04.webp": imgMerchant04,
+  "MErchant05.webp": imgMerchant05,
+  "MErchant06.webp": imgMerchant06,
+  "cust01.webp": imgCust01,
+  "cust02.webp": imgCust02,
+  "cust03.webp": imgCust03,
+  "cust04.webp": imgCust04,
+  "screenshot-preview.webp": imgScreenshot,
 };
 
-const vidBase = "../../content/projects/payet-payment-gateway/media/videos/";
 const videoMap: Record<string, string> = {
-  "Audit-web.mp4": new URL(`${vidBase}Audit-web.mp4`, import.meta.url).href,
-  "Color scheme.mp4": new URL(`${vidBase}Color scheme.mp4`, import.meta.url).href,
-  "UI color.mp4": new URL(`${vidBase}UI color.mp4`, import.meta.url).href,
+  "Audit-web.mp4": vidAudit,
+  "Color scheme.mp4": vidColor,
+  "UI color.mp4": vidUI,
 };
 
 function resolveImage(filename: string): string | undefined {

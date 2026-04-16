@@ -69,7 +69,7 @@ gallery:
     alt: "Customer portal 03"
   - file: "cust04.webp"
     alt: "Customer portal 04"
-  - file: "Screenshot 2026-04-15 at 1.14.15 PM.webp"
+  - file: "screenshot-preview.webp"
     alt: "Screenshot"
   - file: "Audit-web.mp4"
     alt: "Audit walkthrough"
