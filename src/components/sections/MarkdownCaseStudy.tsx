@@ -11,6 +11,9 @@ interface MarkdownCaseStudyProps {
   /** Function that resolves an image filename to a URL.
    *  Receives the `file` value from the gallery frontmatter. */
   resolveImage?: (filename: string) => string | undefined;
+  /** Function that resolves a video filename to a URL.
+   *  Receives the `file` value from gallery entries with type: "video". */
+  resolveVideo?: (filename: string) => string | undefined;
   onClose: () => void;
 }
 
@@ -40,6 +43,7 @@ function HtmlContent({ html }: { html: string }) {
 export default function MarkdownCaseStudy({
   rawMarkdown,
   resolveImage,
+  resolveVideo,
   onClose,
 }: MarkdownCaseStudyProps) {
   const data: ParsedCaseStudy = useMemo(
@@ -60,13 +64,20 @@ export default function MarkdownCaseStudy({
   const galleryItems: GalleryItem[] = useMemo(
     () =>
       data.gallery.map((g) => {
+        if (g.type === "video") {
+          const src = resolveVideo?.(g.file);
+          return {
+            label: src ? g.alt : `[${g.alt}]`,
+            videoSrc: src,
+          };
+        }
         const src = resolveImage?.(g.file);
         return {
           label: src ? g.alt : `[${g.alt}]`,
           imageSrc: src,
         };
       }),
-    [data.gallery, resolveImage]
+    [data.gallery, resolveImage, resolveVideo]
   );
 
   return (

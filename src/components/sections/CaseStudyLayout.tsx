@@ -32,6 +32,8 @@ export interface GalleryItem {
   aspectRatio?: string;
   /** If provided, renders an image instead of a placeholder */
   imageSrc?: string;
+  /** If provided, renders a video instead of an image */
+  videoSrc?: string;
 }
 
 export interface CaseStudyLayoutProps {
@@ -527,10 +529,20 @@ function Gallery({
           role="img"
           aria-label={heroItem?.label}
         >
-          {heroItem?.imageSrc ? (
+          {heroItem?.videoSrc ? (
+            <video
+              src={heroItem.videoSrc}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-full object-contain md:object-cover"
+            />
+          ) : heroItem?.imageSrc ? (
             <img
               src={heroItem.imageSrc}
               alt={heroItem.label}
+              loading="lazy"
               className="w-full h-full object-contain md:object-cover"
             />
           ) : (
@@ -550,15 +562,25 @@ function Gallery({
             className="absolute inset-0 w-full h-full"
             style={{
               zIndex: 10,
-              background: item.imageSrc ? "transparent" : palette.placeholderBg,
+              background: (item.imageSrc || item.videoSrc) ? "transparent" : palette.placeholderBg,
             }}
             role="img"
             aria-label={item.label}
           >
-            {item.imageSrc ? (
+            {item.videoSrc ? (
+              <video
+                src={item.videoSrc}
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="w-full h-full object-contain md:object-cover"
+              />
+            ) : item.imageSrc ? (
               <img
                 src={item.imageSrc}
                 alt={item.label}
+                loading="lazy"
                 className="w-full h-full object-contain md:object-cover"
               />
             ) : (

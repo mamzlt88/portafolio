@@ -9,7 +9,7 @@ export interface ParsedCaseStudy {
   category: "experience" | "branding";
   colorScheme: "dark" | "light";
   metadata: { label: string; value: string }[];
-  gallery: { file: string; alt: string }[];
+  gallery: { file: string; alt: string; type?: "image" | "video" }[];
   sections: { label: string; heading: string; htmlContent: string }[];
 }
 
@@ -82,7 +82,11 @@ export function parseCaseStudy(raw: string): ParsedCaseStudy {
     category: data.category ?? "experience",
     colorScheme: data.colorScheme ?? "dark",
     metadata: data.metadata ?? [],
-    gallery: data.gallery ?? [],
+    gallery: (data.gallery ?? []).map((g: any) => ({
+      file: g.file,
+      alt: g.alt,
+      type: g.type ?? "image",
+    })),
     sections,
   };
 }
