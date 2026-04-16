@@ -536,14 +536,14 @@ function Gallery({
               muted
               loop
               playsInline
-              className="w-full h-full object-contain md:object-cover"
+              className="w-full h-full object-contain"
             />
           ) : heroItem?.imageSrc ? (
             <img
               src={heroItem.imageSrc}
               alt={heroItem.label}
               loading="lazy"
-              className="w-full h-full object-contain md:object-cover"
+              className="w-full h-full object-contain"
             />
           ) : (
             <div className="w-full h-full flex items-center justify-center">
@@ -574,14 +574,14 @@ function Gallery({
                 muted
                 loop
                 playsInline
-                className="w-full h-full object-contain md:object-cover"
+                className="w-full h-full object-contain"
               />
             ) : item.imageSrc ? (
               <img
                 src={item.imageSrc}
                 alt={item.label}
                 loading="lazy"
-                className="w-full h-full object-contain md:object-cover"
+                className="w-full h-full object-contain"
               />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
