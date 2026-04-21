@@ -47,6 +47,8 @@ export interface CaseStudyLayoutProps {
   galleryItems: GalleryItem[];
   /** Color scheme — dark (#0a0a0a) or light (#fafafa) */
   colorScheme?: "dark" | "light";
+  /** Fixed background image that fills the viewport behind gallery cards */
+  backgroundSrc?: string;
   /** Called when the user closes the case study */
   onClose: () => void;
 }
@@ -404,30 +406,31 @@ function Sidebar({
 function Gallery({
   items,
   palette,
+  backgroundSrc,
 }: {
   items: GalleryItem[];
   palette: ReturnType<typeof usePalette>;
+  backgroundSrc?: string;
 }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  // Split: hero (first image) is a static bg, rest animate
-  const heroItem = items[0];
-  const animItems = items.slice(1);
+  // Fallback bg: use first gallery image if no explicit backgroundSrc
+  const bgSrc = backgroundSrc || items[0]?.imageSrc;
 
   useEffect(() => {
     const track = trackRef.current;
     const scene = sceneRef.current;
     const scroller = track?.parentElement;
-    if (!track || !scene || !scroller || animItems.length === 0) return;
+    if (!track || !scene || !scroller || items.length === 0) return;
 
     const cards = cardRefs.current.filter(Boolean) as HTMLElement[];
     if (cards.length === 0) return;
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReduced) {
-      cards.forEach((el) => { el.style.opacity = "1"; el.style.transform = "scale(1)"; });
+      cards.forEach((el) => { el.style.opacity = "1"; });
       return;
     }
 
@@ -435,58 +438,41 @@ function Gallery({
     const viewH = scroller.clientHeight;
     scene.style.height = `${viewH}px`;
 
-    // Set initial state for animated cards
-    cards.forEach((card, i) => {
-      card.style.transformOrigin = "center center";
-      card.style.willChange = "transform, opacity";
-      if (i === 0) {
-        card.style.transform = "scale(1)";
-        card.style.opacity = "1";
-      } else {
-        card.style.transform = "scale(0.5)";
-        card.style.opacity = "0";
-      }
+    // Set initial state — all cards start invisible
+    cards.forEach((card) => {
+      card.style.willChange = "opacity";
+      card.style.opacity = "0";
     });
+    // First card starts visible
+    if (cards[0]) cards[0].style.opacity = "1";
 
-    // Update scene height on resize
     const onResize = () => { scene.style.height = `${scroller.clientHeight}px`; };
     window.addEventListener("resize", onResize);
 
-    const transitions = cards.length - 1;
-    const segmentSize = transitions > 0 ? 1 / transitions : 1;
+    const count = cards.length;
+    const segmentSize = count > 1 ? 1 / (count - 1) : 1;
 
-    const applyTransforms = (progress: number) => {
+    const applyOpacity = (progress: number) => {
       cards.forEach((card, i) => {
-        if (transitions === 0) {
-          card.style.transform = "scale(1)";
-          card.style.opacity = "1";
-          return;
-        }
+        if (count === 1) { card.style.opacity = "1"; return; }
 
-        const outStart = i * segmentSize;
-        const outEnd = (i + 1) * segmentSize;
-        const inStart = (i - 1) * segmentSize;
-        const inEnd = i * segmentSize;
+        const segStart = (i - 1) * segmentSize;
+        const segEnd = i * segmentSize;
 
-        let scale = 0;
-        let opacity = 0;
-
+        let opacity: number;
         if (i === 0) {
-          if (progress <= outStart) { scale = 1; opacity = 1; }
-          else if (progress >= outEnd) { scale = 3; opacity = 0; }
-          else { const t = (progress - outStart) / segmentSize; scale = 1 + 2 * t; opacity = 1 - t; }
-        } else if (i === cards.length - 1) {
-          if (progress <= inStart) { scale = 0.5; opacity = 0; }
-          else if (progress >= inEnd) { scale = 1; opacity = 1; }
-          else { const t = (progress - inStart) / segmentSize; scale = 0.5 + 0.5 * t; opacity = t; }
+          // First card: visible until next card takes over
+          opacity = progress <= segmentSize * 0.5 ? 1 : Math.max(0, 1 - ((progress - segmentSize * 0.5) / (segmentSize * 0.5)));
+        } else if (progress <= segStart) {
+          opacity = 0;
+        } else if (progress >= segEnd) {
+          opacity = 1;
         } else {
-          if (progress <= inStart) { scale = 0.5; opacity = 0; }
-          else if (progress < inEnd) { const t = (progress - inStart) / segmentSize; scale = 0.5 + 0.5 * t; opacity = t; }
-          else if (progress < outEnd) { const t = (progress - outStart) / segmentSize; scale = 1 + 2 * t; opacity = 1 - t; }
-          else { scale = 3; opacity = 0; }
+          // Fade in: reach 100% at midpoint of segment
+          const t = (progress - segStart) / (segEnd - segStart);
+          opacity = Math.min(1, t * 2);
         }
 
-        card.style.transform = `scale(${scale})`;
         card.style.opacity = `${opacity}`;
       });
     };
@@ -495,7 +481,7 @@ function Gallery({
       const scrollTop = scroller.scrollTop;
       const maxScroll = track.scrollHeight - scroller.clientHeight;
       const progress = maxScroll > 0 ? Math.min(Math.max(scrollTop / maxScroll, 0), 1) : 0;
-      applyTransforms(progress);
+      applyOpacity(progress);
     };
 
     scroller.addEventListener("scroll", onScroll, { passive: true });
@@ -505,63 +491,42 @@ function Gallery({
       scroller.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onResize);
     };
-  }, [items, animItems.length]);
+  }, [items]);
 
-  // Track height based on animated items (not hero)
-  const trackHeight = Math.max(animItems.length * 150, 100);
+  const trackHeight = Math.max(items.length * 150, 100);
 
   return (
     <div
       ref={trackRef}
       className="w-full"
-      style={{ height: `${trackHeight}dvh`, background: palette.bg }}
+      style={{ height: `${trackHeight}dvh` }}
     >
-      {/* Scene: pinned via JS transform */}
+      {/* Fixed background image — fills viewport, stays behind everything */}
+      {bgSrc && (
+        <div className="fixed inset-0 z-0 pointer-events-none">
+          <img
+            src={bgSrc}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0" style={{ background: `${palette.bg}cc` }} />
+        </div>
+      )}
+
+      {/* Scene: pinned via sticky */}
       <div
         ref={sceneRef}
         className="w-full overflow-hidden"
-        style={{ position: "sticky", top: 0, background: palette.bg }}
+        style={{ position: "sticky", top: 0 }}
       >
-        {/* Hero — static background layer (z-0) */}
-        <div
-          className="absolute inset-0 w-full h-full"
-          style={{ zIndex: 0 }}
-          role="img"
-          aria-label={heroItem?.label}
-        >
-          {heroItem?.videoSrc ? (
-            <video
-              src={heroItem.videoSrc}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-full object-contain"
-            />
-          ) : heroItem?.imageSrc ? (
-            <img
-              src={heroItem.imageSrc}
-              alt={heroItem.label}
-              loading="lazy"
-              className="w-full h-full object-contain"
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <span style={{ fontSize: 16, color: palette.muted }}>
-                {heroItem?.label}
-              </span>
-            </div>
-          )}
-        </div>
-
-        {/* Animated cards — stacked on top (z-10) */}
-        {animItems.map((item, idx) => (
+        {/* All gallery cards — stacked, animated via scroll */}
+        {items.map((item, idx) => (
           <div
             key={idx}
             ref={(el) => { cardRefs.current[idx] = el; }}
-            className="absolute inset-0 w-full h-full"
+            className="absolute inset-0 w-full h-full flex items-center justify-center"
             style={{
-              zIndex: 10,
+              zIndex: idx + 1,
               background: (item.imageSrc || item.videoSrc) ? "transparent" : palette.placeholderBg,
             }}
             role="img"
@@ -600,7 +565,7 @@ function Gallery({
         .gallery-scroll { -ms-overflow-style: none; scrollbar-width: none; }
         .gallery-scroll { overscroll-behavior: none; -webkit-overflow-scrolling: touch; }
         @media (prefers-reduced-motion: reduce) {
-          [role="img"] { opacity: 1 !important; transform: none !important; }
+          [role="img"] { opacity: 1 !important; }
         }
       `}</style>
     </div>
@@ -617,6 +582,7 @@ export default function CaseStudyLayout({
   sections,
   galleryItems,
   colorScheme = "dark",
+  backgroundSrc,
   onClose,
 }: CaseStudyLayoutProps) {
   const [scheme, setScheme] = useState<"dark" | "light">(colorScheme);
@@ -649,7 +615,7 @@ export default function CaseStudyLayout({
           </span>
         </button>
 
-        <Gallery items={galleryItems} palette={palette} />
+        <Gallery items={galleryItems} palette={palette} backgroundSrc={backgroundSrc} />
       </div>
 
       {/* Sidebar strip — bottom bar on mobile, right strip on desktop */}

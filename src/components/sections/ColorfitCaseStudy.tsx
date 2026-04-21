@@ -18,6 +18,8 @@ import imgPOP from "../../content/projects/colorfit-brand/media/images/POP brand
 
 import vidPromo from "../../content/projects/colorfit-brand/media/videos/colorfit-promo.mp4";
 
+import imgBg from "../../content/projects/colorfit-brand/media/images/bg.webp";
+
 const imageMap: Record<string, string> = {
   "image.webp": imgImage,
   "image 2.webp": imgImage2,
@@ -52,6 +54,7 @@ export default function ColorfitCaseStudy({ onClose }: { onClose: () => void }) 
       rawMarkdown={rawContent}
       resolveImage={resolveImage}
       resolveVideo={resolveVideo}
+      backgroundSrc={imgBg}
       onClose={onClose}
     />
   );

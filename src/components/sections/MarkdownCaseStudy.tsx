@@ -14,6 +14,8 @@ interface MarkdownCaseStudyProps {
   /** Function that resolves a video filename to a URL.
    *  Receives the `file` value from gallery entries with type: "video". */
   resolveVideo?: (filename: string) => string | undefined;
+  /** Fixed background image URL for the gallery viewport */
+  backgroundSrc?: string;
   onClose: () => void;
 }
 
@@ -44,6 +46,7 @@ export default function MarkdownCaseStudy({
   rawMarkdown,
   resolveImage,
   resolveVideo,
+  backgroundSrc,
   onClose,
 }: MarkdownCaseStudyProps) {
   const data: ParsedCaseStudy = useMemo(
@@ -87,6 +90,7 @@ export default function MarkdownCaseStudy({
       sections={sections}
       galleryItems={galleryItems}
       colorScheme={data.colorScheme}
+      backgroundSrc={backgroundSrc}
       onClose={onClose}
     />
   );
