@@ -26,7 +26,33 @@ metadata:
   - label: "Deliverables"
     value: "Logo System, Brand Book, Packaging Design (8+ product lines), POP Collateral, Promotional Banners, Video Direction"
 
-gallery: []
+gallery:
+  - file: "image.webp"
+    alt: "Brand overview"
+  - file: "image 2.webp"
+    alt: "Brand overview 2"
+  - file: "logo 1.webp"
+    alt: "Logo concept 1"
+  - file: "logo2.webp"
+    alt: "Logo concept 2"
+  - file: "logo3.webp"
+    alt: "Logo concept 3"
+  - file: "logo color.webp"
+    alt: "Logo color variations"
+  - file: "color.webp"
+    alt: "Color palette"
+  - file: "typogrpahy.webp"
+    alt: "Typography system"
+  - file: "BRand book.webp"
+    alt: "Brand book"
+  - file: "Image brand.webp"
+    alt: "Brand imagery"
+  - file: "buckets.webp"
+    alt: "Packaging — buckets"
+  - file: "bucket2.webp"
+    alt: "Packaging — bucket detail"
+  - file: "POP brand.webp"
+    alt: "Point of sale collateral"
 ---
 
 # Executive Summary
