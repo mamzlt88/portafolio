@@ -1,4 +1,4 @@
-import{j as t}from"./index-C7KCXz8n.js";import{M as n}from"./MarkdownCaseStudy-CkV6H4EJ.js";const i=`---
+import{j as t}from"./index-C7gF2syT.js";import{M as n}from"./MarkdownCaseStudy-D1CFDRk_.js";const i=`---
 slug: "colorfit"
 title:
   - text: "Colorfit"
@@ -26,7 +26,33 @@ metadata:
   - label: "Deliverables"
     value: "Logo System, Brand Book, Packaging Design (8+ product lines), POP Collateral, Promotional Banners, Video Direction"
 
-gallery: []
+gallery:
+  - file: "image.webp"
+    alt: "Brand overview"
+  - file: "image 2.webp"
+    alt: "Brand overview 2"
+  - file: "logo 1.webp"
+    alt: "Logo concept 1"
+  - file: "logo2.webp"
+    alt: "Logo concept 2"
+  - file: "logo3.webp"
+    alt: "Logo concept 3"
+  - file: "logo color.webp"
+    alt: "Logo color variations"
+  - file: "color.webp"
+    alt: "Color palette"
+  - file: "typogrpahy.webp"
+    alt: "Typography system"
+  - file: "BRand book.webp"
+    alt: "Brand book"
+  - file: "Image brand.webp"
+    alt: "Brand imagery"
+  - file: "buckets.webp"
+    alt: "Packaging — buckets"
+  - file: "bucket2.webp"
+    alt: "Packaging — bucket detail"
+  - file: "POP brand.webp"
+    alt: "Point of sale collateral"
 ---
 
 # Executive Summary
@@ -111,4 +137,4 @@ Presenting three strategic directions instead of three visual styles fundamental
 **What I'd Do Differently:** Compress the discovery phase and extend the testing phase. Trade 2-week discovery for 1 week discovery + 2 weeks rapid prototyping + field testing with actual distributors and retail partners.
 
 **Key Learning:** Cultural authenticity paired with contemporary design is a stronger positioning than corporate minimalism when entering emerging markets. In a crowded, price-driven industry, warmth and cultural roots beat polish and corporate distance.
-`;function r({onClose:e}){return t.jsx(n,{rawMarkdown:i,onClose:e})}export{r as default};
+`,o="/portafolio/assets/image-CGPm_MZD.webp",a="/portafolio/assets/image%202-BD3vPPnl.webp",r="/portafolio/assets/logo%201-DxHsNwyP.webp",s="/portafolio/assets/logo2-B6G-VAMD.webp",l="/portafolio/assets/logo3-B6TI3wIA.webp",c="/portafolio/assets/logo%20color-vcU8icQw.webp",d="/portafolio/assets/color-3Vkbe07s.webp",p="/portafolio/assets/typogrpahy-DPXrswWS.webp",m="/portafolio/assets/BRand%20book-BaAaOThx.webp",g="/portafolio/assets/Image%20brand-BAN3vlNj.webp",h="/portafolio/assets/buckets-Dzxu_Y1Y.webp",u="/portafolio/assets/bucket2-CRbgl8va.webp",b="/portafolio/assets/POP%20brand-8YS22nsU.webp",f={"image.webp":o,"image 2.webp":a,"logo 1.webp":r,"logo2.webp":s,"logo3.webp":l,"logo color.webp":c,"color.webp":d,"typogrpahy.webp":p,"BRand book.webp":m,"Image brand.webp":g,"buckets.webp":h,"bucket2.webp":u,"POP brand.webp":b};function y(e){return f[e]}function k({onClose:e}){return t.jsx(n,{rawMarkdown:i,resolveImage:y,onClose:e})}export{k as default};
