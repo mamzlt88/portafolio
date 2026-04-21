@@ -53,6 +53,9 @@ gallery:
     alt: "Packaging — bucket detail"
   - file: "POP brand.webp"
     alt: "Point of sale collateral"
+  - file: "colorfit-promo.mp4"
+    alt: "Colorfit promotional video"
+    type: "video"
 ---
 
 # Executive Summary

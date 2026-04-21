@@ -16,6 +16,8 @@ import imgBuckets from "../../content/projects/colorfit-brand/media/images/bucke
 import imgBucket2 from "../../content/projects/colorfit-brand/media/images/bucket2.webp";
 import imgPOP from "../../content/projects/colorfit-brand/media/images/POP brand.webp";
 
+import vidPromo from "../../content/projects/colorfit-brand/media/videos/colorfit-promo.mp4";
+
 const imageMap: Record<string, string> = {
   "image.webp": imgImage,
   "image 2.webp": imgImage2,
@@ -32,8 +34,16 @@ const imageMap: Record<string, string> = {
   "POP brand.webp": imgPOP,
 };
 
+const videoMap: Record<string, string> = {
+  "colorfit-promo.mp4": vidPromo,
+};
+
 function resolveImage(filename: string): string | undefined {
   return imageMap[filename];
+}
+
+function resolveVideo(filename: string): string | undefined {
+  return videoMap[filename];
 }
 
 export default function ColorfitCaseStudy({ onClose }: { onClose: () => void }) {
@@ -41,6 +51,7 @@ export default function ColorfitCaseStudy({ onClose }: { onClose: () => void }) 
     <MarkdownCaseStudy
       rawMarkdown={rawContent}
       resolveImage={resolveImage}
+      resolveVideo={resolveVideo}
       onClose={onClose}
     />
   );
