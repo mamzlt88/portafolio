@@ -496,8 +496,8 @@ function Content6() {
 
 function Container13() {
   return (
-    <div className="content-stretch flex gap-[110px] items-center justify-center relative shrink-0 w-full" data-name="Container">
-      <p className="font-['Trim',_'Courier_New',_monospace] leading-[18px] not-italic relative shrink-0 text-[#f3f9ae] text-[12px] sm:text-[14px] md:text-[16px] text-right tracking-[0.8px] uppercase w-[322px]">{`2011–2014 `}</p>
+    <div className="content-stretch flex gap-6 md:gap-[110px] items-center justify-center relative shrink-0 w-full" data-name="Container">
+      <p className="font-['Trim',_'Courier_New',_monospace] leading-[18px] not-italic relative shrink-0 text-[#f3f9ae] text-[12px] sm:text-[14px] md:text-[16px] text-right tracking-[0.8px] uppercase w-auto md:w-[322px]">{`2011–2014 `}</p>
       <Content6 />
     </div>
   );
@@ -569,7 +569,7 @@ function Container15() {
   return (
     <div className="relative shrink-0 w-full" data-name="Container">
       <div className="flex flex-row items-center justify-center size-full">
-        <div className="box-border content-stretch flex gap-[73px] items-center justify-center pl-[74px] pr-0 py-0 relative w-full">
+        <div className="box-border content-stretch flex gap-4 md:gap-[73px] items-center justify-center pl-4 md:pl-[74px] pr-0 py-0 relative w-full">
           <Content7 />
           <p className="basis-0 font-['Trim',_'Courier_New',_monospace] grow leading-[18px] min-h-px min-w-px not-italic relative shrink-0 text-[#f3f9ae] text-[12px] sm:text-[14px] md:text-[16px] tracking-[0.8px] uppercase">2011</p>
         </div>

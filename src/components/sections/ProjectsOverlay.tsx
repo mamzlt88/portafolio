@@ -60,10 +60,23 @@ const EXPERIENCE_ENTRIES: ProjectEntry[] = [
   },
 ];
 
-type FilterTab = 'experience';
+const BRANDING_ENTRIES: ProjectEntry[] = [
+  {
+    id: 'colorfit',
+    lines: [
+      [{ text: 'Colorfit', style: 'bold' }, { text: 'Brand', style: 'italic' }],
+      [{ text: 'Rebrand', style: 'normal' }, { text: 'for Market Entry', style: 'semibold-italic' }],
+    ],
+    x: 'calc(14% + 100px)',
+    y: '30%',
+  },
+];
+
+type FilterTab = 'experience' | 'branding';
 
 const TAB_CONFIG: Record<FilterTab, { bg: string; entries: ProjectEntry[] }> = {
   experience: { bg: '#e1f40b', entries: EXPERIENCE_ENTRIES },
+  branding: { bg: '#a456f3', entries: BRANDING_ENTRIES },
 };
 
 const WORD_FONT_MAP: Record<WordStyle, string> = {
@@ -130,6 +143,16 @@ export default function ProjectsOverlay({ onClose, onProjectClick }: ProjectsOve
         >
           Experience
         </button>
+        <button
+          onClick={() => setActiveTab('branding')}
+          className={`px-[16px] py-[8px] rounded-full text-[13px] font-['DM_Mono',monospace] uppercase tracking-wide transition-colors cursor-pointer ${
+            activeTab === 'branding'
+              ? 'bg-black text-white'
+              : 'bg-transparent text-black border border-black hover:bg-black/5'
+          }`}
+        >
+          Branding
+        </button>
       </motion.div>
 
       {/* Close (X) control */}
@@ -147,15 +170,53 @@ export default function ProjectsOverlay({ onClose, onProjectClick }: ProjectsOve
         </svg>
       </motion.button>
 
-      {/* Scattered project titles — model is rendered by Landing and elevated above this overlay */}
-      {entries.map((entry, idx) => (
-        <ProjectTitle
-          key={`${activeTab}-${entry.id}-${idx}`}
-          entry={entry}
-          index={idx}
-          onClick={() => onProjectClick?.(entry.id)}
-        />
-      ))}
+      {/* Mobile: stacked project list */}
+      <div className="md:hidden absolute inset-0 flex flex-col justify-center gap-8 px-8 pt-[80px] pb-[60px]">
+        {entries.map((entry, idx) => (
+          <motion.button
+            key={`mobile-${activeTab}-${entry.id}`}
+            className="cursor-pointer group text-left"
+            onClick={() => onProjectClick?.(entry.id)}
+            initial={{ opacity: 0, x: -24 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 + idx * 0.1, ease: "easeOut" }}
+          >
+            <div className="flex flex-col gap-[2px]">
+              {entry.lines.map((line, lineIdx) => (
+                <div key={lineIdx} className="flex flex-wrap gap-[6px] items-baseline text-black leading-[1.12]">
+                  {line.map((word, wordIdx) => (
+                    <span
+                      key={wordIdx}
+                      className={`${WORD_FONT_MAP[word.style]} tracking-[-0.04em] group-hover:opacity-70 transition-opacity`}
+                      style={{ fontSize: 'clamp(1.75rem, 7vw, 2.5rem)' }}
+                    >
+                      {word.text}
+                    </span>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div className="mt-2 flex items-center gap-2 text-black/50">
+              <span className="font-['DM_Mono',monospace] text-xs uppercase tracking-wide">View case study</span>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </div>
+          </motion.button>
+        ))}
+      </div>
+
+      {/* Desktop: scattered absolute titles — model is rendered by Landing and elevated above this overlay */}
+      <div className="hidden md:block">
+        {entries.map((entry, idx) => (
+          <ProjectTitle
+            key={`${activeTab}-${entry.id}-${idx}`}
+            entry={entry}
+            index={idx}
+            onClick={() => onProjectClick?.(entry.id)}
+          />
+        ))}
+      </div>
     </motion.div>
   );
 }

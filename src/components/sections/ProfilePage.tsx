@@ -1,4 +1,32 @@
 import svgPaths from "../imports/svg-9xwtypm6ze";
+
+const MOBILE_SKILL_GROUPS = [
+  {
+    label: 'Design Tools',
+    bg: 'bg-[rgba(254,243,189,0.7)]',
+    skills: ['Figma', 'Illustrator', 'Photoshop', 'After Effects', 'Spline', 'Canva', 'Notion', 'Miro'],
+  },
+  {
+    label: 'UX Design',
+    bg: 'bg-[rgba(205,219,35,0.3)]',
+    skills: ['UI Design', 'Wireframing', 'High Fidelity Prototyping', 'Design System', 'Interaction Design', 'Responsive Design', 'Navigation Design', 'Design QA', 'Visual Concept'],
+  },
+  {
+    label: 'Strategy',
+    bg: 'bg-[rgba(103,33,174,0.12)]',
+    skills: ['UX Strategy', 'Roadmapping', 'Business & Product Alignment', 'Agile Methodology', 'Vision Definition', 'Metrics & KPIs', 'Experience Mapping'],
+  },
+  {
+    label: 'Leadership',
+    bg: 'bg-[rgba(40,255,244,0.18)]',
+    skills: ['Coaching', 'Design Operations', 'Presales', 'Collaboration', 'Communication', 'Conflict Management', 'Negotiation'],
+  },
+  {
+    label: 'Research',
+    bg: 'bg-[rgba(221,204,239,0.5)]',
+    skills: ['User Interviews', 'Workshop Facilitation', 'User Personas', 'Information Architecture', 'Competitive Analysis', 'User Journey & Maps'],
+  },
+];
 import { motion } from "motion/react";
 import { useState, useEffect, useRef } from "react";
 import TimelineSection from "./TimelineSection";
@@ -122,10 +150,10 @@ function ProfilePageContent({ onClose, lenis, showImage = false, observerRoot, m
           aria-hidden
         />
         <div className="relative z-10 flex flex-col items-start justify-center size-full">
-          <div className="box-border content-stretch flex flex-col lg:flex-row gap-[40px] md:gap-[50px] lg:gap-[60px] items-start justify-start pl-[80px] p-[40px] md:p-[60px] lg:p-[80px] relative w-full">
+          <div className="box-border content-stretch flex flex-col lg:flex-row gap-[40px] md:gap-[50px] lg:gap-[60px] items-start justify-start p-[24px] md:p-[60px] lg:p-[80px] relative w-full">
             {/* Text Content */}
             <motion.div
-              className="content-stretch flex flex-col gap-[24px] md:gap-[28px] lg:gap-[32px] items-start relative shrink-0 w-full lg:w-[503px] pt-[148px] pr-[0px] pb-[0px] pl-[51px]"
+              className="content-stretch flex flex-col gap-[24px] md:gap-[28px] lg:gap-[32px] items-start relative shrink-0 w-full lg:w-[503px] pt-[72px] md:pt-[120px] lg:pt-[148px] pr-[0px] pb-[0px] pl-0 lg:pl-[51px]"
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: 'easeOut', delay: 0.2 }}
@@ -341,8 +369,30 @@ function ProfilePageContent({ onClose, lenis, showImage = false, observerRoot, m
         <TimelineSection onClickSkills={() => scrollToSection('skills')} />
       </section>
 
-      {/* Skills Section (hidden on small screens) */}
-      <section id="skills" className="hidden lg:block relative shrink-0 w-full min-h-screen lg:min-h-0 sticky top-0 rounded-tr-[32px] rounded-tl-[32px] overflow-hidden">
+      {/* Skills Section — mobile/tablet pill list */}
+      <section id="skills" className="block lg:hidden bg-white px-6 pt-10 pb-20 rounded-tr-[32px] rounded-tl-[32px] overflow-hidden">
+        <div className="flex flex-col gap-7 max-w-[560px]">
+          <div className="flex items-baseline gap-3">
+            <p className="font-['Trim','Courier_New',monospace] text-[24px] tracking-[0.8px] uppercase text-black">Skills</p>
+            <p className="font-['Poppins',sans-serif] text-[12px] text-black/50 uppercase tracking-wide">74 skills</p>
+          </div>
+          {MOBILE_SKILL_GROUPS.map((group) => (
+            <div key={group.label} className="flex flex-col gap-2">
+              <p className="font-['DM_Mono',monospace] text-[10px] tracking-[0.5px] uppercase text-black/50">{group.label}</p>
+              <div className="flex flex-wrap gap-2">
+                {group.skills.map((skill) => (
+                  <span key={skill} className={`inline-flex items-center px-3 py-1.5 rounded-full text-[11px] font-['DM_Mono',monospace] uppercase tracking-wide text-black border border-black/15 ${group.bg}`}>
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Skills Section — desktop bubble matrix */}
+      <section className="hidden lg:block relative shrink-0 w-full min-h-screen lg:min-h-0 sticky top-0 rounded-tr-[32px] rounded-tl-[32px] overflow-hidden">
         <SkillsSection onScrollUp={() => scrollToSection('about-me')} lenis={lenis} />
       </section>
         </div>

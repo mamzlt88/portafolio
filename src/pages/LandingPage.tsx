@@ -8,6 +8,7 @@ const WhiteLabelCaseStudy = React.lazy(() => import('../components/sections/Whit
 const TradingCaseStudy = React.lazy(() => import('../components/sections/TradingCaseStudy'));
 const SportsMediaCaseStudy = React.lazy(() => import('../components/sections/SportsMediaCaseStudy'));
 const UnifiedHealthCaseStudy = React.lazy(() => import('../components/sections/UnifiedHealthCaseStudy'));
+const ColorfitCaseStudy = React.lazy(() => import('../components/sections/ColorfitCaseStudy'));
 // Prefetch the model color layers used by AnimatedModelImage for smoother first paint on About
 import imgMmColorOrange from "figma:asset/717c32ec589970e1b541c572864d2fa741828374.png";
 import imgMmColorFucsia from "figma:asset/5e760d0b1b85f18ad77bddef113b51317f7606e7.png";
@@ -75,6 +76,7 @@ export default function LandingPage() {
             exit={{ opacity: 0 }}
             transition={{ opacity: { duration: 0.5 } }}
             className="fixed inset-0 z-[70]"
+            data-name="CaseStudy"
           >
             <Suspense fallback={null}>
               {activeCaseStudy === 'white-label' && (
@@ -88,6 +90,9 @@ export default function LandingPage() {
               )}
               {activeCaseStudy === 'unified-health' && (
                 <UnifiedHealthCaseStudy onClose={closeCaseStudy} />
+              )}
+              {activeCaseStudy === 'colorfit' && (
+                <ColorfitCaseStudy onClose={closeCaseStudy} />
               )}
             </Suspense>
           </motion.div>

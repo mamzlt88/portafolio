@@ -14,6 +14,7 @@ const Landing = React.lazy(() => import("./components/sections/Landing"));
 const WhiteLabelCaseStudy = React.lazy(() => import("./components/sections/WhiteLabelCaseStudy"));
 const SportsMediaCaseStudy = React.lazy(() => import("./components/sections/SportsMediaCaseStudy"));
 const UnifiedHealthCaseStudy = React.lazy(() => import("./components/sections/UnifiedHealthCaseStudy"));
+const ColorfitCaseStudy = React.lazy(() => import("./components/sections/ColorfitCaseStudy"));
 
 export default function App() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
@@ -160,8 +161,8 @@ export default function App() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ 
-                opacity: { 
+              transition={{
+                opacity: {
                   duration: 0.6
                 }
               }}
@@ -191,6 +192,13 @@ export default function App() {
               <Suspense fallback={null}>
                 {activeCaseStudy === 'unified-health' && (
                   <UnifiedHealthCaseStudy 
+                    onClose={() => setActiveCaseStudy(null)}
+                  />
+                )}
+              </Suspense>
+              <Suspense fallback={null}>
+                {activeCaseStudy === 'colorfit' && (
+                  <ColorfitCaseStudy 
                     onClose={() => setActiveCaseStudy(null)}
                   />
                 )}
