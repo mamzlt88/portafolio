@@ -19,6 +19,7 @@ interface ProjectEntry {
   lines: StyledWord[][];
   x: string;
   y: string;
+  completed?: boolean;
 }
 
 const EXPERIENCE_ENTRIES: ProjectEntry[] = [
@@ -30,6 +31,7 @@ const EXPERIENCE_ENTRIES: ProjectEntry[] = [
     ],
     x: 'calc(14% + 100px)',
     y: '12%',
+    completed: false,
   },
   {
     id: 'white-label',
@@ -39,6 +41,7 @@ const EXPERIENCE_ENTRIES: ProjectEntry[] = [
     ],
     x: '60%',
     y: '12%',
+    completed: true,
   },
   {
     id: 'sports-media',
@@ -48,6 +51,7 @@ const EXPERIENCE_ENTRIES: ProjectEntry[] = [
     ],
     x: 'calc(14% + 100px)',
     y: '55%',
+    completed: false,
   },
   {
     id: 'unified-health',
@@ -57,6 +61,7 @@ const EXPERIENCE_ENTRIES: ProjectEntry[] = [
     ],
     x: '60%',
     y: '55%',
+    completed: false,
   },
 ];
 
@@ -69,6 +74,7 @@ const BRANDING_ENTRIES: ProjectEntry[] = [
     ],
     x: 'calc(14% + 100px)',
     y: '30%',
+    completed: true,
   },
 ];
 
@@ -87,14 +93,15 @@ const WORD_FONT_MAP: Record<WordStyle, string> = {
 };
 
 function ProjectTitle({ entry, index, onClick }: { entry: ProjectEntry; index: number; onClick: () => void }) {
+  const isComplete = entry.completed !== false;
   return (
     <motion.button
-      className="absolute cursor-pointer group text-left"
+      className={`absolute group text-left ${isComplete ? 'cursor-pointer' : 'cursor-default pointer-events-none opacity-50'}`}
       style={{ left: entry.x, top: entry.y }}
       initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
+      animate={{ opacity: isComplete ? 1 : 0.5, y: 0 }}
       transition={{ duration: 0.5, delay: 0.4 + index * 0.15, ease: "easeOut" }}
-      onClick={onClick}
+      onClick={isComplete ? onClick : undefined}
     >
       <div className="flex flex-col gap-[2px]">
         {entry.lines.map((line, lineIdx) => (
@@ -102,7 +109,7 @@ function ProjectTitle({ entry, index, onClick }: { entry: ProjectEntry; index: n
             {line.map((word, wordIdx) => (
               <span
                 key={wordIdx}
-                className={`${WORD_FONT_MAP[word.style]} tracking-[-0.04em] group-hover:opacity-70 transition-opacity`}
+                className={`${WORD_FONT_MAP[word.style]} tracking-[-0.04em] ${isComplete ? 'group-hover:opacity-70' : ''} transition-opacity`}
                 style={{ fontSize: 'clamp(1.5rem, 3.5vw, 3rem)' }}
               >
                 {word.text}
@@ -111,6 +118,11 @@ function ProjectTitle({ entry, index, onClick }: { entry: ProjectEntry; index: n
           </div>
         ))}
       </div>
+      {!isComplete && (
+        <span className="mt-2 inline-block px-3 py-1 rounded-full bg-black/80 text-white text-[11px] font-['DM_Mono',monospace] uppercase tracking-wide">
+          In Construction
+        </span>
+      )}
     </motion.button>
   );
 }
@@ -172,13 +184,15 @@ export default function ProjectsOverlay({ onClose, onProjectClick }: ProjectsOve
 
       {/* Mobile: stacked project list */}
       <div className="md:hidden absolute inset-0 flex flex-col justify-center gap-8 px-8 pt-[80px] pb-[60px]">
-        {entries.map((entry, idx) => (
+        {entries.map((entry, idx) => {
+          const isComplete = entry.completed !== false;
+          return (
           <motion.button
             key={`mobile-${activeTab}-${entry.id}`}
-            className="cursor-pointer group text-left"
-            onClick={() => onProjectClick?.(entry.id)}
+            className={`group text-left ${isComplete ? 'cursor-pointer' : 'cursor-default opacity-50'}`}
+            onClick={isComplete ? () => onProjectClick?.(entry.id) : undefined}
             initial={{ opacity: 0, x: -24 }}
-            animate={{ opacity: 1, x: 0 }}
+            animate={{ opacity: isComplete ? 1 : 0.5, x: 0 }}
             transition={{ duration: 0.4, delay: 0.3 + idx * 0.1, ease: "easeOut" }}
           >
             <div className="flex flex-col gap-[2px]">
@@ -187,7 +201,7 @@ export default function ProjectsOverlay({ onClose, onProjectClick }: ProjectsOve
                   {line.map((word, wordIdx) => (
                     <span
                       key={wordIdx}
-                      className={`${WORD_FONT_MAP[word.style]} tracking-[-0.04em] group-hover:opacity-70 transition-opacity`}
+                      className={`${WORD_FONT_MAP[word.style]} tracking-[-0.04em] ${isComplete ? 'group-hover:opacity-70' : ''} transition-opacity`}
                       style={{ fontSize: 'clamp(1.75rem, 7vw, 2.5rem)' }}
                     >
                       {word.text}
@@ -196,14 +210,21 @@ export default function ProjectsOverlay({ onClose, onProjectClick }: ProjectsOve
                 </div>
               ))}
             </div>
-            <div className="mt-2 flex items-center gap-2 text-black/50">
-              <span className="font-['DM_Mono',monospace] text-xs uppercase tracking-wide">View case study</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
-                <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </div>
+            {isComplete ? (
+              <div className="mt-2 flex items-center gap-2 text-black/50">
+                <span className="font-['DM_Mono',monospace] text-xs uppercase tracking-wide">View case study</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                  <path d="M7 17L17 7M17 7H9M17 7V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+            ) : (
+              <span className="mt-2 inline-block px-3 py-1 rounded-full bg-black/80 text-white text-[11px] font-['DM_Mono',monospace] uppercase tracking-wide">
+                In Construction
+              </span>
+            )}
           </motion.button>
-        ))}
+          );
+        })}
       </div>
 
       {/* Desktop: scattered absolute titles — model is rendered by Landing and elevated above this overlay */}

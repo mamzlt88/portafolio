@@ -221,7 +221,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay, modelScale
 
         {/* Clickable overlay grid (interaction layer) */}
         {showGrids && (
-        <div className={`absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[10px] sm:gap-[14px] md:gap-[16px] lg:gap-[18px] xl:gap-[20px] z-10 ${computedTakeover ? 'hidden' : ''}`}>
+        <div className={`absolute inset-0 grid grid-cols-2 grid-rows-4 gap-[10px] sm:gap-[14px] md:gap-[16px] lg:gap-[18px] xl:gap-[20px] z-30 ${computedTakeover ? 'hidden' : ''}`}>
           {/* Projects (row 1, col 1) */}
           <button
             onClick={handleProjects}
@@ -292,10 +292,10 @@ export default function Landing({ onAbout, onProjects, activeOverlay, modelScale
         {/* When modelScale is 'compact' the wrapper becomes fixed+viewport-centered
             at a smaller width and elevates above the Projects overlay (z-[60]). */}
         <div
-          className={`pointer-events-none grid place-items-center transition-all duration-700 ease-out ${
+          className={`pointer-events-none transition-all duration-700 ease-out ${
             modelScale === 'compact'
-              ? 'fixed inset-0 z-[60]'
-              : 'absolute inset-0 z-20'
+              ? 'fixed inset-0 z-[60] hidden md:grid place-items-center'
+              : 'absolute inset-0 z-20 grid place-items-center'
           }`}
           aria-hidden
         >
