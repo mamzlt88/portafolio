@@ -1,4 +1,4 @@
-import{j as t}from"./index-Dr4FymAj.js";import{M as o}from"./MarkdownCaseStudy-C6_sXw8L.js";const n=`---
+import{j as t}from"./index-avXVB651.js";import{M as o}from"./MarkdownCaseStudy-P5Tz-v80.js";const n=`---
 slug: "colorfit"
 title:
   - text: "Colorfit"
