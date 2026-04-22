@@ -452,8 +452,16 @@ function Sidebar({
 }
 
 /* ------------------------------------------------------------------ */
-/*  Gallery                                                            */
+/*  Gallery — scroll-driven zoom/pan image sequence                    */
 /* ------------------------------------------------------------------ */
+
+const EASE_FACTOR = 0.08;
+const ZOOM_MAX = 2.5;
+const SCROLL_SENSITIVITY = 0.0012;
+const MAX_DELTA = 120;
+const INITIAL_PROGRESS = 0.35;
+const INERTIA_DECAY = 0.92;
+const INERTIA_MIN = 0.0005;
 
 function Gallery({
   items,
@@ -464,160 +472,208 @@ function Gallery({
   palette: ReturnType<typeof usePalette>;
   backgroundSrc?: string;
 }) {
-  const trackRef = useRef<HTMLDivElement>(null);
-  const sceneRef = useRef<HTMLDivElement>(null);
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  // Fallback bg: use first gallery image if no explicit backgroundSrc
-  const bgSrc = backgroundSrc || items[0]?.imageSrc;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const layerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const rafId = useRef(0);
+  const timeline = useRef(INITIAL_PROGRESS);
+  const targetTimeline = useRef(INITIAL_PROGRESS);
+  const touchStartY = useRef<number | null>(null);
+  const lastTouchY = useRef(0);
+  const velocity = useRef(0);
+  const inertiaRaf = useRef(0);
+  const N = items.length;
 
   useEffect(() => {
-    const track = trackRef.current;
-    const scene = sceneRef.current;
-    const scroller = track?.parentElement;
-    if (!track || !scene || !scroller || items.length === 0) return;
+    const container = containerRef.current;
+    if (!container || N === 0) return;
 
-    const cards = cardRefs.current.filter(Boolean) as HTMLElement[];
-    if (cards.length === 0) return;
+    const layers = layerRefs.current.filter(Boolean) as HTMLElement[];
+    if (layers.length === 0) return;
 
     const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Initial state
+    layers.forEach((el, i) => {
+      el.style.willChange = "transform, opacity";
+      el.style.transformOrigin = "center center";
+      el.style.backfaceVisibility = "hidden";
+      if (i === 0) {
+        el.style.opacity = "1";
+        el.style.transform = `scale(${1 + INITIAL_PROGRESS * (ZOOM_MAX - 1)})`;
+        el.style.display = "";
+      } else if (i === 1) {
+        el.style.opacity = `${INITIAL_PROGRESS}`;
+        el.style.transform = `scale(${Math.max(0.001, INITIAL_PROGRESS)})`;
+        el.style.display = "";
+      } else {
+        el.style.display = "none";
+        el.style.opacity = "0";
+        el.style.transform = "scale(0.001)";
+      }
+    });
+
     if (prefersReduced) {
-      cards.forEach((el) => { el.style.opacity = "1"; });
+      layers.forEach((el) => {
+        el.style.transform = "scale(1)";
+        el.style.opacity = "1";
+        el.style.display = "";
+      });
       return;
     }
 
-    // Size the scene to match the scroller's visible area
-    const viewH = scroller.clientHeight;
-    scene.style.height = `${viewH}px`;
+    const render = () => {
+      const diff = targetTimeline.current - timeline.current;
+      if (Math.abs(diff) > 0.0001) {
+        timeline.current += diff * EASE_FACTOR;
+      } else {
+        timeline.current = targetTimeline.current;
+      }
 
-    // Set initial state — all cards start invisible
-    cards.forEach((card) => {
-      card.style.willChange = "opacity";
-      card.style.opacity = "0";
-    });
-    // First card starts visible
-    if (cards[0]) cards[0].style.opacity = "1";
+      const t = timeline.current;
+      const currentIdx = Math.floor(t) % N;
+      const progress = t - Math.floor(t);
+      const prevIdx = (currentIdx - 1 + N) % N;
+      const nextIdx = (currentIdx + 1) % N;
 
-    const onResize = () => { scene.style.height = `${scroller.clientHeight}px`; };
-    window.addEventListener("resize", onResize);
-
-    const count = cards.length;
-    const segmentSize = count > 1 ? 1 / (count - 1) : 1;
-
-    const applyOpacity = (progress: number) => {
-      cards.forEach((card, i) => {
-        if (count === 1) { card.style.opacity = "1"; return; }
-
-        const segStart = (i - 1) * segmentSize;
-        const segEnd = i * segmentSize;
-
-        let opacity: number;
-        if (i === 0) {
-          // First card: visible until next card takes over
-          opacity = progress <= segmentSize * 0.5 ? 1 : Math.max(0, 1 - ((progress - segmentSize * 0.5) / (segmentSize * 0.5)));
-        } else if (progress <= segStart) {
-          opacity = 0;
-        } else if (progress >= segEnd) {
-          opacity = 1;
+      layers.forEach((el, i) => {
+        if (i === currentIdx) {
+          // Current: scale 1→ZOOM_MAX, full opacity
+          const s = 1 + progress * (ZOOM_MAX - 1);
+          el.style.transform = `scale(${s})`;
+          el.style.opacity = "1";
+          el.style.display = "";
+          el.style.zIndex = "2";
+        } else if (i === nextIdx) {
+          // Next: scale tiny→1, fade in
+          const s = Math.max(0.001, progress);
+          el.style.transform = `scale(${s})`;
+          el.style.opacity = `${Math.min(1, progress * 1.5)}`;
+          el.style.display = "";
+          el.style.zIndex = "3";
+        } else if (i === prevIdx) {
+          // Previous: hold at ZOOM_MAX, fade out
+          const holdProgress = Math.min(1, progress * 3);
+          const s = ZOOM_MAX + holdProgress * 0.3;
+          el.style.transform = `scale(${s})`;
+          el.style.opacity = `${Math.max(0, 1 - holdProgress)}`;
+          el.style.display = holdProgress >= 1 ? "none" : "";
+          el.style.zIndex = "1";
         } else {
-          // Fade in: reach 100% at midpoint of segment
-          const t = (progress - segStart) / (segEnd - segStart);
-          opacity = Math.min(1, t * 2);
+          el.style.display = "none";
+          el.style.opacity = "0";
+          el.style.zIndex = "0";
         }
-
-        card.style.opacity = `${opacity}`;
       });
+
+      rafId.current = requestAnimationFrame(render);
     };
 
-    const onScroll = () => {
-      const scrollTop = scroller.scrollTop;
-      const maxScroll = track.scrollHeight - scroller.clientHeight;
-      const progress = maxScroll > 0 ? Math.min(Math.max(scrollTop / maxScroll, 0), 1) : 0;
-      applyOpacity(progress);
+    rafId.current = requestAnimationFrame(render);
+
+    // Wheel input
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      let dy = e.deltaY;
+      if (e.deltaMode === 1) dy *= 40;
+      if (e.deltaMode === 2) dy *= 800;
+      dy = Math.max(-MAX_DELTA, Math.min(MAX_DELTA, dy));
+      targetTimeline.current = Math.max(0, targetTimeline.current + dy * SCROLL_SENSITIVITY);
     };
 
-    scroller.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
+    // Touch input
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartY.current = e.touches[0].clientY;
+      lastTouchY.current = e.touches[0].clientY;
+      velocity.current = 0;
+      cancelAnimationFrame(inertiaRaf.current);
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (touchStartY.current === null) return;
+      e.preventDefault();
+      const y = e.touches[0].clientY;
+      const dy = lastTouchY.current - y;
+      lastTouchY.current = y;
+      velocity.current = dy * SCROLL_SENSITIVITY;
+      targetTimeline.current = Math.max(0, targetTimeline.current + dy * SCROLL_SENSITIVITY);
+    };
+
+    const onTouchEnd = () => {
+      touchStartY.current = null;
+      // Inertia
+      const doInertia = () => {
+        if (Math.abs(velocity.current) < INERTIA_MIN) return;
+        velocity.current *= INERTIA_DECAY;
+        targetTimeline.current = Math.max(0, targetTimeline.current + velocity.current);
+        inertiaRaf.current = requestAnimationFrame(doInertia);
+      };
+      inertiaRaf.current = requestAnimationFrame(doInertia);
+    };
+
+    container.addEventListener("wheel", onWheel, { passive: false });
+    container.addEventListener("touchstart", onTouchStart, { passive: true });
+    container.addEventListener("touchmove", onTouchMove, { passive: false });
+    container.addEventListener("touchend", onTouchEnd, { passive: true });
 
     return () => {
-      scroller.removeEventListener("scroll", onScroll);
-      window.removeEventListener("resize", onResize);
+      cancelAnimationFrame(rafId.current);
+      cancelAnimationFrame(inertiaRaf.current);
+      container.removeEventListener("wheel", onWheel);
+      container.removeEventListener("touchstart", onTouchStart);
+      container.removeEventListener("touchmove", onTouchMove);
+      container.removeEventListener("touchend", onTouchEnd);
     };
-  }, [items]);
-
-  const trackHeight = Math.max(items.length * 150, 100);
+  }, [items, N]);
 
   return (
     <div
-      ref={trackRef}
-      className="w-full"
-      style={{ height: `${trackHeight}dvh` }}
+      ref={containerRef}
+      className="relative w-full h-full"
+      style={{ background: "#000", overflow: "hidden", touchAction: "none" }}
     >
-      {/* Fixed background image — fills viewport, stays behind everything */}
-      {bgSrc && (
-        <div className="fixed inset-0 z-0 pointer-events-none">
-          <img
-            src={bgSrc}
-            alt=""
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0" style={{ background: `${palette.bg}cc` }} />
+      {/* Layers — only 2-3 visible at a time, rest display:none */}
+      {items.map((item, idx) => (
+        <div
+          key={idx}
+          ref={(el) => { layerRefs.current[idx] = el; }}
+          className="absolute inset-0 w-full h-full"
+          style={{ transformOrigin: "center center" }}
+          role="img"
+          aria-label={item.label}
+        >
+          {item.videoSrc ? (
+            <video
+              src={item.videoSrc}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className={`w-full h-full ${idx === 0 ? "object-cover" : "object-contain"}`}
+            />
+          ) : item.imageSrc ? (
+            <img
+              src={item.imageSrc}
+              alt={item.label}
+              loading={idx < 3 ? "eager" : "lazy"}
+              className={`w-full h-full ${idx === 0 ? "object-cover" : "object-contain"}`}
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center" style={{ background: palette.placeholderBg }}>
+              <span style={{ fontSize: 16, color: palette.muted }}>
+                {item.label}
+              </span>
+            </div>
+          )}
         </div>
-      )}
-
-      {/* Scene: pinned via sticky */}
-      <div
-        ref={sceneRef}
-        className="w-full overflow-hidden"
-        style={{ position: "sticky", top: 0 }}
-      >
-        {/* All gallery cards — stacked, animated via scroll */}
-        {items.map((item, idx) => (
-          <div
-            key={idx}
-            ref={(el) => { cardRefs.current[idx] = el; }}
-            className="absolute inset-0 w-full h-full flex items-center justify-center"
-            style={{
-              zIndex: idx + 1,
-              background: (item.imageSrc || item.videoSrc) ? "transparent" : palette.placeholderBg,
-            }}
-            role="img"
-            aria-label={item.label}
-          >
-            {item.videoSrc ? (
-              <video
-                src={item.videoSrc}
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="w-full h-full object-contain"
-              />
-            ) : item.imageSrc ? (
-              <img
-                src={item.imageSrc}
-                alt={item.label}
-                loading="lazy"
-                className="w-full h-full object-contain"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center">
-                <span style={{ fontSize: 16, color: palette.muted }}>
-                  {item.label}
-                </span>
-              </div>
-            )}
-          </div>
-        ))}
-      </div>
+      ))}
 
       {/* Hide scrollbar + reduced-motion fallback */}
       <style>{`
         .gallery-scroll::-webkit-scrollbar { display: none; }
         .gallery-scroll { -ms-overflow-style: none; scrollbar-width: none; }
-        .gallery-scroll { overscroll-behavior: none; -webkit-overflow-scrolling: touch; }
+        .gallery-scroll { overscroll-behavior: none; }
         @media (prefers-reduced-motion: reduce) {
-          [role="img"] { opacity: 1 !important; }
+          [role="img"] { opacity: 1 !important; transform: none !important; }
         }
       `}</style>
     </div>
@@ -644,10 +700,10 @@ export default function CaseStudyLayout({
 
   return (
     <div className="relative w-full h-full flex flex-col md:flex-row" style={{ background: palette.bg }}>
-      {/* Gallery — scrollable, takes remaining space */}
+      {/* Gallery — fills remaining space, scroll handled internally */}
       <div
-        className="flex-1 min-w-0 min-h-0 overflow-y-auto relative gallery-scroll"
-        style={{ overscrollBehavior: "contain" }}
+        className="flex-1 min-w-0 min-h-0 relative gallery-scroll"
+        style={{ overflow: "hidden" }}
       >
         {/* Close / back button — inside the scrollable area so it stays on top */}
         <button
