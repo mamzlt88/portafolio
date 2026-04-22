@@ -1,4 +1,4 @@
-import{j as n}from"./index-Ryi3XO0U.js";import{M as t}from"./MarkdownCaseStudy-BNhjQjB3.js";const s=`---
+import{j as n}from"./index-nVDpQ928.js";import{M as t}from"./MarkdownCaseStudy-TmgNREBm.js";const s=`---
 slug: "white-label"
 title:
   - text: "White"
