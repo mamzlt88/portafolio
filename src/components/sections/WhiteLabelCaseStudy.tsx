@@ -1,5 +1,6 @@
-// WhiteLabelCaseStudy.tsx — scroll-driven image sequence case study
-import ScrollDrivenCaseStudy from "./ScrollDrivenCaseStudy";
+// WhiteLabelCaseStudy.tsx — markdown-driven case study for the White-Label project
+import MarkdownCaseStudy from "./MarkdownCaseStudy";
+import rawContent from "../../content/projects/payet-payment-gateway/content.md?raw";
 
 import img01 from "../../content/projects/payet-payment-gateway/media/images/01-hero-payet-across-devices.webp";
 import img1 from "../../content/projects/payet-payment-gateway/media/images/1.webp";
@@ -13,51 +14,68 @@ import imgStyleguide from "../../content/projects/payet-payment-gateway/media/im
 import imgButtons from "../../content/projects/payet-payment-gateway/media/images/buttons.webp";
 import imgComponents from "../../content/projects/payet-payment-gateway/media/images/components.webp";
 import imgShapes from "../../content/projects/payet-payment-gateway/media/images/shapes.webp";
+import imgMerchant01 from "../../content/projects/payet-payment-gateway/media/images/MErchant01.webp";
+import imgMerchant02 from "../../content/projects/payet-payment-gateway/media/images/MErchant02.webp";
+import imgMerchant03 from "../../content/projects/payet-payment-gateway/media/images/MErchant03.webp";
+import imgMerchant04 from "../../content/projects/payet-payment-gateway/media/images/MErchant04.webp";
+import imgMerchant05 from "../../content/projects/payet-payment-gateway/media/images/MErchant05.webp";
+import imgMerchant06 from "../../content/projects/payet-payment-gateway/media/images/MErchant06.webp";
+import imgCust01 from "../../content/projects/payet-payment-gateway/media/images/cust01.webp";
+import imgCust02 from "../../content/projects/payet-payment-gateway/media/images/cust02.webp";
+import imgCust03 from "../../content/projects/payet-payment-gateway/media/images/cust03.webp";
+import imgCust04 from "../../content/projects/payet-payment-gateway/media/images/cust04.webp";
+import imgScreenshot from "../../content/projects/payet-payment-gateway/media/images/screenshot-preview.webp";
 
-const IMAGES = [
-  img01,
-  img1,
-  img2,
-  img3,
-  img4,
-  imgDashboard,
-  imgAdmin,
-  imgLanding,
-  imgStyleguide,
-  imgButtons,
-  imgComponents,
-  imgShapes,
-];
+import vidAudit from "../../content/projects/payet-payment-gateway/media/videos/Audit-web.mp4";
+import vidColor from "../../content/projects/payet-payment-gateway/media/videos/Color scheme.mp4";
+import vidUI from "../../content/projects/payet-payment-gateway/media/videos/UI color.mp4";
 
-const METADATA = [
-  { label: "Role",     value: "Lead Product Designer / Consultant" },
-  { label: "Timeline", value: "3-Year Partnership" },
-  { label: "Team",     value: "PM, Developers, Design, QA" },
-];
+const imageMap: Record<string, string> = {
+  "01-hero-payet-across-devices.webp": img01,
+  "1.webp": img1,
+  "2.webp": img2,
+  "3.webp": img3,
+  "4.webp": img4,
+  "Dashboard.webp": imgDashboard,
+  "Admin.webp": imgAdmin,
+  "Landing components.webp": imgLanding,
+  "Styleguide.webp": imgStyleguide,
+  "buttons.webp": imgButtons,
+  "components.webp": imgComponents,
+  "shapes.webp": imgShapes,
+  "MErchant01.webp": imgMerchant01,
+  "MErchant02.webp": imgMerchant02,
+  "MErchant03.webp": imgMerchant03,
+  "MErchant04.webp": imgMerchant04,
+  "MErchant05.webp": imgMerchant05,
+  "MErchant06.webp": imgMerchant06,
+  "cust01.webp": imgCust01,
+  "cust02.webp": imgCust02,
+  "cust03.webp": imgCust03,
+  "cust04.webp": imgCust04,
+  "screenshot-preview.webp": imgScreenshot,
+};
 
-const SECTIONS = [
-  {
-    title: "Overview",
-    body: "Payet is a white-label payment gateway serving financial, automotive, and healthcare institutions. Each portal had grown independently — inconsistent patterns created friction for users and slowed development across a platform processing billions in transactions.",
-  },
-  {
-    title: "Approach",
-    body: "A custom design system unified all portals under shared structure. Working alongside developers across a 3-year partnership, the redesign standardized components, improved accessibility (WCAG AA), and enabled brand customization at scale across 180+ merchants.",
-  },
-  {
-    title: "Outcomes",
-    body: "+30% merchant engagement · +4% recurring customer transactions · −40% design-to-development time · Annual payment volume grew from $7.45B (2018) to $15.2B (2020).",
-  },
-];
+const videoMap: Record<string, string> = {
+  "Audit-web.mp4": vidAudit,
+  "Color scheme.mp4": vidColor,
+  "UI color.mp4": vidUI,
+};
+
+function resolveImage(filename: string): string | undefined {
+  return imageMap[filename];
+}
+
+function resolveVideo(filename: string): string | undefined {
+  return videoMap[filename];
+}
 
 export default function WhiteLabelCaseStudy({ onClose }: { onClose: () => void }) {
   return (
-    <ScrollDrivenCaseStudy
-      images={IMAGES}
-      projectTitle="White-Label Payment Gateway"
-      year="2024"
-      metadata={METADATA}
-      sections={SECTIONS}
+    <MarkdownCaseStudy
+      rawMarkdown={rawContent}
+      resolveImage={resolveImage}
+      resolveVideo={resolveVideo}
       onClose={onClose}
     />
   );
