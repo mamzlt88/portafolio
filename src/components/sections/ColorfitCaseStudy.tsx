@@ -20,13 +20,11 @@ import vidPromo from "../../content/projects/colorfit-brand/media/videos/colorfi
 
 import imgBg from "../../content/projects/colorfit-brand/media/images/bg.webp";
 import imgLogoHero from "../../content/projects/colorfit-brand/media/images/1logo.webp";
-import imgExploration from "../../content/projects/colorfit-brand/media/images/Exploration.webp";
 import imgPattern from "../../content/projects/colorfit-brand/media/images/pattern.webp";
 
 const imageMap: Record<string, string> = {
   "1logo.webp": imgLogoHero,
   "bg.webp": imgBg,
-  "Exploration.webp": imgExploration,
   "pattern.webp": imgPattern,
   "image.webp": imgImage,
   "image 2.webp": imgImage2,

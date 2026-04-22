@@ -1,4 +1,4 @@
-import{j as n}from"./index-Ryi3XO0U.js";import{M as t}from"./MarkdownCaseStudy-BNhjQjB3.js";const i=`---
+import{j as n}from"./index-CA0e_uS6.js";import{M as t}from"./MarkdownCaseStudy-B0pbfk3K.js";const i=`---
 slug: "sports-media"
 title:
   - text: "Sports"

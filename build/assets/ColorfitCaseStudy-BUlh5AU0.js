@@ -1,4 +1,4 @@
-import{j as o}from"./index-Ryi3XO0U.js";import{M as n}from"./MarkdownCaseStudy-BNhjQjB3.js";const i=`---
+import{j as o}from"./index-CA0e_uS6.js";import{M as n}from"./MarkdownCaseStudy-B0pbfk3K.js";const i=`---
 slug: "colorfit"
 title:
   - text: "Colorfit"
@@ -31,8 +31,6 @@ gallery:
     alt: "Colorfit logo — folklorico chameleon"
   - file: "bg.webp"
     alt: "Abstract geometric background"
-  - file: "Exploration.webp"
-    alt: "Design roadmap & deliverables"
   - file: "pattern.webp"
     alt: "Geometric brand pattern"
   - file: "image.webp"
@@ -148,4 +146,4 @@ Presenting three strategic directions instead of three visual styles fundamental
 **What I'd Do Differently:** Compress the discovery phase and extend the testing phase. Trade 2-week discovery for 1 week discovery + 2 weeks rapid prototyping + field testing with actual distributors and retail partners.
 
 **Key Learning:** Cultural authenticity paired with contemporary design is a stronger positioning than corporate minimalism when entering emerging markets. In a crowded, price-driven industry, warmth and cultural roots beat polish and corporate distance.
-`,a="/portafolio/assets/image-CGPm_MZD.webp",r="/portafolio/assets/image%202-BD3vPPnl.webp",s="/portafolio/assets/logo%201-DxHsNwyP.webp",l="/portafolio/assets/logo2-B6G-VAMD.webp",c="/portafolio/assets/logo3-B6TI3wIA.webp",d="/portafolio/assets/logo%20color-vcU8icQw.webp",p="/portafolio/assets/color-3Vkbe07s.webp",m="/portafolio/assets/typogrpahy-DPXrswWS.webp",g="/portafolio/assets/BRand%20book-BaAaOThx.webp",h="/portafolio/assets/Image%20brand-BAN3vlNj.webp",b="/portafolio/assets/buckets-Dzxu_Y1Y.webp",u="/portafolio/assets/bucket2-CRbgl8va.webp",f="/portafolio/assets/POP%20brand-CwMagtDH.webp",y="/portafolio/assets/colorfit-promo-Do4Bg3wr.mp4",t="/portafolio/assets/bg-2RYIst0x.webp",w="/portafolio/assets/1logo-BbTL-e1A.webp",v="/portafolio/assets/Exploration-2h8jG67N.webp",k="/portafolio/assets/pattern-xmE6-E4I.webp",C={"1logo.webp":w,"bg.webp":t,"Exploration.webp":v,"pattern.webp":k,"image.webp":a,"image 2.webp":r,"logo 1.webp":s,"logo2.webp":l,"logo3.webp":c,"logo color.webp":d,"color.webp":p,"typogrpahy.webp":m,"BRand book.webp":g,"Image brand.webp":h,"buckets.webp":b,"bucket2.webp":u,"POP brand.webp":f},P={"colorfit-promo.mp4":y};function x(e){return C[e]}function B(e){return P[e]}function I({onClose:e}){return o.jsx(n,{rawMarkdown:i,resolveImage:x,resolveVideo:B,backgroundSrc:t,onClose:e})}export{I as default};
+`,a="/portafolio/assets/image-CGPm_MZD.webp",r="/portafolio/assets/image%202-BD3vPPnl.webp",s="/portafolio/assets/logo%201-DxHsNwyP.webp",l="/portafolio/assets/logo2-B6G-VAMD.webp",c="/portafolio/assets/logo3-B6TI3wIA.webp",d="/portafolio/assets/logo%20color-vcU8icQw.webp",p="/portafolio/assets/color-3Vkbe07s.webp",m="/portafolio/assets/typogrpahy-DPXrswWS.webp",g="/portafolio/assets/BRand%20book-BaAaOThx.webp",h="/portafolio/assets/Image%20brand-BAN3vlNj.webp",b="/portafolio/assets/buckets-Dzxu_Y1Y.webp",u="/portafolio/assets/bucket2-CRbgl8va.webp",f="/portafolio/assets/POP%20brand-CwMagtDH.webp",y="/portafolio/assets/colorfit-promo-Do4Bg3wr.mp4",t="/portafolio/assets/bg-2RYIst0x.webp",w="/portafolio/assets/1logo-Crz1MgMm.webp",v="/portafolio/assets/pattern-xmE6-E4I.webp",k={"1logo.webp":w,"bg.webp":t,"pattern.webp":v,"image.webp":a,"image 2.webp":r,"logo 1.webp":s,"logo2.webp":l,"logo3.webp":c,"logo color.webp":d,"color.webp":p,"typogrpahy.webp":m,"BRand book.webp":g,"Image brand.webp":h,"buckets.webp":b,"bucket2.webp":u,"POP brand.webp":f},C={"colorfit-promo.mp4":y};function P(e){return k[e]}function B(e){return C[e]}function D({onClose:e}){return o.jsx(n,{rawMarkdown:i,resolveImage:P,resolveVideo:B,backgroundSrc:t,onClose:e})}export{D as default};

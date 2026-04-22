@@ -31,8 +31,6 @@ gallery:
     alt: "Colorfit logo — folklorico chameleon"
   - file: "bg.webp"
     alt: "Abstract geometric background"
-  - file: "Exploration.webp"
-    alt: "Design roadmap & deliverables"
   - file: "pattern.webp"
     alt: "Geometric brand pattern"
   - file: "image.webp"
