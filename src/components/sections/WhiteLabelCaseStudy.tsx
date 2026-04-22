@@ -25,6 +25,8 @@ import imgCust02 from "../../content/projects/payet-payment-gateway/media/images
 import imgCust03 from "../../content/projects/payet-payment-gateway/media/images/cust03.webp";
 import imgCust04 from "../../content/projects/payet-payment-gateway/media/images/cust04.webp";
 import imgScreenshot from "../../content/projects/payet-payment-gateway/media/images/screenshot-preview.webp";
+import imgPlacement from "../../content/projects/payet-payment-gateway/media/images/Payet-placement.webp";
+import imgPlacement2 from "../../content/projects/payet-payment-gateway/media/images/Pacement 2.webp";
 
 import vidAudit from "../../content/projects/payet-payment-gateway/media/videos/Audit-web.mp4";
 import vidColor from "../../content/projects/payet-payment-gateway/media/videos/Color scheme.mp4";
@@ -32,6 +34,8 @@ import vidUI from "../../content/projects/payet-payment-gateway/media/videos/UI 
 
 const imageMap: Record<string, string> = {
   "01-hero-payet-across-devices.webp": img01,
+  "Payet-placement.webp": imgPlacement,
+  "Pacement 2.webp": imgPlacement2,
   "1.webp": img1,
   "2.webp": img2,
   "3.webp": img3,

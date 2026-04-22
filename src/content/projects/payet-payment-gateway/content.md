@@ -27,6 +27,10 @@ metadata:
 gallery:
   - file: "01-hero-payet-across-devices.webp"
     alt: "Hero — Payet across devices"
+  - file: "Payet-placement.webp"
+    alt: "Payet platform overview"
+  - file: "Pacement 2.webp"
+    alt: "Payet — payments made simple"
   - file: "1.webp"
     alt: "Overview 1"
   - file: "2.webp"
