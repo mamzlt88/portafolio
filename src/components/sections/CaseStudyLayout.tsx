@@ -188,6 +188,10 @@ function Sidebar({
   scheme,
 }: SidebarProps) {
   const activeSection = sections[activeSectionIdx];
+  const panelRef = useRef<HTMLDivElement>(null);
+  const dragStartY = useRef<number | null>(null);
+  const dragDelta = useRef(0);
+  const [dragOffset, setDragOffset] = useState(0);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
@@ -201,18 +205,45 @@ function Sidebar({
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
 
+  // Swipe-down-to-close (mobile bottom sheet)
+  const onTouchStart = useCallback((e: React.TouchEvent) => {
+    dragStartY.current = e.touches[0].clientY;
+    dragDelta.current = 0;
+  }, []);
+
+  const onTouchMove = useCallback((e: React.TouchEvent) => {
+    if (dragStartY.current === null) return;
+    const dy = e.touches[0].clientY - dragStartY.current;
+    dragDelta.current = dy;
+    if (dy > 0) setDragOffset(dy);
+  }, []);
+
+  const onTouchEnd = useCallback(() => {
+    if (dragDelta.current >= 80) {
+      onToggle();
+    }
+    dragStartY.current = null;
+    dragDelta.current = 0;
+    setDragOffset(0);
+  }, [onToggle]);
+
   return (
     <>
       {/* Sidebar panel — right on desktop, bottom sheet on mobile */}
       <div
+        ref={panelRef}
         role="complementary"
         aria-label="Case study content"
-        className={`sidebar-panel absolute z-[70] flex flex-col transition-transform duration-[400ms] ${open ? "sidebar-open" : "sidebar-closed"}`}
+        className={`sidebar-panel absolute z-[70] flex flex-col ${dragOffset > 0 ? '' : 'transition-transform duration-[400ms]'} ${open ? "sidebar-open" : "sidebar-closed"}`}
         style={{
           background: palette.sidebarBg,
-          transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)",
+          transitionTimingFunction: dragOffset > 0 ? undefined : "cubic-bezier(0.4, 0, 0.2, 1)",
           boxShadow: open ? "rgba(0,0,0,0.3) 0 -10px 30px" : "none",
+          ...(dragOffset > 0 ? { transform: `translateY(${dragOffset}px)` } : {}),
         }}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        onTouchEnd={onTouchEnd}
       >
         <style>{`
           .sidebar-panel {
@@ -242,14 +273,20 @@ function Sidebar({
           <VerticalTitle words={title} />
         </div>
 
-        {/* Close button */}
+        {/* Close button — X on mobile, arrow on desktop */}
         <button
           onClick={onToggle}
           aria-label="Close sidebar"
           className="absolute top-[16px] right-[16px] md:left-[16px] md:right-auto z-10 flex items-center justify-center cursor-pointer rounded-full hover:opacity-70 transition-opacity"
           style={{ width: 40, height: 40, color: palette.text }}
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          {/* X icon — mobile only */}
+          <svg className="md:hidden" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 6L6 18" />
+            <path d="M6 6l12 12" />
+          </svg>
+          {/* Arrow icon — desktop only */}
+          <svg className="hidden md:block" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12h14" />
             <path d="M12 5l7 7-7 7" />
           </svg>
@@ -354,12 +391,27 @@ function Sidebar({
           </div>
         </div>
 
-        {/* Section navigation — bottom arrow */}
+        {/* Section navigation — back / dots / forward */}
         {sections.length > 1 && (
           <div
-            className="shrink-0 flex items-center justify-between px-[48px] py-[16px]"
+            className="shrink-0 flex items-center justify-between px-[24px] md:px-[48px] py-[16px]"
             style={{ background: palette.sidebarBg }}
           >
+            {/* Back arrow */}
+            <button
+              onClick={() =>
+                onSectionChange((activeSectionIdx - 1 + sections.length) % sections.length)
+              }
+              className="flex items-center justify-center cursor-pointer hover:opacity-70 transition-opacity"
+              style={{ color: palette.text }}
+              aria-label="Previous section"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M19 12H5" />
+                <path d="M12 19l-7-7 7-7" />
+              </svg>
+            </button>
+
             {/* Section dots */}
             <div className="flex gap-[6px]">
               {sections.map((_, idx) => (
@@ -378,7 +430,7 @@ function Sidebar({
               ))}
             </div>
 
-            {/* Next arrow */}
+            {/* Forward arrow */}
             <button
               onClick={() =>
                 onSectionChange((activeSectionIdx + 1) % sections.length)
