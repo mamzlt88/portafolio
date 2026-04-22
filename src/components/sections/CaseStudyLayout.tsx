@@ -708,7 +708,7 @@ export default function CaseStudyLayout({
         {/* Close / back button — inside the scrollable area so it stays on top */}
         <button
           onClick={onClose}
-          className="absolute top-[16px] left-[16px] md:top-[24px] md:left-[24px] z-[10] flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer hover:opacity-80 transition-opacity"
+          className="absolute top-[16px] left-[16px] md:top-[24px] md:left-[24px] z-[20] flex items-center gap-2 px-4 py-2 rounded-full cursor-pointer hover:opacity-80 transition-opacity"
           style={{ background: palette.sidebarBg, color: palette.text }}
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -728,7 +728,7 @@ export default function CaseStudyLayout({
 
       {/* Sidebar strip — bottom bar on mobile, right strip on desktop */}
       <div
-        className="relative shrink-0"
+        className="relative shrink-0 z-10"
         style={{ background: palette.sidebarBg }}
       >
         <style>{`
