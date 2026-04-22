@@ -4,7 +4,7 @@ import { execSync } from "child_process";
 import { readdirSync } from "fs";
 import { join, extname, basename } from "path";
 
-const imgDir = "src/content/projects/payet-payment-gateway/media/images";
+const imgDir = process.argv[2] || "src/content/projects/payet-payment-gateway/media/images";
 const files = readdirSync(imgDir);
 
 for (const file of files) {

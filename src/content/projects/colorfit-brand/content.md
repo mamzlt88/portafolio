@@ -27,13 +27,13 @@ metadata:
     value: "Logo System, Brand Book, Packaging Design (8+ product lines), POP Collateral, Promotional Banners, Video Direction"
 
 gallery:
-  - file: "1logo.png"
+  - file: "1logo.webp"
     alt: "Colorfit logo — folklorico chameleon"
   - file: "bg.webp"
     alt: "Abstract geometric background"
-  - file: "Exploration.png"
+  - file: "Exploration.webp"
     alt: "Design roadmap & deliverables"
-  - file: "pattern.png"
+  - file: "pattern.webp"
     alt: "Geometric brand pattern"
   - file: "image.webp"
     alt: "Brand overview"

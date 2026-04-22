@@ -19,15 +19,15 @@ import imgPOP from "../../content/projects/colorfit-brand/media/images/POP brand
 import vidPromo from "../../content/projects/colorfit-brand/media/videos/colorfit-promo.mp4";
 
 import imgBg from "../../content/projects/colorfit-brand/media/images/bg.webp";
-import imgLogoHero from "../../content/projects/colorfit-brand/media/images/1logo.png";
-import imgExploration from "../../content/projects/colorfit-brand/media/images/Exploration.png";
-import imgPattern from "../../content/projects/colorfit-brand/media/images/pattern.png";
+import imgLogoHero from "../../content/projects/colorfit-brand/media/images/1logo.webp";
+import imgExploration from "../../content/projects/colorfit-brand/media/images/Exploration.webp";
+import imgPattern from "../../content/projects/colorfit-brand/media/images/pattern.webp";
 
 const imageMap: Record<string, string> = {
-  "1logo.png": imgLogoHero,
+  "1logo.webp": imgLogoHero,
   "bg.webp": imgBg,
-  "Exploration.png": imgExploration,
-  "pattern.png": imgPattern,
+  "Exploration.webp": imgExploration,
+  "pattern.webp": imgPattern,
   "image.webp": imgImage,
   "image 2.webp": imgImage2,
   "logo 1.webp": imgLogo1,
