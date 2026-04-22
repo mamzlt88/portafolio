@@ -142,7 +142,7 @@ function ProfilePageContent({ onClose, lenis, showImage = false, observerRoot, m
       </div>
 
       {/* Content About Me Section */}
-      <section id="about-me" className="relative isolate shrink-0 w-full min-h-screen lg:min-h-0 sticky top-0 bg-[#e1f40b] overflow-hidden">
+      <section id="about-me" className="relative isolate shrink-0 w-full min-h-screen lg:min-h-0 lg:sticky lg:top-0 bg-[#e1f40b] overflow-hidden">
         {/* Shared layout background morph from Landing's Yellow 2 tile */}
           <div
           className="absolute inset-0 -z-10"
@@ -196,7 +196,7 @@ function ProfilePageContent({ onClose, lenis, showImage = false, observerRoot, m
       </section>
 
       {/* Details Section */}
-      <section id="details" className="bg-white box-border content-stretch flex flex-col gap-[10px] items-center justify-center py-[80px] md:py-[150px] lg:py-[300px] relative shrink-0 w-full min-h-screen lg:min-h-0 sticky top-0 rounded-tr-[32px] rounded-tl-[32px] px-[40px] overflow-hidden">
+      <section id="details" className="bg-white box-border content-stretch flex flex-col gap-[10px] items-center justify-center py-[80px] md:py-[150px] lg:py-[300px] relative shrink-0 w-full min-h-screen lg:min-h-0 lg:sticky lg:top-0 rounded-tr-[32px] rounded-tl-[32px] px-[40px] overflow-hidden">
         <div className="content-stretch flex flex-col lg:flex-row gap-[60px] md:gap-[70px] lg:gap-[80px] items-start justify-center relative shrink-0 w-full max-w-[1379px]">
           {/* Left Text Column */}
           <div className="content-stretch flex flex-col items-start justify-between relative self-stretch shrink-0 w-full lg:w-auto lg:max-w-[455px]">
@@ -392,7 +392,7 @@ function ProfilePageContent({ onClose, lenis, showImage = false, observerRoot, m
       </section>
 
       {/* Skills Section — desktop bubble matrix */}
-      <section className="hidden lg:block relative shrink-0 w-full min-h-screen lg:min-h-0 sticky top-0 rounded-tr-[32px] rounded-tl-[32px] overflow-hidden">
+      <section className="hidden lg:block relative shrink-0 w-full min-h-screen lg:min-h-0 lg:sticky lg:top-0 rounded-tr-[32px] rounded-tl-[32px] overflow-hidden">
         <SkillsSection onScrollUp={() => scrollToSection('about-me')} lenis={lenis} />
       </section>
         </div>
