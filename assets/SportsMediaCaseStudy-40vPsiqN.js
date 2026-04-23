@@ -1,4 +1,4 @@
-import{j as n}from"./index-LFY5nQMa.js";import{M as t}from"./MarkdownCaseStudy-eTYX7w65.js";const i=`---
+import{j as n}from"./index-_vu27hqM.js";import{M as t}from"./MarkdownCaseStudy-Bzt0xfek.js";const s=`---
 slug: "sports-media"
 title:
   - text: "Sports"
@@ -23,22 +23,46 @@ metadata:
     value: "UI Audit, Branding Discovery, Proto-personas, User Flows, UI Kit, Stylescape, Hi-Fi Prototypes"
 
 gallery:
-  - file: "01-hero.jpg"
-    alt: "Hero — Sports media platform overview"
-  - file: "02-ecosystem.jpg"
-    alt: "Digital ecosystem mapping"
-  - file: "03-personas.jpg"
-    alt: "Proto-personas"
-  - file: "04-user-flows.jpg"
-    alt: "User flow diagrams"
-  - file: "05-ui-audit.jpg"
-    alt: "UI audit and branding discovery"
-  - file: "06-stylescape.jpg"
+  - file: "sports1.webp"
+    alt: "Platform sign-up — laptop mockup"
+  - file: "8form.webp"
+    alt: "Multi-device platform overview"
+  - file: "2styrlescape.webp"
     alt: "Stylescape — visual direction"
-  - file: "07-ui-kit.jpg"
-    alt: "UI Kit components"
-  - file: "08-prototype.jpg"
-    alt: "High-fidelity prototype"
+  - file: "Research.webp"
+    alt: "Research board — strategy and pain points"
+  - file: "Research 2.webp"
+    alt: "User flows and journey maps"
+  - file: "3profile.webp"
+    alt: "Player profile page"
+  - file: "4roster.webp"
+    alt: "Team roster and subscriptions"
+  - file: "7Frame 49258.webp"
+    alt: "Content cards and article layouts"
+  - file: "5Frame 49260.webp"
+    alt: "UI Kit — calendar, tables, menus"
+  - file: "6components.svg"
+    alt: "Design system components"
+  - file: "Accordions.webp"
+    alt: "Accordion components"
+  - file: "Alert.webp"
+    alt: "Alert components"
+  - file: "Chips.webp"
+    alt: "Chip components"
+  - file: "Full.webp"
+    alt: "Button states — filled"
+  - file: "Text.webp"
+    alt: "Button states — text"
+  - file: "pexels-pixabay-159710.webp"
+    alt: "Football player in action"
+  - file: "pexels-pixabay-209722.webp"
+    alt: "Football field"
+  - file: "Reels.mp4"
+    alt: "Platform reels demo"
+    type: "video"
+  - file: "Scene.mp4"
+    alt: "Platform scene walkthrough"
+    type: "video"
 ---
 
 # Executive Summary
@@ -244,4 +268,4 @@ This project was not about designing a single product.
 It was about creating the foundation for a platform that can grow, evolve, and scale.
 
 By aligning users, systems, and design, the work enabled a clearer path toward a modern digital experience.
-`,s={};function a(e){return s[e]}function d({onClose:e}){return n.jsx(t,{rawMarkdown:i,resolveImage:a,onClose:e})}export{d as default};
+`,a="/portafolio/assets/sports1-DTxPtPky.webp",i="/portafolio/assets/8form-BkHa5ln3.webp",o="/portafolio/assets/2styrlescape-CZSwYT4P.webp",r="/portafolio/assets/Research-BOs7NkOm.webp",l="/portafolio/assets/Research%202-Cb2n28DI.webp",d="/portafolio/assets/3profile-D26yNXDA.webp",c="/portafolio/assets/4roster-C2RPHCpJ.webp",p="/portafolio/assets/7Frame%2049258-BqcIVQ2o.webp",m="/portafolio/assets/5Frame%2049260-DC1sngSy.webp",g="/portafolio/assets/6components-BCnnwlRN.svg",u="/portafolio/assets/Accordions-eR4dM5hO.webp",f="/portafolio/assets/Alert-DhYLLH3L.webp",h="/portafolio/assets/Chips-B5QQwzuv.webp",b="/portafolio/assets/Full-XpJ10qUW.webp",y="/portafolio/assets/Text-BdBxP3zM.webp",w="/portafolio/assets/pexels-pixabay-159710-B5o5EjPr.webp",v="/portafolio/assets/pexels-pixabay-209722-7ycLPMPc.webp",x="/portafolio/assets/Reels-Bwf5Yb49.mp4",S="/portafolio/assets/Scene-746DAJt8.mp4",A={"sports1.webp":a,"8form.webp":i,"2styrlescape.webp":o,"Research.webp":r,"Research 2.webp":l,"3profile.webp":d,"4roster.webp":c,"7Frame 49258.webp":p,"5Frame 49260.webp":m,"6components.svg":g,"Accordions.webp":u,"Alert.webp":f,"Chips.webp":h,"Full.webp":b,"Text.webp":y,"pexels-pixabay-159710.webp":w,"pexels-pixabay-209722.webp":v},k={"Reels.mp4":x,"Scene.mp4":S};function T(e){return A[e]}function C(e){return k[e]}function U({onClose:e}){return n.jsx(t,{rawMarkdown:s,resolveImage:T,resolveVideo:C,onClose:e})}export{U as default};

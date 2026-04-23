@@ -1,4 +1,4 @@
-import{j as n}from"./index-LFY5nQMa.js";import{M as t}from"./MarkdownCaseStudy-eTYX7w65.js";const a=`---
+import{j as n}from"./index-_vu27hqM.js";import{M as t}from"./MarkdownCaseStudy-Bzt0xfek.js";const a=`---
 slug: "trading-automation"
 title:
   - text: "Trading"

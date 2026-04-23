@@ -1,4 +1,4 @@
-import{j as n}from"./index-LFY5nQMa.js";import{M as s}from"./MarkdownCaseStudy-eTYX7w65.js";const i=`---
+import{j as n}from"./index-_vu27hqM.js";import{M as s}from"./MarkdownCaseStudy-Bzt0xfek.js";const i=`---
 slug: "unified-health"
 title:
   - text: "Process"
