@@ -2,50 +2,58 @@
 import MarkdownCaseStudy from "./MarkdownCaseStudy";
 import rawContent from "../../content/projects/sports-media-platform/content.md?raw";
 
-import imgSports1 from "../../content/projects/sports-media-platform/images/sports1.webp";
-import img8form from "../../content/projects/sports-media-platform/images/8form.webp";
-import img2stylescape from "../../content/projects/sports-media-platform/images/2styrlescape.webp";
-import imgResearch from "../../content/projects/sports-media-platform/images/Research.webp";
-import imgResearch2 from "../../content/projects/sports-media-platform/images/Research 2.webp";
-import img3profile from "../../content/projects/sports-media-platform/images/3profile.webp";
-import img4roster from "../../content/projects/sports-media-platform/images/4roster.webp";
-import img7Frame from "../../content/projects/sports-media-platform/images/7Frame 49258.webp";
-import img5Frame from "../../content/projects/sports-media-platform/images/5Frame 49260.webp";
-import img6components from "../../content/projects/sports-media-platform/images/6components.svg";
-import imgAccordions from "../../content/projects/sports-media-platform/images/Accordions.webp";
-import imgAlert from "../../content/projects/sports-media-platform/images/Alert.webp";
-import imgChips from "../../content/projects/sports-media-platform/images/Chips.webp";
-import imgFull from "../../content/projects/sports-media-platform/images/Full.webp";
-import imgText from "../../content/projects/sports-media-platform/images/Text.webp";
-import imgPlayer from "../../content/projects/sports-media-platform/images/pexels-pixabay-159710.webp";
-import imgField from "../../content/projects/sports-media-platform/images/pexels-pixabay-209722.webp";
+import img01HeroSignup from "../../content/projects/sports-media-platform/images/01-hero-signup.webp";
+import img02PlatformOverview from "../../content/projects/sports-media-platform/images/02-platform-overview.webp";
+import img03Stylescape from "../../content/projects/sports-media-platform/images/03-stylescape.webp";
+import img04ResearchBoard from "../../content/projects/sports-media-platform/images/04-research-board.webp";
+import img05UserFlows from "../../content/projects/sports-media-platform/images/05-user-flows.webp";
+import img06PlayerProfile from "../../content/projects/sports-media-platform/images/06-player-profile.webp";
+import img07TeamRoster from "../../content/projects/sports-media-platform/images/07-team-roster.webp";
+import img08ContentCards from "../../content/projects/sports-media-platform/images/08-content-cards.webp";
+import img09UIKitCore from "../../content/projects/sports-media-platform/images/09-ui-kit-core.webp";
+import img10DesignSystemOverview from "../../content/projects/sports-media-platform/images/10-design-system-overview.svg";
+import img11AccordionComponents from "../../content/projects/sports-media-platform/images/11-accordion-components.webp";
+import img12AlertComponents from "../../content/projects/sports-media-platform/images/12-alert-components.webp";
+import img13ChipComponents from "../../content/projects/sports-media-platform/images/13-chip-components.webp";
+import img14ButtonFilledStates from "../../content/projects/sports-media-platform/images/14-button-filled-states.webp";
+import img15ButtonTextStates from "../../content/projects/sports-media-platform/images/15-button-text-states.webp";
+import img16PlayerCutout from "../../content/projects/sports-media-platform/images/16-player-cutout.webp";
+import img17CoachCutout from "../../content/projects/sports-media-platform/images/17-coach-cutout.webp";
+import img18BrandHero from "../../content/projects/sports-media-platform/images/18-brand-hero.svg";
 
-import vidReels from "../../content/projects/sports-media-platform/images/Reels.mp4";
-import vidScene from "../../content/projects/sports-media-platform/images/Scene.mp4";
+import vid21DesignSystemComponents from "../../content/projects/sports-media-platform/images/21-design-system-components.mov";
+import vid22DesignSystemFoundation from "../../content/projects/sports-media-platform/images/22-design-system-foundation.mov";
+import vid23DesignSystemExtended from "../../content/projects/sports-media-platform/images/23-design-system-extended.mov";
+import vid19ReelsDemo from "../../content/projects/sports-media-platform/images/19-reels-demo.mp4";
+import vid20SceneWalkthrough from "../../content/projects/sports-media-platform/images/20-scene-walkthrough.mp4";
 
 const imageMap: Record<string, string> = {
-  "sports1.webp": imgSports1,
-  "8form.webp": img8form,
-  "2styrlescape.webp": img2stylescape,
-  "Research.webp": imgResearch,
-  "Research 2.webp": imgResearch2,
-  "3profile.webp": img3profile,
-  "4roster.webp": img4roster,
-  "7Frame 49258.webp": img7Frame,
-  "5Frame 49260.webp": img5Frame,
-  "6components.svg": img6components,
-  "Accordions.webp": imgAccordions,
-  "Alert.webp": imgAlert,
-  "Chips.webp": imgChips,
-  "Full.webp": imgFull,
-  "Text.webp": imgText,
-  "pexels-pixabay-159710.webp": imgPlayer,
-  "pexels-pixabay-209722.webp": imgField,
+  "01-hero-signup.webp": img01HeroSignup,
+  "02-platform-overview.webp": img02PlatformOverview,
+  "03-stylescape.webp": img03Stylescape,
+  "04-research-board.webp": img04ResearchBoard,
+  "05-user-flows.webp": img05UserFlows,
+  "06-player-profile.webp": img06PlayerProfile,
+  "07-team-roster.webp": img07TeamRoster,
+  "08-content-cards.webp": img08ContentCards,
+  "09-ui-kit-core.webp": img09UIKitCore,
+  "10-design-system-overview.svg": img10DesignSystemOverview,
+  "11-accordion-components.webp": img11AccordionComponents,
+  "12-alert-components.webp": img12AlertComponents,
+  "13-chip-components.webp": img13ChipComponents,
+  "14-button-filled-states.webp": img14ButtonFilledStates,
+  "15-button-text-states.webp": img15ButtonTextStates,
+  "16-player-cutout.webp": img16PlayerCutout,
+  "17-coach-cutout.webp": img17CoachCutout,
+  "18-brand-hero.svg": img18BrandHero,
 };
 
 const videoMap: Record<string, string> = {
-  "Reels.mp4": vidReels,
-  "Scene.mp4": vidScene,
+  "21-design-system-components.mov": vid21DesignSystemComponents,
+  "22-design-system-foundation.mov": vid22DesignSystemFoundation,
+  "23-design-system-extended.mov": vid23DesignSystemExtended,
+  "19-reels-demo.mp4": vid19ReelsDemo,
+  "20-scene-walkthrough.mp4": vid20SceneWalkthrough,
 };
 
 function resolveImage(filename: string): string | undefined {
