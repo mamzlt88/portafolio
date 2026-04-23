@@ -67,7 +67,7 @@ const ALL_ENTRIES: ProjectEntry[] = [
     ],
     x: '58%',
     y: '38%',
-    completed: false,
+    completed: true,
   },
   {
     id: 'unified-health',
