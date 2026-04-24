@@ -21,11 +21,12 @@ import img16PlayerCutout from "../../content/projects/sports-media-platform/imag
 import img17CoachCutout from "../../content/projects/sports-media-platform/images/17-coach-cutout.webp";
 import img18BrandHero from "../../content/projects/sports-media-platform/images/18-brand-hero.svg";
 
-import vid21DesignSystemComponents from "../../content/projects/sports-media-platform/images/21-design-system-components.mov";
-import vid22DesignSystemFoundation from "../../content/projects/sports-media-platform/images/22-design-system-foundation.mov";
-import vid23DesignSystemExtended from "../../content/projects/sports-media-platform/images/23-design-system-extended.mov";
+import vid21DesignSystemComponents from "../../content/projects/sports-media-platform/images/21-design-system-components.mp4";
+import vid22DesignSystemFoundation from "../../content/projects/sports-media-platform/images/22-design-system-foundation.mp4";
+import vid23DesignSystemExtended from "../../content/projects/sports-media-platform/images/23-design-system-extended.mp4";
 import vid19ReelsDemo from "../../content/projects/sports-media-platform/images/19-reels-demo.mp4";
 import vid20SceneWalkthrough from "../../content/projects/sports-media-platform/images/20-scene-walkthrough.mp4";
+import vid24HeroHighlight from "../../content/projects/sports-media-platform/images/24-hero-highlight.mp4";
 
 const imageMap: Record<string, string> = {
   "01-hero-signup.webp": img01HeroSignup,
@@ -49,11 +50,12 @@ const imageMap: Record<string, string> = {
 };
 
 const videoMap: Record<string, string> = {
-  "21-design-system-components.mov": vid21DesignSystemComponents,
-  "22-design-system-foundation.mov": vid22DesignSystemFoundation,
-  "23-design-system-extended.mov": vid23DesignSystemExtended,
+  "21-design-system-components.mp4": vid21DesignSystemComponents,
+  "22-design-system-foundation.mp4": vid22DesignSystemFoundation,
+  "23-design-system-extended.mp4": vid23DesignSystemExtended,
   "19-reels-demo.mp4": vid19ReelsDemo,
   "20-scene-walkthrough.mp4": vid20SceneWalkthrough,
+  "24-hero-highlight.mp4": vid24HeroHighlight,
 };
 
 function resolveImage(filename: string): string | undefined {
