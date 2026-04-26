@@ -119,7 +119,7 @@ export default function Landing({ onAbout, onProjects, activeOverlay, modelScale
       {/* Stage keeps a constant aspect so tiles scale with width */}
       <div className="relative mx-auto w-full max-w-[420px] md:max-w-none h-auto max-h-[calc(100dvh-96px)] md:max-h-[calc(100dvh-120px)] [aspect-ratio:640/1038] md:[aspect-ratio:1648/1037] overflow-hidden rounded-[32px] md:rounded-[40px]">
         {/* Color Toggle (top-right inside stage) - matches provided reference */}
-        <div className="absolute top-3 right-3 md:top-5 md:right-5 z-30 flex items-center gap-2 select-none">
+        <div className="absolute top-3 right-3 md:top-5 md:right-5 z-50 pointer-events-auto flex items-center gap-2 select-none">
           <button
             type="button"
             aria-label="Toggle color mode"
